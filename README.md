@@ -6,7 +6,7 @@ For more information about setting up, using, and running simulations using the 
 ## [Results Branch](https://github.com/UCL/TLOmodel-profiling/tree/results)
 
 Profiling outputs are stored on the [`results` branch](https://github.com/UCL/TLOmodel-profiling/tree/results).
-Results are organised into a tree structure named by `year/month/day/HHMM`, with the timestamp being that taken at the _start_ of the profiling run.
+The `results` folder then contains the outputs of all profiling runs, organised into a tree structure named by `year/month/day/HHMM`, with the timestamp being that taken at the _start_ of the profiling run.
 
 New results are pushed to this branch and are added to the tree structure.
 Scripts on the `main` branch will pull information from this branch.
