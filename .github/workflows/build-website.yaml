@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - results
   workflow_dispatch:
     branches:
       - main
@@ -20,9 +19,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  doxygen:
+    name: Build developer docs
+    runs-on: macos-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Doxygen
+      run: brew install doxygen graphviz
+      shell: bash
+
+    - name: Run Doxygen
+      run: doxygen Doxyfile
+      shell: bash
+
+    # Disabling jekyll ensures pages with underscores work on gh pages.
+    - name: Create .nojekyll
+      run: touch html/.nojekyll
+      shell: bash
+
+    - name: Upload the website
+      uses: actions/upload-artifact@v3
+      with:
+        name: tlomodel_profiling_dev_docs
+        path: html/*
+        retention-days: 1
+
   build_pages_site:
     name: Build and deploy
     runs-on: ubuntu-latest
+    needs: doxygen
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -38,6 +65,12 @@ jobs:
           git checkout results
           git checkout main
 
+      - name: Fetch doxygen files
+        uses: actions/download-artifact@v3
+        with:
+          name: tlomodel_profiling_dev_docs
+          path: doxygen_html
+
       - name: Setup Python
         uses: actions/setup-python@v4.6.1
         with:
@@ -49,6 +82,11 @@ jobs:
       
       - name: Build website source
         run: python website_build/build_site.py -c -f results
+
+      - name: Move doxygen files into build folder
+        run: |
+          mkdir -p build/dev
+          mv doxygen_html/* build/dev
 
       - name: Deploy website
         uses: JamesIves/github-pages-deploy-action@v4
