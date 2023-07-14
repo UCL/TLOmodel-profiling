@@ -1,0 +1,58 @@
+name: Build and Deploy Website
+on:
+  push:
+    branches:
+      - main
+      - results
+  workflow_dispatch:
+    branches:
+      - main
+  repository_dispatch:
+    types: [new-profiling-results]
+
+permissions:
+  deployments: write
+  contents: write
+
+concurrency:
+  # Skip build if a new build is triggered by new updates
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_pages_site:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Note that we only want this workflow to run when changes are _accepted_ into main, 
+      # or the source branch is updated.
+      # As such, this is why we have an explicit git checkout of only the source and main branches,
+      # the workflow should not be using experimental code and deploying pull request content.
+      - name: Fetch source branch contents
+        run: |
+          git checkout results
+          git checkout main
+
+      - name: Setup Python
+        uses: actions/setup-python@v4.6.1
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Python requirements 
+        run: pip install -r requirements.txt
+      
+      - name: Build website source
+        run: python website_build/build_site.py -c -f results
+
+      - name: Deploy website
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+          branch: gh-pages
+          clean: True
