@@ -3,9 +3,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
   workflow_dispatch:
-    branches:
-      - main
   repository_dispatch:
     types: [new-profiling-results]
 
@@ -42,7 +41,7 @@ jobs:
     - name: Upload the generated HTML
       uses: actions/upload-artifact@v3
       with:
-        name: dev_docs_html
+        name: dev_docs_html_${{ github.sha }}
         path: html/*
         retention-days: 1
 
@@ -55,14 +54,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Note that we only want this workflow to run when changes are _accepted_ into main, 
-      # or the source branch is updated.
-      # As such, this is why we have an explicit git checkout of only the source and main branches,
-      # the workflow should not be using experimental code and deploying pull request content.
       - name: Fetch source branch contents
         run: |
           git checkout results
-          git checkout main
+          git checkout -
 
       - name: Setup Python
         uses: actions/setup-python@v4.6.1
@@ -79,14 +74,17 @@ jobs:
       - name: Upload the generated HTML
         uses: actions/upload-artifact@v3
         with:
-          name: profiling_results_html
+          name: profiling_results_html_${{ github.sha }}
           path: build/*
           retention-days: 1
 
+  # Only deploy the website when the workflow was triggered on main
+  # This allows the previous two jobs to be used as checks against PRs
   deploy-website:
     name: Deploy pages site
     runs-on: ubuntu-latest
     needs: [docs-build, profiling-build]
+    if: github.ref_name == 'main' || github.event_name == 'repository_dispatch'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -94,13 +92,13 @@ jobs:
       - name: Fetch profiling results html
         uses: actions/download-artifact@v3
         with:
-          name: profiling_results_html
+          name: profiling_results_html_${{ github.sha }}
           path: build/
 
       - name: Fetch developer docs html
         uses: actions/download-artifact@v3
         with:
-          name: dev_docs_html
+          name: dev_docs_html_${{ github.sha }}
           path: dev
 
       - name: Move doxygen files into build folder
