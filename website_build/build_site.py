@@ -215,7 +215,7 @@ class WebsiteBuilder:
                         dump_file,
                     )
                 except FileNotFoundError as e:
-                    # File does not exist on the target branch, cannot write stats for this entry
+                    # File does not exist on the source branch, cannot write stats for this entry
                     print(
                         f"Skipping {pyis_file}: expected stats file ({stats_file}) not found"
                     )

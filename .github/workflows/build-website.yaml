@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - target
+      - results
   workflow_dispatch:
     branches:
       - main
