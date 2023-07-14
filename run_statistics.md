@@ -4,4 +4,4 @@
 ### CPU Time 
 ![CPU Time](plots/runtime_figure.svg)
 
-[Return to top](#profiling-results).
+Return to the [main page](index.md).
