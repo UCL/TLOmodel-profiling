@@ -73,7 +73,47 @@ $(function() {
   <div class="headertitle"><div class="title">Developer Documentation </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_src_2developers"></a></p>
+<div class="textblock"><p><a class="anchor" id="md_src_2developers"></a> The purpose of this repository is to provide a storage space for profiling runs performed on the <a href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a>, and a convenient way to page through the results that doesn't require developers to download the results for themselves. The result is this repository, or specifically <a href="http://github-pages.ucl.ac.uk/TLOmodel-profiling">the pages deployment</a>.</p>
+<p>Profiling session outputs, <code>.pyisession</code> files, are pushed from the _model repository_ when the profiling workflow has completed to the _source branch_. This triggers the <a href="https://github.com/UCL/TLOmodel-profiling/blob/main/.github/workflows/build-website.yaml"><code>build-website</code></a> workflow which will run the build script. This script will parse the files on the source branch, as well as update the developer docs with any changes, and deploy the new website over the old one.</p>
+<p>On PRs, the profiling results HTML and developer docs HTML are required to build successfully before merging, however deployment only takes place when the <code>build-website</code> workflow is run on <code>main</code>, or triggered as a direct result of new profiling results being pushed.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Build Steps</h1>
+<p>The build steps can be summarised as follows:</p><ul>
+<li>Use <a href="https://www.doxygen.nl/"><code>doxygen</code></a> to build the developer docs; documenting the functions, classes, and scripts that perform the heavy lifting.</li>
+<li>Run the build script to process the profiling results:<ol type="1">
+<li>Scan the source branch for all <code>pyisession</code> files</li>
+<li>Render all profiling output files to HTML</li>
+<li>Process additional statistics that were pushed across with the profiling outputs, and produce plots.</li>
+<li>Write the lookup table</li>
+<li>Write the run statistics</li>
+<li>Include the index page in the build directory</li>
+</ol>
+</li>
+<li>Combine the <code>doxygen</code> build and profiling results, and deploy to GitHub pages.</li>
+</ul>
+<p>The build script makes use of a <code>pandas</code> DataFrame to keep track of the summary stats and the correspondence between <code>.pyisession</code> files and HTML outputs, for example.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Contents of the source branch</h2>
+<p>Files on the source branch as assumed to have filenames in the following style: </p><div class="fragment"><div class="line">{trigger}_{run_number}_{commit_sha}.pyisession</div>
+</div><!-- fragment --><ul>
+<li><code>trigger</code>: The name of the <code>github.event</code> that triggered the profiling run.</li>
+<li><code>run_number</code>: The <code>github.run_id</code> of the workflow that ran.</li>
+<li><code>commit_sha</code>: The <code>github.sha</code> of the commit on which the profiling run was triggered.</li>
+</ul>
+<p>In addition to the <code>pyisession</code> files, additional statistics that cannot be saved by the profiler (like the size of the final simulation population) can also be present on the source branch. The additional statistics are assumed to be in <code>JSON</code> files that carry the same filename as their profiling output counterpart, but with the <code>.stats.json</code> extension. These files are processed by the build script when producing the additional statistics page. Additional statistics are not required to be present, as missing entries will be skipped or highlighted when rendering the corresponding page.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Glossary of Terms</h1>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Build script</h3>
+<p>The python script that creates the HTML files that are deployed to GitHub pages.</p>
+<p>This is the <code>website_build/build_site.py</code> script.</p>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Model repository</h3>
+<p>The <a href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a> repository, containing the source code for the simulation itself.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Source branch</h3>
+<p>The branch of this repository that contains the <code>.pyisession</code> files, which themselves are the results of profiling sessions run on the model repository.</p>
+<p>Currently, the source branch is named <a href="https://github.com/UCL/TLOmodel-profiling/tree/results"><code>results</code></a>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
