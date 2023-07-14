@@ -83,6 +83,12 @@ class WebsiteBuilder:
 
         # Initialise DataFrame by pulling pyis files from source branch
         pyis_files = branch_contents(source_branch, "*.pyisession")
+        if len(pyis_files) < 1:
+            raise RuntimeError(
+                f"Source branch {self.source_branch} contains no pyisession files to read."
+            )
+        else:
+            print(f"Found {len(pyis_files)} on source branch.")
 
         self.df = pd.DataFrame({"pyis": pyis_files})
         # Add extra columns to the DataFrame, to be populated later
