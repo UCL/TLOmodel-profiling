@@ -40,6 +40,8 @@ OUTPUT_LANGUAGE        = English
 # documentation blocks is shown as doxygen documentation.
 # The default value is: YES.
 PYTHON_DOCSTRING       = YES
+# https://www.doxygen.nl/manual/docblocks.html#pythonblocks
+OPTIMISE_OUTPUT_JAVA   = YES
 
 INPUT                  = website_build/
 FILE_PATTERNS          = *.py

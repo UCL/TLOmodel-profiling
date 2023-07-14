@@ -1,3 +1,6 @@
+"""convert_pyis
+Wrapper functions for converting pyisession (pyis) files to HMTL and JSON.
+"""
 import os
 from pathlib import Path
 from typing import Literal
