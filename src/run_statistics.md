@@ -2,4 +2,4 @@
 
 <<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>
 
-[Return to top](#profiling-results).
+Return to the [main page](index.md).
