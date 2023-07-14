@@ -8,6 +8,6 @@ A complete list of profiling runs whose results are available to view.
 
 The statistics captured alongside the profiling sessions.
 
-## [Developer Documentation](dev/index.md)
+## [Developer Documentation](dev/index.html)
 
 Documentation for the scripts and classes contained in the `website_build` folder.
