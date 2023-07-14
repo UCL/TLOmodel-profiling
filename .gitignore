@@ -1,0 +1,8 @@
+# Python imports
+**/__pycache__/**
+
+# IDEs
+.vscode/
+
+# Locally-built website files
+build/
