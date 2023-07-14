@@ -3,10 +3,8 @@ on:
   push:
     branches:
       - main
-      - results
+  pull_request:
   workflow_dispatch:
-    branches:
-      - main
   repository_dispatch:
     types: [new-profiling-results]
 
@@ -20,8 +18,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build_pages_site:
-    name: Build and deploy
+  docs-build:
+    name: Build developer docs
+    runs-on: macos-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Doxygen
+      run: brew install doxygen graphviz
+      shell: bash
+
+    - name: Run Doxygen
+      run: doxygen Doxyfile
+      shell: bash
+
+    # Disabling jekyll ensures pages with underscores work on gh pages.
+    - name: Create .nojekyll
+      run: touch html/.nojekyll
+      shell: bash
+
+    - name: Upload the generated HTML
+      uses: actions/upload-artifact@v3
+      with:
+        name: dev_docs_html_${{ github.sha }}
+        path: html/*
+        retention-days: 1
+
+  profiling-build:
+    name: Build profiling results
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,14 +54,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Note that we only want this workflow to run when changes are _accepted_ into main, 
-      # or the source branch is updated.
-      # As such, this is why we have an explicit git checkout of only the source and main branches,
-      # the workflow should not be using experimental code and deploying pull request content.
       - name: Fetch source branch contents
         run: |
           git checkout results
-          git checkout main
+          git checkout -
 
       - name: Setup Python
         uses: actions/setup-python@v4.6.1
@@ -49,6 +70,39 @@ jobs:
       
       - name: Build website source
         run: python website_build/build_site.py -c -f results
+
+      - name: Upload the generated HTML
+        uses: actions/upload-artifact@v3
+        with:
+          name: profiling_results_html_${{ github.sha }}
+          path: build/*
+          retention-days: 1
+
+  # Only deploy the website when the workflow was triggered on main
+  # This allows the previous two jobs to be used as checks against PRs
+  deploy-website:
+    name: Deploy pages site
+    runs-on: ubuntu-latest
+    needs: [docs-build, profiling-build]
+    if: github.ref_name == 'main' || github.event_name == 'repository_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch profiling results html
+        uses: actions/download-artifact@v3
+        with:
+          name: profiling_results_html_${{ github.sha }}
+          path: build/
+
+      - name: Fetch developer docs html
+        uses: actions/download-artifact@v3
+        with:
+          name: dev_docs_html_${{ github.sha }}
+          path: dev
+
+      - name: Move doxygen files into build folder
+        run: mv dev/ build/
 
       - name: Deploy website
         uses: JamesIves/github-pages-deploy-action@v4
