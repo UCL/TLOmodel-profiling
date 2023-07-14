@@ -1,4 +1,4 @@
-# TLOModel: Profiling results
+# Thanzi la Onse: Profiling results
 
 ## [Lookup Table](profiling_index.md)
 
