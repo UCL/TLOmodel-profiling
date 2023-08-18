@@ -42,7 +42,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Pre-process profiling results
-        run: python website_build/build_site.py -c -f results
+        run: python website_builder/build_site.py -c -f results
 
       - name: Upload the generated HTML
         uses: actions/upload-artifact@v3

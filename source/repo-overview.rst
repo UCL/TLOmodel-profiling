@@ -16,10 +16,10 @@ Build Steps
 -----------
 
 The website consists of two parts:
-* The profiling results and statistics, which are created by the scripts in ``website_build`` and the results stored on the `source branch`_.
+* The profiling results and statistics, which are created by the scripts in ``website_builder`` and the results stored on the `source branch`_.
 * The developer documentation, which is created from the content of the ``source`` folder.
 
-The website is built using `sphinx <https://www.sphinx-doc.org/en/master/index.html>`_, which is invoked at the end of the ``website_build/build_site.py`` script (specifically within the ``WebsiteBuilder.build()`` method).
+The website is built using `sphinx <https://www.sphinx-doc.org/en/master/index.html>`_, which is invoked at the end of the ``website_builder/build_site.py`` script (specifically within the ``WebsiteBuilder.build()`` method).
 Before ``sphinx-build`` can be invoked however, the profiling results on the `source branch`_ need to be parsed before ``sphinx`` is in a position to publish the website.
 As such, the ``WebsiteBuilder`` first creates a *pre-build* directory, and copies the content of the ``source`` directory into this pre-build directory as a starting point.
 Files are then added to the pre-build directory as needed; these include ``pyinstrumment`` sessions rendered as HTML, and plots for runtime statistics.
@@ -63,7 +63,7 @@ Build script
 
 The python script that creates the HTML files that are deployed to GitHub pages.
 
-This is the ``website_build/build_site.py`` script. 
+This is the ``website_builder/build_site.py`` script. 
 
 Model repository
 ^^^^^^^^^^^^^^^^
