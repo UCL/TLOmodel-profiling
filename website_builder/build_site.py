@@ -104,6 +104,13 @@ class WebsiteBuilder:
         """
         return self._static_folder / "plots"
 
+    @property
+    def pyis_html_folder(self) -> Path:
+        """
+        The folder within the build directory that will contain any HTML files generated from pyisession files.
+        """
+        return self._static_folder / "pyis_html"
+
     # If True, the static_html_folder (containing the HTML renderings of the pyis sessions),
     # will be flat rather than preserving the structure on the source branch.
     flatten_paths: bool
@@ -192,10 +199,12 @@ class WebsiteBuilder:
 
             # Create HTML file name
             if self.flatten_paths:
-                html_file_name = self._static_folder / f"{pyis_file.stem}_{index}.html"
+                html_file_name = (
+                    self.pyis_html_folder / f"{pyis_file.stem}_{index}.html"
+                )
             else:
                 html_file_name = (
-                    self._static_folder
+                    self.pyis_html_folder
                     / f"{pyis_file.parent}"
                     / f"{pyis_file.stem}_{index}.html"
                 )
