@@ -12,7 +12,7 @@ Welcome to TLO Model: Profiling, Developer Documentation!
 
    profiling
    run-statistics
-   code-overview
+   repo-overview
 
 Indices and tables
 ==================

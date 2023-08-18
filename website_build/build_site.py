@@ -2,6 +2,7 @@ import argparse
 import os
 from pathlib import Path
 import shutil
+from subprocess import check_call
 from typing import Dict
 
 import pandas as pd
@@ -54,6 +55,18 @@ class WebsiteBuilder:
     source_branch: str
     # Directory to write website files to.
     build_dir: Path
+
+    @property
+    def pre_build_dir(self) -> Path:
+        """
+        The intermediate folder that sphinx-build will use as it's source for building the website.
+        This folder will contain static files that have to be generated from the results stored on the corresponding branch; such as:
+        - The static HTML files rendered from pyinstrumment sessions,
+        - The rst files with the lookup tables inserted,
+        - The run-statistics plots.
+        """
+        return Path(str(self.build_dir) + "-pre-build")
+
     # Dump folder for temporary files
     dump_folder: Path
 
@@ -62,7 +75,7 @@ class WebsiteBuilder:
         """
         The folder containing static html files that are to be linked to.
         """
-        return self.build_dir / "_static"
+        return self.pre_build_dir / "_static"
 
     @property
     def profiling_lookup_src(self) -> Path:
@@ -72,7 +85,7 @@ class WebsiteBuilder:
 
         which is where the profiling results lookup table will be inserted.
         """
-        return self.build_dir / "profiling.rst"
+        return self.pre_build_dir / "profiling.rst"
 
     @property
     def run_stats_src(self) -> Path:
@@ -82,7 +95,7 @@ class WebsiteBuilder:
 
         which is where the run statistics plots will be inserted.
         """
-        return self.build_dir / "run-statistics.rst"
+        return self.pre_build_dir / "run-statistics.rst"
 
     @property
     def run_stats_plots(self) -> Path:
@@ -130,16 +143,17 @@ class WebsiteBuilder:
 
         self.build_dir = build_dir
         if clean_build:
+            clean_build_directory(self.pre_build_dir)
             clean_build_directory(self.build_dir)
         # Copy the source to the build directory as a starting point
-        shutil.copytree(SRC_DIR, self.build_dir)
+        shutil.copytree(SRC_DIR, self.pre_build_dir)
         # Create the _static folder in the build directory if it was .gitignore-d in source
         if not os.path.isdir(self._static_folder):
             os.mkdir(self._static_folder)
 
         self.flatten_paths = flatten_paths
         # Create the dump folder (and build directory if needed)
-        self.dump_folder = create_dump_folder(self.build_dir)
+        self.dump_folder = create_dump_folder(self.pre_build_dir)
 
         # Populate information that can be inferred by examining the filenames
         self._infer_filename_information()
@@ -194,7 +208,9 @@ class WebsiteBuilder:
 
         # Create clickable markdown links in the Links column
         self.df["Link"] = self.df["HTML"].apply(
-            write_rst_link, relative_to=self.build_dir, link_text="Profiling results"
+            write_rst_link,
+            relative_to=self.pre_build_dir,
+            link_text="Profiling results",
         )
         return
 
@@ -266,7 +282,7 @@ class WebsiteBuilder:
         self.plots = make_stats_plots(self.df, self.run_stats_plots)
 
         # Write markdown to include plots in site
-        plot_markdown = rst_for_run_plots(self.plots, self.build_dir)
+        plot_markdown = rst_for_run_plots(self.plots, self.pre_build_dir)
 
         # Write the file
         replace_in_file(self.run_stats_src, RUN_PLOTS_MATCH_STRING, plot_markdown)
@@ -276,7 +292,7 @@ class WebsiteBuilder:
         """
         Build the website source files and populate the site DataFrame.
         """
-        print(f"Building website in directory {self.build_dir}")
+        print(f"Building website in directory {self.pre_build_dir}")
         # Infer additional run stats from the pyis files, and
         # supporting stats.json files, if present
         self.collect_run_stats()
@@ -292,6 +308,20 @@ class WebsiteBuilder:
 
         # Cleanup the dump folder
         shutil.rmtree(self.dump_folder)
+
+        # Build the website using sphinx
+        check_call(
+            [
+                "sphinx-build",
+                "-b",
+                "html",
+                f"{str(self.pre_build_dir)}",
+                f"{str(self.build_dir)}",
+            ],
+            cwd=GIT_ROOT,
+        )
+        # Remove the pre-build directory
+        shutil.rmtree(self.pre_build_dir)
         return
 
 
