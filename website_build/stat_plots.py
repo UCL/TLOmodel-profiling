@@ -61,7 +61,7 @@ def rst_for_run_plots(plot_dict: Dict[str, Path], build_dir: Path) -> List[str]:
     rst_string = ""
     for plot_name, location in plot_dict.items():
         rst_string += f"\n{plot_name}"
-        rst_string += "\n" + ("=" * len(plot_name))
+        rst_string += "\n" + ("-" * len(plot_name))
         rst_string += "\n" * 2
         rst_string += write_rst_image(location, build_dir)
         rst_string += "\n"

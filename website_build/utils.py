@@ -91,7 +91,7 @@ def write_rst_image(link: Path, relative_to: Path = None) -> str:
         image_source = os.path.relpath(link, relative_to)
     else:
         image_source = str(link)
-    return f"..image:: {image_source}"
+    return f".. image:: {image_source}"
 
 
 def replace_in_file(file: Path, search_for: str, replace_with: str) -> None:
