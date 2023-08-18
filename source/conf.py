@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath("../website_builder"))
 # -- Project information -----------------------------------------------------
 
 project = "TLO Model: Profiling"
-copyright = "2023, William Graham"
+copyright = "2023, Thanzi la Onse"
 author = "William Graham"
 
 
