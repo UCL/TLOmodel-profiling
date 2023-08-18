@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Developer Documentation &#8212; TLO Model: Profiling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Run Statistics" href="run-statistics.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="developer-documentation">
+<h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Link to this heading">¶</a></h1>
+<p id="developers">The purpose of this repository is to provide a storage space for profiling runs performed on the <a class="reference external" href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a>, and a convenient way to page through the results that doesn’t require developers to download the results for themselves.
+The result is this repository, or specifically <a class="reference external" href="http://github-pages.ucl.ac.uk/TLOmodel-profiling">the pages deployment</a>.</p>
+<p>Profiling session outputs, <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files, are pushed from the <a class="reference internal" href="#model-repository">model repository</a> when the profiling workflow has completed to the <a class="reference internal" href="#source-branch">source branch</a>.
+This triggers the <a class="reference external" href="https://github.com/UCL/TLOmodel-profiling/blob/main/.github/workflows/build-website.yaml">build-website</a> workflow which will run the <a class="reference internal" href="#build-script">build script</a>.
+This script will parse the files on the <a class="reference internal" href="#source-branch">source branch</a>, as well as update the developer docs with any changes, and deploy the new website over the old one.</p>
+<p>On PRs, the profiling results HTML and developer docs HTML are required to build successfully before merging, however deployment only takes place when the <code class="docutils literal notranslate"><span class="pre">build-website</span></code> workflow is run on <code class="docutils literal notranslate"><span class="pre">main</span></code>, or triggered as a direct result of new profiling results being pushed.</p>
+<section id="build-steps">
+<h2>Build Steps<a class="headerlink" href="#build-steps" title="Link to this heading">¶</a></h2>
+<p>The website consists of two parts:
+* The profiling results and statistics, which are created by the scripts in <code class="docutils literal notranslate"><span class="pre">website_builder</span></code> and the results stored on the <a class="reference internal" href="#source-branch">source branch</a>.
+* The developer documentation, which is created from the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p>
+<p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a>, which is invoked at the end of the <code class="docutils literal notranslate"><span class="pre">website_builder/build_site.py</span></code> script (specifically within the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder.build()</span></code> method).
+Before <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> can be invoked however, the profiling results on the <a class="reference internal" href="#source-branch">source branch</a> need to be parsed before <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> is in a position to publish the website.
+As such, the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder</span></code> first creates a <em>pre-build</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into this pre-build directory as a starting point.
+Files are then added to the pre-build directory as needed; these include <code class="docutils literal notranslate"><span class="pre">pyinstrumment</span></code> sessions rendered as HTML, and plots for runtime statistics.
+Lookup tables for profiling runs are also generated and their content is inserted into the placeholder locations in the <cite>profiling.rst</cite> and <cite>run-statistics.rst</cite> files in the pre-build directory.
+Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the pre-build directory to build the HTML content of the website.</p>
+<p>An overview of the steps in the <code class="docutils literal notranslate"><span class="pre">build_site.py</span></code> script is provided below:
+#. Copy the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into the pre-build directory.
+#. Scan the source branch for all <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files
+#. Render all profiling output files to HTML
+#. Process additional statistics that were pushed across with the profiling outputs, and produce plots.
+#. Write the lookup table to <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code>.
+#. Write the run statistics to <code class="docutils literal notranslate"><span class="pre">run_statistics.rst</span></code>.
+#. Invoke <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> on the pre-build directory to create the website.</p>
+<p>The build script makes use of a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame to keep track of the summary stats and the correspondence between <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files and HTML outputs.</p>
+</section>
+<section id="contents-of-the-source-branch">
+<h2>Contents of the source branch<a class="headerlink" href="#contents-of-the-source-branch" title="Link to this heading">¶</a></h2>
+<p>Files on the source branch as assumed to have filenames in the following style:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>trigger<span class="o">}</span>_<span class="o">{</span>run_number<span class="o">}</span>_<span class="o">{</span>commit_sha<span class="o">}</span>.pyisession
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trigger</span></code>: The name of the <code class="docutils literal notranslate"><span class="pre">github.event</span></code> that triggered the profiling run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_number</span></code>: The <code class="docutils literal notranslate"><span class="pre">github.run_id</span></code> of the workflow that ran.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commit_sha</span></code>: The <code class="docutils literal notranslate"><span class="pre">github.sha</span></code> of the commit on which the profiling run was triggered.</p></li>
+</ul>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files, additional statistics that cannot be saved by the profiler (like the size of the final simulation population) can also be present on the source branch.
+The additional statistics are assumed to be in <code class="docutils literal notranslate"><span class="pre">JSON</span></code> files that carry the same filename as their profiling output counterpart, but with the <code class="docutils literal notranslate"><span class="pre">.stats.json</span></code> extension.
+These files are processed by the build script when producing the additional statistics page.
+Additional statistics are not required to be present, as missing entries will be skipped or highlighted when rendering the corresponding page.</p>
+</section>
+<section id="glossary-of-terms">
+<h2>Glossary of Terms<a class="headerlink" href="#glossary-of-terms" title="Link to this heading">¶</a></h2>
+<section id="build-script">
+<h3>Build script<a class="headerlink" href="#build-script" title="Link to this heading">¶</a></h3>
+<p>The python script that creates the HTML files that are deployed to GitHub pages.</p>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">website_builder/build_site.py</span></code> script.</p>
+</section>
+<section id="model-repository">
+<h3>Model repository<a class="headerlink" href="#model-repository" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a> repository, containing the source code for the simulation itself.</p>
+</section>
+<section id="source-branch">
+<h3>Source branch<a class="headerlink" href="#source-branch" title="Link to this heading">¶</a></h3>
+<p>The branch of this repository that contains the <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files, which themselves are the results of profiling sessions run on the <a class="reference internal" href="#model-repository">model repository</a>.</p>
+<p>Currently, the source branch is named <a class="reference external" href="https://github.com/UCL/TLOmodel-profiling/tree/results">results</a>.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TLO Model: Profiling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling Runs: Lookup Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run-statistics.html">Run Statistics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="run-statistics.html" title="previous chapter">Run Statistics</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Thanzi la Onse.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/repo-overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
