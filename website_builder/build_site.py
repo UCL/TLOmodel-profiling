@@ -12,17 +12,17 @@ from _paths import (
     GIT_ROOT,
     SRC_DIR,
 )
-from convert_pyis import pyis_to_html, pyis_to_json
-from filename_information import git_event, git_SHA
+from convert_pyis import convert_pyis
+from filename_information import git_info_from_filename
 from git_tree import branch_contents, file_contents
 from json_information import read_additional_stats, read_profiling_json
 from json_information import JSON_COLUMNS, STATS_COLUMNS
-from stat_plots import make_stats_plots, rst_for_run_plots
+from stat_plots import make_stats_plots, write_string_for_run_plots
 from utils import (
     clean_build_directory,
     create_dump_folder,
     replace_in_file,
-    write_rst_link,
+    write_page_link,
 )
 
 TABLE_EXTRA_COLUMNS = [
@@ -42,8 +42,8 @@ DESCRIPTION = (
 
 class WebsiteBuilder:
     """
-    Handles the construction of the gh-pages website,
-    by building the source files from the .pyisession files that the source branch contains.
+    Handles the construction of the gh-pages website, as per the process detailed
+    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
     """
 
     # The "site DataFrame" where each row is a pyis session, and the corresponding information
@@ -61,9 +61,9 @@ class WebsiteBuilder:
         """
         The intermediate folder that sphinx-build will use as it's source for building the website.
         This folder will contain static files that have to be generated from the results stored on the corresponding branch; such as:
-        - The static HTML files rendered from pyinstrumment sessions,
-        - The rst files with the lookup tables inserted,
-        - The run-statistics plots.
+        * The static HTML files rendered from pyinstrumment sessions,
+        * The rst files with the lookup tables inserted,
+        * The run-statistics plots.
         """
         return Path(str(self.build_dir) + "-pre-build")
 
@@ -141,7 +141,7 @@ class WebsiteBuilder:
                 f"Source branch {self.source_branch} contains no pyisession files to read."
             )
         else:
-            print(f"Found {len(pyis_files)} on source branch.")
+            print(f"Found {len(pyis_files)} pyis files on source branch.")
 
         self.df = pd.DataFrame({"pyis": pyis_files})
         # Add extra columns to the DataFrame, to be populated later
@@ -173,12 +173,10 @@ class WebsiteBuilder:
 
         Filenames are assumed to obey the convention described in filename_information.py.
         """
-        # Determine SHA and commit hashes
-        self.df[["SHA", "Commit"]] = self.df["pyis"].apply(git_SHA).apply(pd.Series)
-
-        # Workflow event trigger
-        self.df["Triggered by"] = self.df["pyis"].apply(git_event)
-
+        # Determine workflow trigger, SHA, and commit hashes
+        self.df[["Triggered by", "SHA", "Commit"]] = (
+            self.df["pyis"].apply(git_info_from_filename).apply(pd.Series)
+        )
         return
 
     def write_pyis_to_html(self):
@@ -210,14 +208,14 @@ class WebsiteBuilder:
                 )
 
             # Render HTML from the pulled pyis session
-            pyis_to_html(dump_file, html_file_name)
+            convert_pyis(dump_file, html_file_name, "html")
 
             # Populate the df entry with the HTML output corresponding to this pyis session
             self.df["HTML"][index] = html_file_name
 
         # Create clickable markdown links in the Links column
         self.df["Link"] = self.df["HTML"].apply(
-            write_rst_link,
+            write_page_link,
             relative_to=self.pre_build_dir,
             link_text="Profiling results",
         )
@@ -256,7 +254,7 @@ class WebsiteBuilder:
 
             # Convert to json and read information into DataFrame
             json_file = self.dump_folder / f"{pyis_file.stem}_{index}.json"
-            pyis_to_json(dump_file, json_file)
+            convert_pyis(dump_file, json_file, "json", verbose=False)
             self.df.loc[index, JSON_COLUMNS] = read_profiling_json(json_file)
 
             # Fetch additional stats file, if it exists and there are additional stats to record
@@ -291,7 +289,7 @@ class WebsiteBuilder:
         self.plots = make_stats_plots(self.df, self.run_stats_plots)
 
         # Write markdown to include plots in site
-        plot_markdown = rst_for_run_plots(self.plots, self.pre_build_dir)
+        plot_markdown = write_string_for_run_plots(self.plots, self.pre_build_dir)
 
         # Write the file
         replace_in_file(self.run_stats_src, RUN_PLOTS_MATCH_STRING, plot_markdown)
