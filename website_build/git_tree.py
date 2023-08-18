@@ -1,7 +1,7 @@
 import os
 import fnmatch
 from pathlib import Path
-from typing import List
+from typing import List, Union
 
 import git
 
@@ -41,7 +41,7 @@ def branch_contents(branch_name: str, match_pattern: str = None) -> List[Path]:
 
 
 def file_contents(
-    branch_name: str, path_to_file: str | Path, write_to: str | Path = None
+    branch_name: str, path_to_file: Union[str, Path], write_to: Union[str, Path] = None
 ) -> str:
     """
     Fetches the file contents and returns them as a string.

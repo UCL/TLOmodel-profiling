@@ -20,29 +20,22 @@ concurrency:
 jobs:
   docs-build:
     name: Build developer docs
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install Doxygen
-      run: brew install doxygen graphviz
-      shell: bash
-
-    - name: Run Doxygen
-      run: doxygen Doxyfile
-      shell: bash
-
-    # Disabling jekyll ensures pages with underscores work on gh pages.
-    - name: Create .nojekyll
-      run: touch html/.nojekyll
-      shell: bash
+    - name: Build sphinx docs
+      uses: actions/upload-artifact@v1
+      with:
+        docs-folder: sphinx_docs/
+        build-command: sphinx-build -b html sphinx_docs sphinx_build
 
     - name: Upload the generated HTML
       uses: actions/upload-artifact@v3
       with:
         name: dev_docs_html_${{ github.sha }}
-        path: html/*
+        path: sphinx_build/*
         retention-days: 1
 
   profiling-build:
