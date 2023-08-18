@@ -13,7 +13,7 @@ from _paths import (
     SRC_DIR,
 )
 from convert_pyis import pyis_to_html, pyis_to_json
-from filename_information import git_event, git_SHA
+from filename_information import git_info_from_filename
 from git_tree import branch_contents, file_contents
 from json_information import read_additional_stats, read_profiling_json
 from json_information import JSON_COLUMNS, STATS_COLUMNS
@@ -173,12 +173,10 @@ class WebsiteBuilder:
 
         Filenames are assumed to obey the convention described in filename_information.py.
         """
-        # Determine SHA and commit hashes
-        self.df[["SHA", "Commit"]] = self.df["pyis"].apply(git_SHA).apply(pd.Series)
-
-        # Workflow event trigger
-        self.df["Triggered by"] = self.df["pyis"].apply(git_event)
-
+        # Determine workflow trigger, SHA, and commit hashes
+        self.df[["Triggered by", "SHA", "Commit"]] = (
+            self.df["pyis"].apply(git_info_from_filename).apply(pd.Series)
+        )
         return
 
     def write_pyis_to_html(self):
