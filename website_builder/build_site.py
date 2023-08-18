@@ -17,7 +17,7 @@ from filename_information import git_event, git_SHA
 from git_tree import branch_contents, file_contents
 from json_information import read_additional_stats, read_profiling_json
 from json_information import JSON_COLUMNS, STATS_COLUMNS
-from stat_plots import make_stats_plots, rst_for_run_plots
+from stat_plots import make_stats_plots, write_string_for_run_plots
 from utils import (
     clean_build_directory,
     create_dump_folder,
@@ -291,7 +291,7 @@ class WebsiteBuilder:
         self.plots = make_stats_plots(self.df, self.run_stats_plots)
 
         # Write markdown to include plots in site
-        plot_markdown = rst_for_run_plots(self.plots, self.pre_build_dir)
+        plot_markdown = write_string_for_run_plots(self.plots, self.pre_build_dir)
 
         # Write the file
         replace_in_file(self.run_stats_src, RUN_PLOTS_MATCH_STRING, plot_markdown)
