@@ -97,6 +97,11 @@ jobs:
       - name: Move doxygen files into build folder
         run: mv dev/ build/
 
+      # .nojekyll ensures GH pages with underscores work
+      - name: Create .nojekyll
+        run: touch build/.nojekyll
+        shell: bash
+
       - name: Deploy website
         uses: JamesIves/github-pages-deploy-action@v4
         with:
