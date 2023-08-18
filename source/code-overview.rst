@@ -1,21 +1,5 @@
-.. TLO Model: Profiling documentation master file, created by
-   sphinx-quickstart on Thu Aug 17 13:46:22 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to TLO Model: Profiling, Developer Documentation!
-=========================================================
-
-.. _homepage:
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Contents:
-
-   reference
-
-Overview
-========
+Code Overview
+=============
 
 The purpose of this repository is to provide a storage space for profiling runs performed on the `Thanzi la Onse model <https://github.com/UCL/TLOmodel>`_, and a convenient way to page through the results that doesn't require developers to download the results for themselves.
 The result is this repository, or specifically `the pages deployment <http://github-pages.ucl.ac.uk/TLOmodel-profiling>`_.
@@ -82,10 +66,3 @@ Source branch
 The branch of this repository that contains the ``.pyisession`` files, which themselves are the results of profiling sessions run on the `model repository`_.
 
 Currently, the source branch is named `results <https://github.com/UCL/TLOmodel-profiling/tree/results>`_.
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

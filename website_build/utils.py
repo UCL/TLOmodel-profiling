@@ -1,4 +1,5 @@
 from datetime import datetime
+import fileinput
 import os
 from pathlib import Path
 import shutil
@@ -40,7 +41,7 @@ def write_md_image(
     Create a markdown image embedding of the form
     ![alt_text](image_source)
 
-    where image_source points ot the file at link relative to the relative_to path.
+    where image_source points to the file at link relative to the relative_to path.
     """
     if relative_to is not None:
         image_source = os.path.relpath(link, relative_to)
@@ -61,3 +62,43 @@ def write_md_link(link: Path, relative_to: Path = None, link_text: str = "LINK")
     else:
         hyperlink = str(link)
     return f"[{link_text}]({hyperlink})"
+
+
+def write_rst_link(
+    link: Path, relative_to: Path = None, link_text: str = "LINK"
+) -> str:
+    """
+    Create an rst external-file hyperlink of the form
+    `link_text <hyperlink>`_
+
+    where the hyperlink points to the file link relative to relative_to path.
+    """
+    if relative_to is not None:
+        hyperlink = os.path.relpath(link, relative_to)
+    else:
+        hyperlink = str(link)
+    return f"`{link_text} <{hyperlink}>`_"
+
+
+def write_rst_image(link: Path, relative_to: Path = None) -> str:
+    """
+    Create a rst image embedding of the form
+    ..image:: image_source
+
+    where image_source points to the file at link relative to the relative_to path.
+    """
+    if relative_to is not None:
+        image_source = os.path.relpath(link, relative_to)
+    else:
+        image_source = str(link)
+    return f"..image:: {image_source}"
+
+
+def replace_in_file(file: Path, search_for: str, replace_with: str) -> None:
+    """
+    Replace all occurrences of the (sub)string search_for in the file with the replace_with string.
+    """
+    with fileinput.FileInput(file, inplace=True) as f:
+        for line in f:
+            print(line.replace(search_for, replace_with), end="")
+    return
