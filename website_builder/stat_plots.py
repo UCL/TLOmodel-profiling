@@ -5,7 +5,7 @@ from typing import Dict, List
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from utils import write_rst_image, write_md_image
+from utils import write_image_link
 
 
 def make_stats_plots(data: pd.DataFrame, plot_output_dir: Path) -> Dict[str, Path]:
@@ -47,8 +47,7 @@ def markdown_for_run_plots(plot_dict: Dict[str, Path], build_dir: Path) -> List[
     markdown_string = ""
     for plot_name, location in plot_dict.items():
         markdown_string += f"\n### {plot_name} \n"
-        markdown_string += write_md_image(location, build_dir)
-
+        markdown_string += write_image_link(location, build_dir, plot_name, "md")
     return markdown_string
 
 
@@ -63,6 +62,6 @@ def rst_for_run_plots(plot_dict: Dict[str, Path], build_dir: Path) -> List[str]:
         rst_string += f"\n{plot_name}"
         rst_string += "\n" + ("-" * len(plot_name))
         rst_string += "\n" * 2
-        rst_string += write_rst_image(location, build_dir)
+        rst_string += write_image_link(location, build_dir, plot_name, "rst")
         rst_string += "\n"
     return rst_string

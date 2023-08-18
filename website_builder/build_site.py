@@ -22,7 +22,7 @@ from utils import (
     clean_build_directory,
     create_dump_folder,
     replace_in_file,
-    write_rst_link,
+    write_page_link,
 )
 
 TABLE_EXTRA_COLUMNS = [
@@ -217,7 +217,7 @@ class WebsiteBuilder:
 
         # Create clickable markdown links in the Links column
         self.df["Link"] = self.df["HTML"].apply(
-            write_rst_link,
+            write_page_link,
             relative_to=self.pre_build_dir,
             link_text="Profiling results",
         )
