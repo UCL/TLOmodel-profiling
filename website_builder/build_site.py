@@ -2,6 +2,7 @@ import argparse
 import os
 from pathlib import Path
 import shutil
+from subprocess import check_call
 from typing import Dict
 
 import pandas as pd
@@ -9,17 +10,20 @@ import pandas as pd
 from _paths import (
     DEFAULT_BUILD_DIR,
     GIT_ROOT,
-    INDEX_PAGE,
-    PROFILING_LOOKUP_TEMPLATE,
-    RUN_STATS_LOOKUP_TEMPLATE,
+    SRC_DIR,
 )
 from convert_pyis import pyis_to_html, pyis_to_json
 from filename_information import git_event, git_SHA
 from git_tree import branch_contents, file_contents
 from json_information import read_additional_stats, read_profiling_json
 from json_information import JSON_COLUMNS, STATS_COLUMNS
-from stat_plots import make_stats_plots, markdown_for_run_plots
-from utils import clean_build_directory, create_dump_folder, write_md_link
+from stat_plots import make_stats_plots, rst_for_run_plots
+from utils import (
+    clean_build_directory,
+    create_dump_folder,
+    replace_in_file,
+    write_rst_link,
+)
 
 TABLE_EXTRA_COLUMNS = [
     "HTML",
@@ -28,8 +32,8 @@ TABLE_EXTRA_COLUMNS = [
     "Triggered by",
 ]
 DF_COLS = set(TABLE_EXTRA_COLUMNS) | set(JSON_COLUMNS) | set(STATS_COLUMNS)
-MARKDOWN_REPLACEMENT_STRING = "<<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>"
-RUN_PLOTS_REPLACEMENT_STRING = "<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>"
+PROFILING_TABLE_MATCH_STRING = "<<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>"
+RUN_PLOTS_MATCH_STRING = "<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>"
 DESCRIPTION = (
     "Build the website deployment for the profiling results, "
     "placing the resulting files in the build directory."
@@ -42,10 +46,6 @@ class WebsiteBuilder:
     by building the source files from the .pyisession files that the source branch contains.
     """
 
-    # If True, the contents of the build directory will be removed before building again.
-    # Only works if the build directory lies within (a subdirectory of) the repository root.
-    clean_build: bool
-
     # The "site DataFrame" where each row is a pyis session, and the corresponding information
     df: pd.DataFrame
     # Plots that are made from the run statistics, (key, value) = (name, plot file location).
@@ -55,10 +55,63 @@ class WebsiteBuilder:
     source_branch: str
     # Directory to write website files to.
     build_dir: Path
+
+    @property
+    def pre_build_dir(self) -> Path:
+        """
+        The intermediate folder that sphinx-build will use as it's source for building the website.
+        This folder will contain static files that have to be generated from the results stored on the corresponding branch; such as:
+        - The static HTML files rendered from pyinstrumment sessions,
+        - The rst files with the lookup tables inserted,
+        - The run-statistics plots.
+        """
+        return Path(str(self.build_dir) + "-pre-build")
+
     # Dump folder for temporary files
     dump_folder: Path
 
-    # If True, the pyis_html subfolder, containing the HTML renderings of the pyis sessions,
+    @property
+    def _static_folder(self) -> Path:
+        """
+        The folder containing static html files that are to be linked to.
+        """
+        return self.pre_build_dir / "_static"
+
+    @property
+    def profiling_lookup_src(self) -> Path:
+        """
+        The file containing the
+        <<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>,
+
+        which is where the profiling results lookup table will be inserted.
+        """
+        return self.pre_build_dir / "profiling.rst"
+
+    @property
+    def run_stats_src(self) -> Path:
+        """
+        The file containing the
+        <<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>,
+
+        which is where the run statistics plots will be inserted.
+        """
+        return self.pre_build_dir / "run-statistics.rst"
+
+    @property
+    def run_stats_plots(self) -> Path:
+        """
+        The folder within the build directory that will contain any plots that are generated from the statistics collected across the profiling runs.
+        """
+        return self._static_folder / "plots"
+
+    @property
+    def pyis_html_folder(self) -> Path:
+        """
+        The folder within the build directory that will contain any HTML files generated from pyisession files.
+        """
+        return self._static_folder / "pyis_html"
+
+    # If True, the static_html_folder (containing the HTML renderings of the pyis sessions),
     # will be flat rather than preserving the structure on the source branch.
     flatten_paths: bool
 
@@ -96,13 +149,18 @@ class WebsiteBuilder:
             self.df[col] = None
 
         self.build_dir = build_dir
-        self.clean_build = clean_build
-        if self.clean_build:
+        if clean_build:
+            clean_build_directory(self.pre_build_dir)
             clean_build_directory(self.build_dir)
-        self.flatten_paths = flatten_paths
+        # Copy the source to the build directory as a starting point
+        shutil.copytree(SRC_DIR, self.pre_build_dir)
+        # Create the _static folder in the build directory if it was .gitignore-d in source
+        if not os.path.isdir(self._static_folder):
+            os.mkdir(self._static_folder)
 
+        self.flatten_paths = flatten_paths
         # Create the dump folder (and build directory if needed)
-        self.dump_folder = create_dump_folder(self.build_dir)
+        self.dump_folder = create_dump_folder(self.pre_build_dir)
 
         # Populate information that can be inferred by examining the filenames
         self._infer_filename_information()
@@ -142,12 +200,11 @@ class WebsiteBuilder:
             # Create HTML file name
             if self.flatten_paths:
                 html_file_name = (
-                    self.build_dir / "pyis_html" / f"{pyis_file.stem}_{index}.html"
+                    self.pyis_html_folder / f"{pyis_file.stem}_{index}.html"
                 )
             else:
                 html_file_name = (
-                    self.build_dir
-                    / "pyis_html"
+                    self.pyis_html_folder
                     / f"{pyis_file.parent}"
                     / f"{pyis_file.stem}_{index}.html"
                 )
@@ -160,7 +217,9 @@ class WebsiteBuilder:
 
         # Create clickable markdown links in the Links column
         self.df["Link"] = self.df["HTML"].apply(
-            write_md_link, relative_to=self.build_dir, link_text="Profiling results"
+            write_rst_link,
+            relative_to=self.pre_build_dir,
+            link_text="Profiling results",
         )
         return
 
@@ -175,20 +234,12 @@ class WebsiteBuilder:
             "Commit",
             "Triggered by",
         ]
-        markdown_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown()
+        rst_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(tablefmt="grid")
 
         # Write the lookup page
-        lookup_table_page = self.build_dir / "profiling_index.md"
-        with open(PROFILING_LOOKUP_TEMPLATE, "r") as f:
-            lookup_page_contents = f.read()
-        template_contents = lookup_page_contents.split(MARKDOWN_REPLACEMENT_STRING)
-        # Write processed lookup page to the build directory
-        with open(lookup_table_page, "w") as f:
-            f.write(template_contents[0])
-        with open(lookup_table_page, "a") as f:
-            f.write(markdown_table)
-        with open(lookup_table_page, "a") as f:
-            f.write(template_contents[1])
+        replace_in_file(
+            self.profiling_lookup_src, PROFILING_TABLE_MATCH_STRING, rst_table
+        )
         return
 
     def collect_run_stats(self, stats_file_extension: str = "stats.json"):
@@ -237,29 +288,20 @@ class WebsiteBuilder:
 
     def write_run_stats_page(self) -> None:
         """ """
-        self.plots = make_stats_plots(self.df, self.build_dir / "plots")
+        self.plots = make_stats_plots(self.df, self.run_stats_plots)
 
         # Write markdown to include plots in site
-        plot_markdown = markdown_for_run_plots(self.plots, self.build_dir)
+        plot_markdown = rst_for_run_plots(self.plots, self.pre_build_dir)
 
         # Write the file
-        run_stats_index = self.build_dir / "run_statistics.md"
-        with open(RUN_STATS_LOOKUP_TEMPLATE, "r") as f:
-            lookup_page_contents = f.read()
-        template_contents = lookup_page_contents.split(RUN_PLOTS_REPLACEMENT_STRING)
-        # Write processed lookup page to the build directory
-        with open(run_stats_index, "w") as f:
-            f.write(template_contents[0])
-        with open(run_stats_index, "a") as f:
-            f.write(plot_markdown)
-        with open(run_stats_index, "a") as f:
-            f.write(template_contents[1])
+        replace_in_file(self.run_stats_src, RUN_PLOTS_MATCH_STRING, plot_markdown)
+        return
 
     def build(self) -> None:
         """
         Build the website source files and populate the site DataFrame.
         """
-        print(f"Building website in directory {self.build_dir}")
+        print(f"Building website in directory {self.pre_build_dir}")
         # Infer additional run stats from the pyis files, and
         # supporting stats.json files, if present
         self.collect_run_stats()
@@ -273,11 +315,22 @@ class WebsiteBuilder:
         # Build the run statistics page
         self.write_run_stats_page()
 
-        # Move index page source file into the build directory
-        shutil.copy(INDEX_PAGE, self.build_dir / "index.md")
-
         # Cleanup the dump folder
         shutil.rmtree(self.dump_folder)
+
+        # Build the website using sphinx
+        check_call(
+            [
+                "sphinx-build",
+                "-b",
+                "html",
+                f"{str(self.pre_build_dir)}",
+                f"{str(self.build_dir)}",
+            ],
+            cwd=GIT_ROOT,
+        )
+        # Remove the pre-build directory
+        shutil.rmtree(self.pre_build_dir)
         return
 
 
