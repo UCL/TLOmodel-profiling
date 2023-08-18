@@ -18,33 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  docs-build:
-    name: Build developer docs
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-        cache: pip
-    
-    - name: Build developer docs with sphinx
-      run: |
-        pip install sphinx
-        sphinx-build -b html sphinx_docs sphinx_build
-
-    - name: Upload the generated HTML
-      uses: actions/upload-artifact@v3
-      with:
-        name: dev_docs_html_${{ github.sha }}
-        path: sphinx_build/*
-        retention-days: 1
-
-  profiling-build:
-    name: Build profiling results
+  build_website:
+    name: Build profiling website
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -65,14 +40,18 @@ jobs:
 
       - name: Install Python requirements 
         run: pip install -r requirements.txt
-      
-      - name: Build website source
-        run: python website_build/build_site.py -c -f results
+
+      - name: Pre-process profiling results
+        run: python website_build/build_site.py -c -f pre-build
+
+      - name: Build website and developer docs with sphinx
+        run: 
+          sphinx-build -b html pre-build build
 
       - name: Upload the generated HTML
         uses: actions/upload-artifact@v3
         with:
-          name: profiling_results_html_${{ github.sha }}
+          name: website_html_${{ github.sha }}
           path: build/*
           retention-days: 1
 
@@ -81,7 +60,7 @@ jobs:
   deploy-website:
     name: Deploy pages site
     runs-on: ubuntu-latest
-    needs: [docs-build, profiling-build]
+    needs: [build_website]
     if: github.ref_name == 'main' || github.event_name == 'repository_dispatch'
     steps:
       - name: Checkout repository
@@ -90,17 +69,8 @@ jobs:
       - name: Fetch profiling results html
         uses: actions/download-artifact@v3
         with:
-          name: profiling_results_html_${{ github.sha }}
+          name: website_html_${{ github.sha }}
           path: build/
-
-      - name: Fetch developer docs html
-        uses: actions/download-artifact@v3
-        with:
-          name: dev_docs_html_${{ github.sha }}
-          path: dev
-
-      - name: Move doxygen files into build folder
-        run: mv dev/ build/
 
       # .nojekyll ensures GH pages with underscores work
       - name: Create .nojekyll

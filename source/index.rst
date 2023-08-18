@@ -6,8 +6,6 @@
 Welcome to TLO Model: Profiling, Developer Documentation!
 =========================================================
 
-.. _homepage:
-
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
