@@ -6,8 +6,10 @@
 Welcome to TLO Model: Profiling, Developer Documentation!
 =========================================================
 
+.. _homepage:
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    reference
@@ -29,7 +31,7 @@ Build Steps
 
 The build steps can be summarised as follows.
 
-* Use `doxygen <https://www.doxygen.nl/>`_ to build the developer docs; documenting the functions, classes, and scripts that perform the heavy lifting.
+* Use `sphinx <https://www.sphinx-doc.org/en/master/index.html>`_ to build the developer docs; documenting the functions, classes, and scripts that perform the heavy lifting.
 * Run the build script to process the profiling results.
    #. Scan the source branch for all ``pyisession`` files
    #. Render all profiling output files to HTML
@@ -37,7 +39,7 @@ The build steps can be summarised as follows.
    #. Write the lookup table, profiling_index.md
    #. Write the run statistics, run_statistics.md
    #. Include the index page in the build directory
-* Combine the ``doxygen`` build and profiling results, and deploy to GitHub pages.
+* Combine the ``sphinx`` build and profiling results, and deploy to GitHub pages.
 
 The build script makes use of a ``pandas`` DataFrame to keep track of the summary stats and the correspondence between ``.pyisession`` files and HTML outputs, for example.
 
