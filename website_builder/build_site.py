@@ -141,7 +141,7 @@ class WebsiteBuilder:
                 f"Source branch {self.source_branch} contains no pyisession files to read."
             )
         else:
-            print(f"Found {len(pyis_files)} on source branch.")
+            print(f"Found {len(pyis_files)} pyis files on source branch.")
 
         self.df = pd.DataFrame({"pyis": pyis_files})
         # Add extra columns to the DataFrame, to be populated later
