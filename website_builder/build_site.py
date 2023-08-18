@@ -12,7 +12,7 @@ from _paths import (
     GIT_ROOT,
     SRC_DIR,
 )
-from convert_pyis import pyis_to_html, pyis_to_json
+from convert_pyis import convert_pyis
 from filename_information import git_info_from_filename
 from git_tree import branch_contents, file_contents
 from json_information import read_additional_stats, read_profiling_json
@@ -208,7 +208,7 @@ class WebsiteBuilder:
                 )
 
             # Render HTML from the pulled pyis session
-            pyis_to_html(dump_file, html_file_name)
+            convert_pyis(dump_file, html_file_name, "html")
 
             # Populate the df entry with the HTML output corresponding to this pyis session
             self.df["HTML"][index] = html_file_name
@@ -254,7 +254,7 @@ class WebsiteBuilder:
 
             # Convert to json and read information into DataFrame
             json_file = self.dump_folder / f"{pyis_file.stem}_{index}.json"
-            pyis_to_json(dump_file, json_file)
+            convert_pyis(dump_file, json_file, "json", verbose=False)
             self.df.loc[index, JSON_COLUMNS] = read_profiling_json(json_file)
 
             # Fetch additional stats file, if it exists and there are additional stats to record

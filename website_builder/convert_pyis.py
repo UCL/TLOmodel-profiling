@@ -17,6 +17,11 @@ def convert_pyis(
 ) -> None:
     """
     Converts a pyis session file to another file format for output parsing.
+
+    :param pyis_in: The .pyisession file to convert.
+    :param output_file: The Path to write the converted file to.
+    :param fmt: The format to convert to; either 'html' or 'json'.
+    :param verbose: If True, write to stdout the file name and its conversion.
     """
     pyi_session = Session.load(pyis_in)
     if not os.path.exists(output_file.parent):
@@ -35,20 +40,4 @@ def convert_pyis(
         f.write(renderer.render(pyi_session))
     if verbose:
         print("done")
-    return
-
-
-def pyis_to_html(pyis_in: Path, html_out: Path) -> None:
-    """
-    Renders a pyis session file as HTML for visual output.
-    """
-    convert_pyis(pyis_in, html_out, "html")
-    return
-
-
-def pyis_to_json(pyis_in: Path, json_out: Path):
-    """
-    Renders a pyis session file as JSON for reading profiling information into DataFrames.
-    """
-    convert_pyis(pyis_in, json_out, "json", verbose=False)
     return
