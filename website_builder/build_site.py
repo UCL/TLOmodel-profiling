@@ -42,8 +42,8 @@ DESCRIPTION = (
 
 class WebsiteBuilder:
     """
-    Handles the construction of the gh-pages website,
-    by building the source files from the .pyisession files that the source branch contains.
+    Handles the construction of the gh-pages website, as per the process detailed
+    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
     """
 
     # The "site DataFrame" where each row is a pyis session, and the corresponding information
@@ -61,9 +61,9 @@ class WebsiteBuilder:
         """
         The intermediate folder that sphinx-build will use as it's source for building the website.
         This folder will contain static files that have to be generated from the results stored on the corresponding branch; such as:
-        - The static HTML files rendered from pyinstrumment sessions,
-        - The rst files with the lookup tables inserted,
-        - The run-statistics plots.
+        * The static HTML files rendered from pyinstrumment sessions,
+        * The rst files with the lookup tables inserted,
+        * The run-statistics plots.
         """
         return Path(str(self.build_dir) + "-pre-build")
 
