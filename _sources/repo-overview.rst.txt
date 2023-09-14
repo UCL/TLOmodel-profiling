@@ -16,20 +16,22 @@ Build Steps
 -----------
 
 The website consists of two parts:
+
 * The profiling results and statistics, which are created by the scripts in ``website_builder`` and the results stored on the `source branch`_.
 * The developer documentation, which is created from the content of the ``source`` folder.
 
 The website is built using `sphinx <https://www.sphinx-doc.org/en/master/index.html>`_, which is invoked at the end of the ``website_builder/build_site.py`` script (specifically within the ``WebsiteBuilder.build()`` method).
-Before ``sphinx-build`` can be invoked however, the profiling results on the `source branch`_ need to be parsed before ``sphinx`` is in a position to publish the website.
-As such, the ``WebsiteBuilder`` first creates a *pre-build* directory, and copies the content of the ``source`` directory into this pre-build directory as a starting point.
-Files are then added to the pre-build directory as needed; these include ``pyinstrumment`` sessions rendered as HTML, and plots for runtime statistics.
-Lookup tables for profiling runs are also generated and their content is inserted into the placeholder locations in the `profiling.rst` and `run-statistics.rst` files in the pre-build directory.
-Having done this pre-build step, ``sphinx`` will be invoked on the pre-build directory to build the HTML content of the website.
+Before ``sphinx-build`` can be invoked, the profiling results on the `source branch`_ need to be parsed.
+As such, the ``WebsiteBuilder`` first creates a *pre-build* directory, and copies the content of the ``source`` directory content into it as a starting point.
+Files are then added to the pre-build directory as they are processed from the source branch; these additions consist primarily of ``pyinstrumment`` sessions rendered as HTML, and plots for displaying runtime statistics.
+Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the `profiling.rst` and `run-statistics.rst` files in the pre-build directory.
+Having done this pre-build step, ``sphinx`` will be invoked on the pre-build directory to build the HTML content of the website, creating the ``build`` directory with the HTML to be deployed.
 
 An overview of the steps in the ``build_site.py`` script is provided below:
+
 #. Copy the ``source`` directory into the pre-build directory.
-#. Scan the source branch for all ``.pyisession`` files
-#. Render all profiling output files to HTML
+#. Scan the source branch for all ``.pyisession`` files.
+#. Render all profiling output files to HTML.
 #. Process additional statistics that were pushed across with the profiling outputs, and produce plots.
 #. Write the lookup table to ``profiling.rst``.
 #. Write the run statistics to ``run_statistics.rst``.
@@ -53,7 +55,7 @@ Files on the source branch as assumed to have filenames in the following style:
 In addition to the ``.pyisession`` files, additional statistics that cannot be saved by the profiler (like the size of the final simulation population) can also be present on the source branch.
 The additional statistics are assumed to be in ``JSON`` files that carry the same filename as their profiling output counterpart, but with the ``.stats.json`` extension.
 These files are processed by the build script when producing the additional statistics page.
-Additional statistics are not required to be present, as missing entries will be skipped or highlighted when rendering the corresponding page.
+Additional statistics are not required to be present; missing entries will be skipped or highlighted when rendering the corresponding page.
 
 Glossary of Terms
 -----------------

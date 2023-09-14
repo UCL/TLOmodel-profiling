@@ -40,23 +40,27 @@ This script will parse the files on the <a class="reference internal" href="#sou
 <p>On PRs, the profiling results HTML and developer docs HTML are required to build successfully before merging, however deployment only takes place when the <code class="docutils literal notranslate"><span class="pre">build-website</span></code> workflow is run on <code class="docutils literal notranslate"><span class="pre">main</span></code>, or triggered as a direct result of new profiling results being pushed.</p>
 <section id="build-steps">
 <h2>Build Steps<a class="headerlink" href="#build-steps" title="Link to this heading">¶</a></h2>
-<p>The website consists of two parts:
-* The profiling results and statistics, which are created by the scripts in <code class="docutils literal notranslate"><span class="pre">website_builder</span></code> and the results stored on the <a class="reference internal" href="#source-branch">source branch</a>.
-* The developer documentation, which is created from the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p>
+<p>The website consists of two parts:</p>
+<ul class="simple">
+<li><p>The profiling results and statistics, which are created by the scripts in <code class="docutils literal notranslate"><span class="pre">website_builder</span></code> and the results stored on the <a class="reference internal" href="#source-branch">source branch</a>.</p></li>
+<li><p>The developer documentation, which is created from the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p></li>
+</ul>
 <p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a>, which is invoked at the end of the <code class="docutils literal notranslate"><span class="pre">website_builder/build_site.py</span></code> script (specifically within the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder.build()</span></code> method).
-Before <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> can be invoked however, the profiling results on the <a class="reference internal" href="#source-branch">source branch</a> need to be parsed before <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> is in a position to publish the website.
-As such, the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder</span></code> first creates a <em>pre-build</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into this pre-build directory as a starting point.
-Files are then added to the pre-build directory as needed; these include <code class="docutils literal notranslate"><span class="pre">pyinstrumment</span></code> sessions rendered as HTML, and plots for runtime statistics.
-Lookup tables for profiling runs are also generated and their content is inserted into the placeholder locations in the <cite>profiling.rst</cite> and <cite>run-statistics.rst</cite> files in the pre-build directory.
-Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the pre-build directory to build the HTML content of the website.</p>
-<p>An overview of the steps in the <code class="docutils literal notranslate"><span class="pre">build_site.py</span></code> script is provided below:
-#. Copy the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into the pre-build directory.
-#. Scan the source branch for all <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files
-#. Render all profiling output files to HTML
-#. Process additional statistics that were pushed across with the profiling outputs, and produce plots.
-#. Write the lookup table to <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code>.
-#. Write the run statistics to <code class="docutils literal notranslate"><span class="pre">run_statistics.rst</span></code>.
-#. Invoke <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> on the pre-build directory to create the website.</p>
+Before <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> can be invoked, the profiling results on the <a class="reference internal" href="#source-branch">source branch</a> need to be parsed.
+As such, the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder</span></code> first creates a <em>pre-build</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory content into it as a starting point.
+Files are then added to the pre-build directory as they are processed from the source branch; these additions consist primarily of <code class="docutils literal notranslate"><span class="pre">pyinstrumment</span></code> sessions rendered as HTML, and plots for displaying runtime statistics.
+Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the <cite>profiling.rst</cite> and <cite>run-statistics.rst</cite> files in the pre-build directory.
+Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the pre-build directory to build the HTML content of the website, creating the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory with the HTML to be deployed.</p>
+<p>An overview of the steps in the <code class="docutils literal notranslate"><span class="pre">build_site.py</span></code> script is provided below:</p>
+<ol class="arabic simple">
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into the pre-build directory.</p></li>
+<li><p>Scan the source branch for all <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files.</p></li>
+<li><p>Render all profiling output files to HTML.</p></li>
+<li><p>Process additional statistics that were pushed across with the profiling outputs, and produce plots.</p></li>
+<li><p>Write the lookup table to <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code>.</p></li>
+<li><p>Write the run statistics to <code class="docutils literal notranslate"><span class="pre">run_statistics.rst</span></code>.</p></li>
+<li><p>Invoke <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> on the pre-build directory to create the website.</p></li>
+</ol>
 <p>The build script makes use of a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame to keep track of the summary stats and the correspondence between <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files and HTML outputs.</p>
 </section>
 <section id="contents-of-the-source-branch">
@@ -73,7 +77,7 @@ Having done this pre-build step, <code class="docutils literal notranslate"><spa
 <p>In addition to the <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files, additional statistics that cannot be saved by the profiler (like the size of the final simulation population) can also be present on the source branch.
 The additional statistics are assumed to be in <code class="docutils literal notranslate"><span class="pre">JSON</span></code> files that carry the same filename as their profiling output counterpart, but with the <code class="docutils literal notranslate"><span class="pre">.stats.json</span></code> extension.
 These files are processed by the build script when producing the additional statistics page.
-Additional statistics are not required to be present, as missing entries will be skipped or highlighted when rendering the corresponding page.</p>
+Additional statistics are not required to be present; missing entries will be skipped or highlighted when rendering the corresponding page.</p>
 </section>
 <section id="glossary-of-terms">
 <h2>Glossary of Terms<a class="headerlink" href="#glossary-of-terms" title="Link to this heading">¶</a></h2>
