@@ -18,9 +18,9 @@ def git_info_from_filename(fname: Path) -> Tuple[str, str, str]:
     """
     split_name = fname.stem.split("_")
     if split_name[0] != "workflow":
-        event = split_name[0]
+        event = split_name[0].upper()
     else:
-        event = "workflow dispatch"
+        event = "workflow dispatch".upper()
     sha = split_name[-1]
     hash = REPO.git.rev_parse("--short", sha)
     return event, sha, hash
