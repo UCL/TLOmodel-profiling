@@ -77,8 +77,8 @@ def write_string_for_run_plots(
     return string
 
 
-def rst_title_format(title_text: str) -> str:
-    return f"\n{title_text}\n" + ("-" * len(title_text)) + ("\n" * 2)
+def rst_title_format(title_text: str, undercharacter: str = "-") -> str:
+    return f"\n{title_text}\n" + (undercharacter * len(title_text)) + ("\n" * 2)
 
 
 def md_title_format(title_text: str) -> str:
