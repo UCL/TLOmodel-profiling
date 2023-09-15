@@ -3,18 +3,6 @@ import json
 from pathlib import Path
 from typing import List, Tuple, Union
 
-# STATS_COLUMNS.values() are the column names under which we
-# want to identify the statistics, and the names we will use in
-# plot titles.
-# STATS_COLUMNS.keys() are the corresponding keys in the file
-# containing the statistics that the values should be read from
-# STATS_COLUMNS = {
-#     "pop_df_rows": "Pop. dataframe rows",
-#     "pop_df_cols": "Pop. dataframe cols",
-#     "pop_df_mem_mb": "Pop. dataframe memory usage (MBs)",
-#     "pop_df_times_extended": "Number of times pop. dataframe was extended",
-# }
-
 
 @dataclass
 class Statistic:
@@ -111,4 +99,4 @@ def read_additional_stats(stats_file: Path) -> Tuple[int, int, float, int]:
     with open(stats_file, "r") as f:
         stats = json.load(f)
 
-    return (stats[key] for key in STATS.values("key_in_stats_file"))
+    return (s.dtype(stats[s.key_in_stats_file]) for s in STATS.statistics)

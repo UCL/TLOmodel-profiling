@@ -1,8 +1,7 @@
-from dataclasses import dataclass
 from datetime import datetime
 import json
 from pathlib import Path
-from typing import Tuple, List, Union
+from typing import Tuple
 
 JSON_COLUMNS = [
     "Start Time",
