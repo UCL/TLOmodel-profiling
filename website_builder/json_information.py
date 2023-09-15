@@ -1,13 +1,13 @@
+from dataclasses import dataclass
 from datetime import datetime
 import json
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, List, Union
 
 JSON_COLUMNS = [
     "Start Time",
     "duration (s)",
 ]
-STATS_COLUMNS = []
 
 
 def read_profiling_json(json_in: Path) -> Tuple[datetime, float]:
@@ -36,18 +36,3 @@ def read_profiling_json(json_in: Path) -> Tuple[datetime, float]:
         session_length_secs = pyis_session_data["duration"]
 
     return start_time, session_length_secs
-
-
-def read_additional_stats(stats_file: Path) -> None:
-    """
-    Read the provided file, which is assumed to be a file containing additional statistics
-    about a profiling run that cannot be conveyed by the pyis session file.
-    Files recording additional statistics are assumed to be (able to be parsed as) json files.
-
-    Values are returned in the order that the STATS_COLUMNS variable gives their names.
-    If values cannot be found, defaults are assigned (usually None to flag missing data).
-
-    :param json_in: A json-readable file containing statistics from a .pyisession.
-    :returns: A tuple of values that correspond to the values in STATS_COLUMNS, extracted from the input file.
-    """
-    return
