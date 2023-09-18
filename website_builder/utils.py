@@ -122,7 +122,7 @@ def write_page_link(
     else:
         hyperlink = str(hyperlink)
     if format == "rst":
-        return f"`{link_text} <{hyperlink}>`_"
+        return f"`{link_text} <{hyperlink}>`__"
     elif format == "md":
         return f"[{link_text}]({hyperlink})"
     else:

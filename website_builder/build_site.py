@@ -5,6 +5,7 @@ import shutil
 from subprocess import check_call
 from typing import Dict
 
+from git.exc import GitCommandError
 import pandas as pd
 
 from _paths import (
@@ -12,11 +13,12 @@ from _paths import (
     GIT_ROOT,
     SRC_DIR,
 )
+from additional_statistics import STATS, read_additional_stats
 from convert_pyis import convert_pyis
 from filename_information import git_info_from_filename
 from git_tree import branch_contents, file_contents
-from json_information import read_additional_stats, read_profiling_json
-from json_information import JSON_COLUMNS, STATS_COLUMNS
+from json_information import read_profiling_json
+from json_information import JSON_COLUMNS
 from stat_plots import make_stats_plots, write_string_for_run_plots
 from utils import (
     clean_build_directory,
@@ -31,7 +33,11 @@ TABLE_EXTRA_COLUMNS = [
     "Commit",
     "Triggered by",
 ]
-DF_COLS = set(TABLE_EXTRA_COLUMNS) | set(JSON_COLUMNS) | set(STATS_COLUMNS)
+DF_COLS = (
+    set(TABLE_EXTRA_COLUMNS)
+    | set(JSON_COLUMNS)
+    | set(STATS.values("dataframe_col_name"))
+)
 PROFILING_TABLE_MATCH_STRING = "<<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>"
 RUN_PLOTS_MATCH_STRING = "<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>"
 DESCRIPTION = (
@@ -48,8 +54,12 @@ class WebsiteBuilder:
 
     # The "site DataFrame" where each row is a pyis session, and the corresponding information
     df: pd.DataFrame
-    # Plots that are made from the run statistics, (key, value) = (name, plot file location).
-    plots: Dict[str, Path]
+    # Plots that are made from the run statistics gathered from the pyis sessions,
+    # (key, value) = (name, plot file location).
+    pyis_plots: Dict[str, Path]
+    # Plots that are made from the run statistics gathered from the additional statistics files,
+    # (key, value) = (name, plot file location).
+    stat_plots: Dict[str, Path]
 
     # Repository branch on which source .pyisession files are located.
     source_branch: str
@@ -232,7 +242,9 @@ class WebsiteBuilder:
             "Commit",
             "Triggered by",
         ]
-        rst_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(tablefmt="grid")
+        rst_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(
+            index=False, tablefmt="grid"
+        )
 
         # Write the lookup page
         replace_in_file(
@@ -258,7 +270,7 @@ class WebsiteBuilder:
             self.df.loc[index, JSON_COLUMNS] = read_profiling_json(json_file)
 
             # Fetch additional stats file, if it exists and there are additional stats to record
-            if STATS_COLUMNS:
+            if not STATS.is_empty():
                 stats_file = (
                     pyis_file.parent / f"{pyis_file.stem}.{stats_file_extension}"
                 )
@@ -267,29 +279,37 @@ class WebsiteBuilder:
                     file_contents(
                         self.source_branch,
                         stats_file,
-                        dump_file,
+                        dump_stats_file,
                     )
-                except FileNotFoundError as e:
+                except GitCommandError as no_such_file_on_results_branch:
                     # File does not exist on the source branch, cannot write stats for this entry
                     print(
-                        f"Skipping {pyis_file}: expected stats file ({stats_file}) not found"
+                        f"Skipping additional statistics for {pyis_file}:\n"
+                        f"\tExpected file {stats_file} not found on branch {self.source_branch}\n"
+                        f"\tCaught: {str(no_such_file_on_results_branch)}"
                     )
+                    # Proceed to next pyis file: do not attempt to extract stats from non-existant
+                    # file.
                     continue
-                # Record additional stats as recorded in the stats file
-                self.df.loc[index, STATS_COLUMNS] = read_additional_stats(
-                    dump_stats_file
-                )
-
+                # Record additional stats for this profiling run
+                self.df.loc[
+                    index, STATS.values("dataframe_col_name")
+                ] = read_additional_stats(dump_stats_file)
         # All additional stats have been pulled and added to the DataFrame
         # Sort the DataFrame by start_time
-        self.df.sort_values("Start Time", ascending=True, inplace=True)
+        self.df.sort_values("Start Time", ascending=False, inplace=True)
 
     def write_run_stats_page(self) -> None:
         """ """
-        self.plots = make_stats_plots(self.df, self.run_stats_plots)
+        # Create dictionaries mapping plot titles to files in the build dir
+        self.pyis_plots, self.stat_plots = make_stats_plots(
+            self.df, self.run_stats_plots
+        )
 
         # Write markdown to include plots in site
-        plot_markdown = write_string_for_run_plots(self.plots, self.pre_build_dir)
+        plot_markdown = write_string_for_run_plots(
+            self.pyis_plots, self.stat_plots, self.pre_build_dir
+        )
 
         # Write the file
         replace_in_file(self.run_stats_src, RUN_PLOTS_MATCH_STRING, plot_markdown)

@@ -12,7 +12,7 @@ Welcome to the TLO Model: Profiling Documentation
 
    profiling
    run-statistics
-   repo-overview
+   developers
 
 This is a repository for storing profiling outputs from the TLOmodel, an epidemiology modelling framework for the Thanzi la Onse project.
 
@@ -38,5 +38,4 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
