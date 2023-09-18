@@ -5,6 +5,7 @@ import shutil
 from subprocess import check_call
 from typing import Dict
 
+from git.exc import GitCommandError
 import pandas as pd
 
 from _paths import (
@@ -241,7 +242,9 @@ class WebsiteBuilder:
             "Commit",
             "Triggered by",
         ]
-        rst_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(tablefmt="grid")
+        rst_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(
+            index=False, tablefmt="grid"
+        )
 
         # Write the lookup page
         replace_in_file(
@@ -276,19 +279,22 @@ class WebsiteBuilder:
                     file_contents(
                         self.source_branch,
                         stats_file,
-                        dump_file,
+                        dump_stats_file,
                     )
-                except Exception as e:
+                except GitCommandError as no_such_file_on_results_branch:
                     # File does not exist on the source branch, cannot write stats for this entry
                     print(
-                        f"Skipping {pyis_file}: expected stats file ({stats_file}) not found"
+                        f"Skipping additional statistics for {pyis_file}:\n"
+                        f"\tExpected file {stats_file} not found on branch {self.source_branch}\n"
+                        f"\tCaught: {str(no_such_file_on_results_branch)}"
                     )
+                    # Proceed to next pyis file: do not attempt to extract stats from non-existant
+                    # file.
                     continue
-                # Record additional stats as recorded in the stats file
+                # Record additional stats for this profiling run
                 self.df.loc[
-                    index, list(STATS.values("dataframe_col_name"))
+                    index, STATS.values("dataframe_col_name")
                 ] = read_additional_stats(dump_stats_file)
-
         # All additional stats have been pulled and added to the DataFrame
         # Sort the DataFrame by start_time
         self.df.sort_values("Start Time", ascending=False, inplace=True)

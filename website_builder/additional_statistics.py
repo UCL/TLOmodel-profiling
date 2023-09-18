@@ -84,7 +84,7 @@ STATS = StatisticCollection(
 )
 
 
-def read_additional_stats(stats_file: Path) -> Tuple[int, int, float, int]:
+def read_additional_stats(stats_file: Path) -> List[Union[int, float]]:
     """
     Read the provided file, which is assumed to be a file containing additional statistics
     about a profiling run that cannot be conveyed by the pyis session file.
@@ -99,4 +99,4 @@ def read_additional_stats(stats_file: Path) -> Tuple[int, int, float, int]:
     with open(stats_file, "r") as f:
         stats = json.load(f)
 
-    return (s.dtype(stats[s.key_in_stats_file]) for s in STATS.statistics)
+    return [s.dtype(stats[s.key_in_stats_file]) for s in STATS.statistics]
