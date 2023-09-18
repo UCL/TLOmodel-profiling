@@ -49,7 +49,7 @@ This script will parse the files on the <a class="reference internal" href="#sou
 Before <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> can be invoked, the profiling results on the <a class="reference internal" href="#source-branch">source branch</a> need to be parsed.
 As such, the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder</span></code> first creates a <em>pre-build</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory content into it as a starting point.
 Files are then added to the pre-build directory as they are processed from the source branch; these additions consist primarily of <code class="docutils literal notranslate"><span class="pre">pyinstrumment</span></code> sessions rendered as HTML, and plots for displaying runtime statistics.
-Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the <cite>profiling.rst</cite> and <cite>run-statistics.rst</cite> files in the pre-build directory.
+Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code> and <code class="docutils literal notranslate"><span class="pre">run-statistics.rst</span></code> files in the pre-build directory.
 Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the pre-build directory to build the HTML content of the website, creating the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory with the HTML to be deployed.</p>
 <p>An overview of the steps in the <code class="docutils literal notranslate"><span class="pre">build_site.py</span></code> script is provided below:</p>
 <ol class="arabic simple">
@@ -160,7 +160,7 @@ Additional statistics are not required to be present; missing entries will be sk
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
-      <a href="_sources/repo-overview.rst.txt"
+      <a href="_sources/developers.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
