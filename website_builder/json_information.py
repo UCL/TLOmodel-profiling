@@ -30,7 +30,9 @@ def read_profiling_json(json_in: Path) -> Tuple[datetime, float]:
 
     # Grab information from the session file
     if "start_time" in pyis_session_data.keys():
-        start_time = datetime.fromtimestamp(pyis_session_data["start_time"])
+        start_time = datetime.fromtimestamp(pyis_session_data["start_time"]).strftime(
+            "%Y-%m-%d, %H:%M:%S"
+        )
     if "duration" in pyis_session_data.keys():
         session_length_secs = pyis_session_data["duration"]
 

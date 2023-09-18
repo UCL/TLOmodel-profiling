@@ -59,7 +59,6 @@ def make_stats_plots(
                 # Update dictionary that is tracking the plots we produce
                 stat_dict[s.plot_title] = plot_output_dir / s.plot_svg_name
 
-    # Create any other plots you might want
     return plot_dict, stat_dict
 
 
