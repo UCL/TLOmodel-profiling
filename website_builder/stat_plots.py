@@ -10,7 +10,7 @@ from utils import write_image_link
 
 
 def make_stats_plots(
-    data: pd.DataFrame, plot_output_dir: Path, plot_size: Tuple[int, int] = (6, 12)
+    data: pd.DataFrame, plot_output_dir: Path, plot_size: Tuple[int, int] = (12, 6)
 ) -> Tuple[Dict[str, Path], Dict[str, Path]]:
     """
     Using the data in the provided DataFrame, create and save plots of this

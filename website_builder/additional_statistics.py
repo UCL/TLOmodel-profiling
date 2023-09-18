@@ -90,7 +90,7 @@ def read_additional_stats(stats_file: Path) -> List[Union[int, float]]:
     about a profiling run that cannot be conveyed by the pyis session file.
     Files recording additional statistics are assumed to be (able to be parsed as) json files.
 
-    Values are returned in the order that the STATS_COLUMNS variable gives their names.
+    Values are returned in the order that the STATS.values() method returns their names.
     If values cannot be found, defaults are assigned (usually None to flag missing data).
 
     :param json_in: A json-readable file containing statistics from a .pyisession.
@@ -99,4 +99,9 @@ def read_additional_stats(stats_file: Path) -> List[Union[int, float]]:
     with open(stats_file, "r") as f:
         stats = json.load(f)
 
-    return [s.dtype(stats[s.key_in_stats_file]) for s in STATS.statistics]
+    return [
+        s.dtype(stats[s.key_in_stats_file])
+        if (s.key_in_stats_file in stats.keys())
+        else None
+        for s in STATS.statistics
+    ]

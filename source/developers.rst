@@ -24,7 +24,7 @@ The website is built using `sphinx <https://www.sphinx-doc.org/en/master/index.h
 Before ``sphinx-build`` can be invoked, the profiling results on the `source branch`_ need to be parsed.
 As such, the ``WebsiteBuilder`` first creates a *pre-build* directory, and copies the content of the ``source`` directory content into it as a starting point.
 Files are then added to the pre-build directory as they are processed from the source branch; these additions consist primarily of ``pyinstrumment`` sessions rendered as HTML, and plots for displaying runtime statistics.
-Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the `profiling.rst` and `run-statistics.rst` files in the pre-build directory.
+Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the ``profiling.rst`` and ``run-statistics.rst`` files in the pre-build directory.
 Having done this pre-build step, ``sphinx`` will be invoked on the pre-build directory to build the HTML content of the website, creating the ``build`` directory with the HTML to be deployed.
 
 An overview of the steps in the ``build_site.py`` script is provided below:
