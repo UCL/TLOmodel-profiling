@@ -12,8 +12,14 @@ import pandas as pd
 from _paths import DEFAULT_BUILD_DIR, GIT_ROOT, SRC_DIR
 from additional_statistics import STATS
 from git_tree import REPO, branch_contents, file_contents
-from stat_plots import md_title_format, rst_title_format
-from utils import safe_remove_dir, replace_in_file, write_image_link, write_page_link
+from utils import (
+    md_title_format,
+    replace_in_file,
+    rst_title_format,
+    safe_remove_dir,
+    write_image_link,
+    write_page_link,
+)
 
 DESCRIPTION = (
     "Build the website deployment for the profiling results, "
