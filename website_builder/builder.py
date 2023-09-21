@@ -54,8 +54,8 @@ class WebsiteBuilder:
     in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
 
     Build options are configured on initialisation of a class instance;
-    members with default values can be passed as keyword arguments to overwrite
-    this default behaviour.
+    members with default values can be passed as keyword arguments to the
+    constructor to overwrite this default behaviour.
 
     Use the .build() method to run the website build.
     """
@@ -90,6 +90,7 @@ class WebsiteBuilder:
             "Link",
             "Commit",
             "Triggered by",
+            "Session duration (s)",
         ]
     )
 
