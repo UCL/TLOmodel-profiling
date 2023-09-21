@@ -146,7 +146,7 @@ def write_page_link(
     :returns: String containing a link to the file.
     """
     if link is None:
-        return ""
+        return "No data available"
     elif relative_to is not None:
         hyperlink = os.path.relpath(link, relative_to)
     else:

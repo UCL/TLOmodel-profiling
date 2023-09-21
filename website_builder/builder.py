@@ -1,6 +1,5 @@
 import argparse
 from dataclasses import dataclass
-from datetime import datetime
 import os
 from pathlib import Path
 import shutil
@@ -12,7 +11,7 @@ import pandas as pd
 
 from _paths import DEFAULT_BUILD_DIR, GIT_ROOT, SRC_DIR
 from additional_statistics import STATS
-from git_tree import REPO, branch_contents
+from git_tree import REPO, branch_contents, file_contents
 from stat_plots import md_title_format, rst_title_format
 from utils import safe_remove_dir, replace_in_file, write_image_link, write_page_link
 
@@ -28,6 +27,7 @@ TABLE_EXTRA_COLUMNS = [
     "HTML",
     "Link",
     "Commit",
+    "location_on_source_branch",
 ]
 DF_COLS = (
     {"stats_file"} | set(TABLE_EXTRA_COLUMNS) | set(STATS.values("dataframe_col_name"))
@@ -206,32 +206,35 @@ class WebsiteBuilder:
         each row now knows how to link to its profiling run output.
         """
         for index, row in self.df.iterrows():
-            html_to_fetch = Path(row["html_output"])
-            if html_to_fetch is None:
+            if row["html_output"] is None:
+                self.df.loc[index, "HTML"] = None
+                # There was no HTML file produced for this run,
+                # so skip to the next
                 continue
-            else:
-                # Move rendered HTML output to the static folder,
-                # with the correct directory structure
-                if self.flatten_profiling_html:
-                    html_file_name = (
-                        self.profiling_html_dir / f"{html_to_fetch.stem}.html"
-                    )
-                else:
-                    html_file_name = (
-                        self.profiling_html_dir
-                        / f"{html_to_fetch.parent}"
-                        / f"{html_to_fetch.stem}.html"
-                    )
 
-                # Populate this row in the DataFrame with the location of the
-                # rendered HTML within the staging directory
-                self.df.loc[index, "HTML"] = html_file_name
+            # .stats.json files have absolute paths,
+            # but only record the _relative_ path of their HTML files, if they exist.
+            fetch_html_from = Path(row["stats_file"]).parent / Path(row["html_output"])
+
+            # Move rendered HTML output to the static folder,
+            # with the correct directory structure
+            if self.flatten_profiling_html:
+                html_file_name = self.profiling_html_dir / f"{fetch_html_from.name}"
+            else:
+                html_file_name = self.profiling_html_dir / fetch_html_from
+
+            # Add the profiling output file to the static pages in the website
+            file_contents(self.source_branch, fetch_html_from, html_file_name)
+
+            # Populate this row in the DataFrame with the location of the
+            # rendered HTML within the staging directory
+            self.df.loc[index, "HTML"] = html_file_name
 
         # Create clickable markdown links in the Links column
         self.df["Link"] = self.df["HTML"].apply(
             write_page_link,
             relative_to=self.staging_dir,
-            link_text="Profiling results",
+            link_text="Output",
         )
 
         return
