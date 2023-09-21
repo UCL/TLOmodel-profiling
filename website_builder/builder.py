@@ -1,10 +1,10 @@
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import os
 from pathlib import Path
 import shutil
 from subprocess import check_call
-from typing import Callable, ClassVar, Dict, Literal, Tuple
+from typing import Callable, ClassVar, Dict, List, Literal, Tuple
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -19,18 +19,25 @@ DESCRIPTION = (
     "Build the website deployment for the profiling results, "
     "placing the resulting files in the build directory."
 )
-
+# This pattern, where it appears in the template files,
+# will be replaced with the profiling runs lookup table.
 PROFILING_TABLE_MATCH_STRING = "<<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>"
+# This pattern, where it appears in the template files,
+# will be replaced with the plots for statistics that are tracked across runs
 RUN_PLOTS_MATCH_STRING = "<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>"
-# Automate this with Statistics objects!
-TABLE_EXTRA_COLUMNS = [
+
+# These columns need to be computed from the statistics that are read in
+# from the statistics files on the source branch
+DF_EXTRA_COLUMNS = [
     "HTML",
     "Link",
     "Commit",
     "location_on_source_branch",
 ]
+# These are all the column names that will be included in the DataFrame that
+# manages building of the website.
 DF_COLS = (
-    {"stats_file"} | set(TABLE_EXTRA_COLUMNS) | set(STATS.values("dataframe_col_name"))
+    {"stats_file"} | set(DF_EXTRA_COLUMNS) | set(STATS.values("dataframe_col_name"))
 )
 
 
@@ -39,6 +46,12 @@ class WebsiteBuilder:
     """
     Handles the construction of the gh-pages website, as per the process detailed
     in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
+
+    Build options are configured on initialisation of a class instance;
+    members with default values can be passed as keyword arguments to overwrite
+    this default behaviour.
+
+    Use the .build() method to run the website build.
     """
 
     # The git branch which holds the profiling results
@@ -63,6 +76,16 @@ class WebsiteBuilder:
     website_plaintext_format: Literal["md", "rst"] = "rst"
     # The figure size to set for all plots that will be produced
     size_of_plots: Tuple[int, int] = (12, 6)
+    # The columns from the website DataFrame to include in the profiling runs lookup table
+    # The columns will be ordered as provided in the list.
+    cols_for_lookup_table: List[str] = field(
+        default_factory=lambda: [
+            "Start time",
+            "Link",
+            "Commit",
+            "Triggered by",
+        ]
+    )
 
     @property
     def staging_dir(self) -> Path:
@@ -127,7 +150,11 @@ class WebsiteBuilder:
     plot_dict: ClassVar[Dict[str, str]]
 
     def __post_init__(self) -> None:
-        """Print information about the build which is to happen."""
+        """
+        After instantiation, check for possible value errors.
+
+        If everything is OK, print information about the build which is to happen.
+        """
         if (
             self.website_plaintext_format != "md"
             and self.website_plaintext_format != "rst"
@@ -136,7 +163,7 @@ class WebsiteBuilder:
                 f"{self.website_plaintext_format} is not markdown (md) or restructured text (rst)."
             )
 
-        print(f"Building into {self.build_dir} with;")
+        print(f"Will build website into {self.build_dir} with;")
         print(f"\tSource branch: {self.source_branch}.")
         print(f"\tClean build  : {self.clean_build}")
         print(f"\tPlaintext fmt: {self.website_plaintext_format}")
@@ -147,6 +174,9 @@ class WebsiteBuilder:
         """
         Build the website using the set configurations.
         """
+        print("BUILD STARTS")
+        print("============")
+
         # Remove the pre-build directory if it persists from
         # a previous build for any reason
         safe_remove_dir(self.staging_dir)
@@ -170,8 +200,7 @@ class WebsiteBuilder:
         # And write the hyperlink text to the necessary DataFrame column
         self.fetch_rendered_HTML()
 
-        # Having fetched the HTML files, we can now write the lookup table
-        # for the profiling outputs.
+        # Having fetched the HTML files, write the lookup table for the profiling outputs.
         self.write_profiling_lookup_table()
 
         # Produce plots of the selected statistics
@@ -180,7 +209,10 @@ class WebsiteBuilder:
         # Write the run statistics page of the website
         self.write_run_stats_page()
 
-        # Build the website using sphinx
+        # Build the website using sphinx.
+        # Provide the staging directory as the source folder,
+        # so that we render webpages with the lookup tables and plots
+        # rather than the placeholder text.
         check_call(
             [
                 "sphinx-build",
@@ -195,6 +227,8 @@ class WebsiteBuilder:
         # Remove the pre-build directory
         shutil.rmtree(self.staging_dir)
 
+        print("==========")
+        print("BUILD ENDS")
         return
 
     def fetch_rendered_HTML(self) -> None:
@@ -282,6 +316,7 @@ class WebsiteBuilder:
                     ax.set_title(s.plot_title)
                     fig.tight_layout()
                     fig.savefig(self.plot_folder / s.plot_svg_name, bbox_inches=None)
+
                     # Update dictionary that is tracking the plot just produced
                     self.plot_dict[s.plot_title] = self.plot_folder / s.plot_svg_name
 
@@ -318,18 +353,12 @@ class WebsiteBuilder:
         Create the source for the profiling results lookup table,
         by extracting the relevant columns from the DataFrame.
         """
-        COLS_FOR_LOOKUP_TABLE = [
-            "Start time",
-            "Link",
-            "Commit",
-            "Triggered by",
-        ]
         if self.website_plaintext_format == "rst":
-            lookup_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(
+            lookup_table = self.df[self.cols_for_lookup_table].to_markdown(
                 index=False, tablefmt="grid"
             )
         else:
-            lookup_table = self.df[COLS_FOR_LOOKUP_TABLE].to_markdown(index=False)
+            lookup_table = self.df[self.cols_for_lookup_table].to_markdown(index=False)
 
         # Write the lookup page into the templated file.
         replace_in_file(
