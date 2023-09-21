@@ -41,6 +41,38 @@ An overview of the steps in the ``build_site.py`` script is provided below:
 
 The ``Builder.df`` ``DataFrame`` keeps track of the summary stats and the correspondence between ``.stats.json`` files and HTML outputs.
 
+Handling statistics via ``Statistic`` objects
+---------------------------------------------
+
+The statistics that we gather from the profiling runs can have multiple purposes.
+Some are to be collected and plotted across multiple profiling runs; such as the CPU time or memory usage.
+Others may hold information specific to a particular profiling run that provides information about how to
+replicate the profiling results; like the commit SHA of the model that was profiled, workflow trigger
+that set the profiling run off, and the time the run was triggered.
+
+The statistics that are to be read from the profiling outputs are stored as ``Statistic`` objects (these can then be grouped into a ``StatisticsCollection``, which is a convenient wrapper class).
+The ``statistics.py`` file then defines a static variable, ``STATS``, which corresponds to the statistics that the
+profiling workflow on the main repository produce and which should be read-able from the output files.
+If the profiling workflow is edited to produce different or additional statistics, or changes the format in which they
+are saved, the corresponding entries in ``STATS`` should be updated / added accordingly.
+They will then automatically be handled by the ``Builder``.
+
+At a minimum, a ``Statistic`` must have a ``key_in_stats_file`` value specified.
+This corresponds to the key which appears in the statistics files on the source branch, and will be used to extract the *value* of that statistic from the files.
+
+If a ``plot_title`` is specified, the statistic is flagged as one to be plotted across multiple profiling runs.
+In this case, the ``run_statistics.rst`` webpage will include a plot of the value of this statistic across each of the profiling runs.
+``dataframe_col_name`` is the name of the column in the ``Builder`` ``DataFrame`` that will store the values of the statistic.
+By default, it will take the same value as the ``key_in_stats_file``, but can be overwritten by providing an alternative string.
+The ``dataframe_col_name`` is the header text used when writing the profiling lookup table.
+As such, it is only necessary to provide this value if the statistic is intended to be displayed in the lookup table, and its ``key_in_stats_file`` needs to be made human-readable.
+
+**Important:** If you intend to include a statistic in the lookup table, you will also need to make sure that its ``dataframe_col_name`` is passed to the list stored in ``Builder.cols_for_lookup_table``.
+
+The remaining attributes of the ``Statistic`` class control subtler elements of the plot to be produced, the datatype that the statistic is expected to be, and a default value to assign if the statistic cannot be read.
+There is also an optional ``converter`` attribute; that is a function which takes the value read from the ``key_in_stats_file``, operates on it, and produces the value to be saved as the statistic.
+This is useful for quickly adding derived statistics to the ``Builder`` ``DataFrame``, without needing to manually operate on ``DataFrame`` columns.
+
 Contents of the source branch
 -----------------------------
 
