@@ -10,7 +10,37 @@ from utils import timestamp_to_time
 @dataclass
 class Statistic:
     """
-    Class for tracking information about a statistic captured by the profiling run.
+    A general class for tracking information about a statistic captured by the profiling run.
+
+    The statistics that we gather from the profiling runs can have multiple purposes.
+    Some are to be collected and plotted across multiple profiling runs; such as the CPU time or memory usage.
+    Others may hold information specific to a particular profiling run that provides information about how to
+    replicate the profiling results; like the commit SHA of the TLOmodel that was profiled, workflow trigger
+    that set the profiling run off, and the time the run was triggered.
+
+    At a minimum, an instance of this class must have a key_in_stats_file value which corresponds to a key
+    which appears in the statistics files produced by the profiling workflow.
+    This key will be used to extract the _value_ of that statistic from the files.
+
+    If a plot_title is specified, the statistic is flagged as one to be plotted across multiple
+    profiling runs. In this case, the run statistics webpage will include a plot of the value of this
+    statistic over time.
+
+    The dtype argument can be used to ensure correct type casting occurs when reading statistics from files.
+    On a related note, the converter attribute can be passed a function which acts on the value read from the
+    key_in_stats_file and saves the result as the value of the statistic. This can be used to avoid manual steps
+    in the build process, such as converting timestamps (floats) to datetimes.
+
+    dataframe_col_name is the name of the column in the website DataFrame that will store the values
+    of the statistic. By default, it will take the same value as the key_in_stats_file. Overwriting it will
+    change how the column header is written in the profiling lookup table (if the column is included at all).
+
+    The plot_y_label and plot_svg_name can be configured to change the y-label axis which appears in the plot
+    and the name under which it is saved (if a plot is produced).
+
+    The default_value will be used when the statistic cannot be read from a file. This is best set to None,
+    since the DataFrame will then correctly identify it as missing data, however it can also be used to handle
+    cases where data is omitted from the statistics files in the event it takes the default value.
     """
 
     # The key in the stats file under which this can be found
@@ -58,12 +88,22 @@ class Statistic:
 
 class StatisticCollection:
     """
-    The collection of statistics that we wish to read from the additional
-    statistics files that are produced alongside the profiling runs.
+    A collection of Statistic objects.
+
+    Defines convenient wrapper functions for extracting one particular attribute from
+    each statistic in the collection, and for reading the values of all the statistics
+    from a file using a single function.
     """
 
     # A list of statistics that should be collected and plotted, where possible
     statistics: List[Statistic]
+
+    @property
+    def is_empty(self) -> bool:
+        """
+        Return True if this instance contains no Statistics.
+        """
+        return len(self.statistics) == 0
 
     def __init__(self, *stats: Statistic) -> None:
         self.statistics = stats
@@ -77,9 +117,6 @@ class StatisticCollection:
             return [getattr(s, key) for s in self.statistics]
         else:
             raise KeyError(f"Statistic has no attribute {key}")
-
-    def is_empty(self) -> bool:
-        return len(self.statistics) == 0
 
     def read_from_file(
         self, file: Path = None, branch: str = None, string: str = None

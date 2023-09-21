@@ -310,7 +310,7 @@ class WebsiteBuilder:
         # use matplotlib to produce the plot,
         # save the plot to the static staging directory,
         # and update our dictionary of plots so we know which statistic the plot corresponds to
-        if not STATS.is_empty():
+        if not STATS.is_empty:
             for s in [stat for stat in STATS.statistics if stat.produces_plot]:
                 # Check that there is numeric data to plot
                 if self.df[s.dataframe_col_name].first_valid_index() is not None:
