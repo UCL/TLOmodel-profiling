@@ -158,6 +158,7 @@ class WebsiteBuilder:
         for col in DF_COLS:
             self.df[col] = None
 
+        # This should _really_ be in the build method so we don't prematurely delete stuff when our setup goes wrong!
         self.build_dir = build_dir
         if clean_build:
             clean_build_directory(self.pre_build_dir)

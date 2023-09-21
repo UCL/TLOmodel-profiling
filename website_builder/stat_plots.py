@@ -27,7 +27,7 @@ def make_stats_plots(
     pyisession files, and the second from the additional statistics.
     """
     # The plots that will be created
-    plot_dict = {"CPU Time": plot_output_dir / "runtime_figure.svg"}
+    plot_dict = {"CPU time": plot_output_dir / "runtime_figure.svg"}
 
     # Create output directory if it doesn't exist
     if not os.path.exists(plot_output_dir):
@@ -35,12 +35,12 @@ def make_stats_plots(
 
     # Create a plot of the profiling session runtime
     runtime_fig, runtime_ax = plt.subplots(figsize=plot_size)
-    data.plot(x="Start Time", y="duration (s)", ax=runtime_ax)
+    data.plot(x="Start time", y="CPU time", ax=runtime_ax)
     runtime_ax.set_xlabel("Run triggered on")
     runtime_ax.set_ylabel("Runtime (s)")
     runtime_ax.set_title("Profiling script CPU runtime")
     runtime_fig.tight_layout()
-    runtime_fig.savefig(plot_dict["CPU Time"], bbox_inches=None)
+    runtime_fig.savefig(plot_dict["CPU time"], bbox_inches=None)
 
     # Create plots for every Statistic that we want to record
     stat_dict = dict()
@@ -50,7 +50,7 @@ def make_stats_plots(
             if data[s.dataframe_col_name].first_valid_index() is not None:
                 # Create and save plot
                 fig, ax = plt.subplots(figsize=plot_size)
-                data.plot(x="Start Time", y=s.dataframe_col_name, ax=ax)
+                data.plot(x="Start time", y=s.dataframe_col_name, ax=ax)
                 ax.set_xlabel("Run triggered on")
                 ax.set_ylabel(s.plot_y_label)
                 ax.set_title(s.plot_title)

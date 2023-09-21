@@ -24,6 +24,31 @@ def create_dump_folder(parent_dir: Path = DEFAULT_BUILD_DIR) -> Path:
     return dump_folder
 
 
+def safe_remove_dir(dir: Path) -> None:
+    """
+    Remove the directory and any files within in.
+    Only works when the directory provided is within the repository root,
+    raises a RuntimeError if this is not the case.
+
+    :param dir: Path to the directory to remove, along with its contents.
+    """
+    if GIT_ROOT not in dir.parents:
+        raise RuntimeError(
+            f"Cannot remove build directory {dir} as it is outside repository root {GIT_ROOT}, so could be harmful. Please manually clear the build directory."
+        )
+    elif os.path.exists(dir):
+        shutil.rmtree(dir)
+    return
+
+
+def timestamp_to_time(timestamp: float) -> str:
+    """
+    Convert a timestamp (float representing a number of seconds from a reference date)
+    into a human-readable date-time format.
+    """
+    return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d, %H:%M:%S")
+
+
 def clean_build_directory(build_dir: Path) -> None:
     """
     Remove the build directory and any files within in.
@@ -111,13 +136,18 @@ def write_page_link(
     For .md (markdown) format, the output string has the form:
     [link_text](hyperlink)
 
+    If the link provided is NoneType, return an empty string.
+
     :param link: Path to the image file to include.
     :param relative_to: If provided, the hyperlink will be provided relative to this location.
     :param alt_text: Alternate text to display for the hyperlink.
     :param format: The format of the output string; 'rst' (restructured text) or 'md' (markdown).
     :param format: The string encoding the link to the page.
+    :returns: String containing a link to the file.
     """
-    if relative_to is not None:
+    if link is None:
+        return ""
+    elif relative_to is not None:
         hyperlink = os.path.relpath(link, relative_to)
     else:
         hyperlink = str(hyperlink)
