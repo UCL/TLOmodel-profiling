@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from _paths import DEFAULT_BUILD_DIR, GIT_ROOT, SRC_DIR
-from statistics import STATS
+
 from git_tree import REPO, branch_contents, file_contents
+from profiling_statistics import STATS
 from utils import (
     md_title_format,
     replace_in_file,
