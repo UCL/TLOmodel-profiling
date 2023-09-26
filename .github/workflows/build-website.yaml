@@ -41,7 +41,7 @@ jobs:
       - name: Install Python requirements 
         run: pip install -r requirements.txt
 
-      - name: Pre-process profiling results
+      - name: Build website from profiling results
         run: python website_builder/builder.py -c -f results
 
       - name: Upload the generated HTML
