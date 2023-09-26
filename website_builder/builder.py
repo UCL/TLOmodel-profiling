@@ -43,7 +43,7 @@ DF_EXTRA_COLUMNS = [
 ]
 # These are all the column names that will be included in the DataFrame that
 # manages building of the website.
-DF_COLS = (
+DF_COLS = list(
     {"stats_file"} | set(DF_EXTRA_COLUMNS) | set(STATS.values("dataframe_col_name"))
 )
 
