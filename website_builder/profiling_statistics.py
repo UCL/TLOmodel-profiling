@@ -12,63 +12,62 @@ class Statistic:
     """
     A general class for tracking information about a statistic captured by the profiling run.
 
-    The statistics that we gather from the profiling runs can have multiple purposes.
-    Some are to be collected and plotted across multiple profiling runs; such as the CPU time or memory usage.
-    Others may hold information specific to a particular profiling run that provides information about how to
-    replicate the profiling results; like the commit SHA of the TLOmodel that was profiled, workflow trigger
-    that set the profiling run off, and the time the run was triggered.
-
-    At a minimum, an instance of this class must have a key_in_stats_file value which corresponds to a key
+    An instance of this class must have a ``key_in_stats_file`` corresponding to a key
     which appears in the statistics files produced by the profiling workflow.
-    This key will be used to extract the _value_ of that statistic from the files.
+    This key will be used to extract the value of that statistic from the files.
 
-    If a plot_title is specified, the statistic is flagged as one to be plotted across multiple
-    profiling runs. In this case, the run statistics webpage will include a plot of the value of this
-    statistic over time.
+    If a ``plot_title`` is specified, the statistic is flagged to be plotted across multiple
+    profiling runs. The corresponding webpage will include a plot of the value of this
+    statistic across all available profiling runs.
 
-    The dtype argument can be used to ensure correct type casting occurs when reading statistics from files.
-    On a related note, the converter attribute can be passed a function which acts on the value read from the
-    key_in_stats_file and saves the result as the value of the statistic. This can be used to avoid manual steps
+    The ``dtype`` member can be used to ensure correct type casting occurs when reading statistics from files.
+    Similarly, the ``converter`` attribute can be passed a function which acts on the value read from the statistics file, and saves the result as the value of the statistic. This can be used to avoid manual steps
     in the build process, such as converting timestamps (floats) to datetimes.
 
-    dataframe_col_name is the name of the column in the website DataFrame that will store the values
-    of the statistic. By default, it will take the same value as the key_in_stats_file. Overwriting it will
-    change how the column header is written in the profiling lookup table (if the column is included at all).
+    ``dataframe_col_name`` is the name displayed in the lookup table for the statistic, and also the column name used internally by the :class:`builder.Builder` ``DataFrame``.
 
-    The plot_y_label and plot_svg_name can be configured to change the y-label axis which appears in the plot
-    and the name under which it is saved (if a plot is produced).
+    A ``plot_y_label`` and ``plot_svg_name`` can be configured to change elements of the plot that is produced.
 
-    The default_value will be used when the statistic cannot be read from a file. This is best set to None,
-    since the DataFrame will then correctly identify it as missing data, however it can also be used to handle
-    cases where data is omitted from the statistics files in the event it takes the default value.
+    The ``default_value`` will be used when the statistic cannot be read from a file.
+
+    :param key_in_stats_file: Key in the statistics files produced by the profiling workflow that holds the value this statistic.
+    :type key_in_stats_file: str
+    :param plot_title: The title to display in the plot (showing change over time) of this statistic. If ``None`` (default), then no plot will be produced for this statistic.
+    :type plot_title: str, optional
+    :param dtype: The Python ``type`` that the statistic should be read as. Defaults to ``float``.
+    :type dtype: type, optional
+    :param dataframe_col_name: The column name in the :class:`builder.Builder` ``DataFrame`` and lookup table to use for this statistic. If ``None`` (default), use the ``key_in_stats_file`` value.
+    :type dataframe_col_name: str, optional
+    :param plot_y_label: The y-axis label to assign to the plot of this statistic across profiling runs. If ``None`` (default), use the ``plot_title``.
+    :type plot_y_label: str, optional
+    :param plot_svg_name: Name under which to save the plot svg that will be produced. If ``None`` (default), auto-generate a unique filename.
+    :type plot_svg_name: str, optional
+    :param default_value: Default value to assign to the statistic if it cannot be read or is missing from a statistics file. Defaults to ``None`` to flag missing data.
+    :type default_value: Any, optional
+    :param converter: A function to apply to the value read from the statistics file, with the result saved as the value of the statistic.
+    :type converter: Callable[[Any] Any], optional
     """
 
-    # The key in the stats file under which this can be found
     key_in_stats_file: str
-    # The title to assign to the plot of this statistic across profiling runs
-    # If this is NoneType, this statistic does not produce a plot
     plot_title: str = None
-    # Type of variable the statistic should be read into
     dtype: type = float
-    # The column name in the website builder DataFrame where this statistic is stored
     dataframe_col_name: str = None
-    # The y-axis label to assign to the plot of this statistic across profiling runs
     plot_y_label: str = None
-    # Name under which to save the plot svg that will be produced
     plot_svg_name: str = None
-
-    # Function to apply to any value read in from the stats file,
-    # to convert the data input to the desired format
     converter: Callable[[Any], Any] = None
-    # Default value to apply to the statistic if it cannot be read from
-    # a file.
     default_value: Any = None
 
     def __post_init__(self) -> None:
+        """
+        Post-instantiation checks:
+        - If no DataFrame column provided, use the key from the stats file
+        - If producing a plot, autofill y-axis label and filename if not provided
+        """
         # If no DataFrame column name was provided,
         # use the key from the file it was read from as a proxy
         if self.dataframe_col_name is None:
             self.dataframe_col_name = self.key_in_stats_file
+
         # If we are producing a plot, ensure that plot information
         # is populated, and assign defaults if not.
         if self.plot_title is not None:
@@ -81,8 +80,13 @@ class Statistic:
             if len(self.plot_svg_name) < 4 or self.plot_svg_name[-4:] != ".svg":
                 self.plot_svg_name += ".svg"
 
+        return
+
     @property
     def produces_plot(self) -> bool:
+        """
+        Whether this statistic should produce a plot of its value across profiling runs.
+        """
         return self.plot_title is not None
 
 
@@ -93,9 +97,11 @@ class StatisticCollection:
     Defines convenient wrapper functions for extracting one particular attribute from
     each statistic in the collection, and for reading the values of all the statistics
     from a file using a single function.
+
+    :param statistics: A list of statistics that should be collected - and plotted where requested.
+    :type statistics: List[:class:`profiling_statistics.Statistic`]
     """
 
-    # A list of statistics that should be collected and plotted, where possible
     statistics: List[Statistic]
 
     @property
@@ -108,15 +114,16 @@ class StatisticCollection:
     def __init__(self, *stats: Statistic) -> None:
         self.statistics = stats
 
-    def values(self, key: str) -> List[Union[int, float, str]]:
+    def values(self, attribute: str) -> List[Union[int, float, str]]:
         """
-        Fetch the values stored under the key provided,
-        of each of the Statistics in this collection.
+        For each Statistic in the collection, return the value stored under the attribute provided.
+
+        :returns: ``[s.attribute for s in self.statistics]``
         """
-        if key in Statistic.__annotations__.keys():
-            return [getattr(s, key) for s in self.statistics]
+        if attribute in Statistic.__annotations__.keys():
+            return [getattr(s, attribute) for s in self.statistics]
         else:
-            raise KeyError(f"Statistic has no attribute {key}")
+            raise KeyError(f"Statistic has no attribute {attribute}")
 
     def read_from_file(
         self, file: Path = None, branch: str = None, string: str = None
@@ -132,8 +139,7 @@ class StatisticCollection:
         :param file: A json-readable file containing values of the statistics in this collection.
         :param branch: If provided, read the file from an alternative branch to the one that is currently checked-out.
         :param string: A string representing a parsed json file, which is of the format described previously.
-        :returns: A list of values that correspond to the values of the statistics in this collection,
-        extracted from the input file.
+        :returns: A list of values that correspond to the values of the statistics in this collection, extracted from the input file.
         """
         if (file is not None) and (string is not None):
             raise RuntimeError(
@@ -170,8 +176,8 @@ class StatisticCollection:
         return values
 
 
-# The STATIC collection of statistics that we are planning to extract
-# from the profiling runs.
+#: The STATIC collection of statistics that we are planning to extract
+#: from the profiling runs.
 STATS = StatisticCollection(
     Statistic("sha", dtype=str),
     Statistic("trigger", dtype=str, dataframe_col_name="Triggered by"),
