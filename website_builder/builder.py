@@ -52,39 +52,43 @@ DF_COLS = (
 class Builder:
     """
     Handles the construction of the gh-pages website, as per the process detailed
-    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
+    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html.
 
     Build options are configured on initialisation of a class instance;
     members with default values can be passed as keyword arguments to the
     constructor to overwrite this default behaviour.
 
     Use the .build() method to run the website build.
+
+    :param source_branch: The git repository branch that holds the profiling results.
+    :type source_branch: str
+    :param build_dir: The directory into which to build the website.
+    :type build_dir: str
+    :param flatten_profiling_html: If ``True`` (default), static HTML files generated from profiling session outputs will be placed into the profiling_html_dir in a flat structure. If ``False``, they will retain the YYYY/MM/DD/{name}.html structure of the source branch.
+    :type flatten_profiling_html: bool, optional
+    :param clean_build: If ``True`` (default), the build directory will be purged before starting.
+    :type clean_build: bool, optional
+    :param web_source_dir: Folder containing website source and template files. Default is ./source.
+    :type web_source_dir: Path, optional
+    :param stats_file_ext: The file extension of the statistics files on the source branch. Default is ``.stats.json``.
+    :type stats_file_ext: str, optional
+    :param website_plaintext_format: Whether the website templates to be edited are MarkDown (md) or ReStructured Text (rst) (default).
+    :type website_plaintext_format: Literal["md", "rst"], optional
+    :param size_of_plots: The figure size to set for all plots that will be produced. Default is (12, 6).
+    :type size_of_plots: Tuple[int, int], optional
+    :param cols_for_lookup_table: The columns from the website DataFrame to include in the profiling runs lookup table, the columns will be ordered as provided in the list. Default is ``[Start time, Link, Commit, Triggered by, Session duration (s)]``.
+    :type cols_for_lookup_table: List[str], optional
     """
 
-    # The git branch which holds the profiling results
     source_branch: str
-    # The directory to build the website in
     build_dir: str
 
-    # If True, static HTML files generated from profiling session outputs will be
-    # placed into the profiling_html_dir in a flat structure.
-    # If False, they will retain the YYYY/MM/DD/{name}.html structure of the
-    # source branch.
     flatten_profiling_html: bool = True
-    # If True, the build directory will be purged before starting
-    # a new build.
     clean_build: bool = True
-    # Folder containing website source and template files
     web_source_dir: Path = SRC_DIR
-    # The file extension of the statistics files on the source branch
     stats_file_ext: str = "stats.json"
-    # Whether the website templates to be edited are MarkDown (md)
-    # or ReStructured Text (rst)
     website_plaintext_format: Literal["md", "rst"] = "rst"
-    # The figure size to set for all plots that will be produced
     size_of_plots: Tuple[int, int] = (12, 6)
-    # The columns from the website DataFrame to include in the profiling runs lookup table
-    # The columns will be ordered as provided in the list.
     cols_for_lookup_table: List[str] = field(
         default_factory=lambda: [
             "Start time",
@@ -101,9 +105,10 @@ class Builder:
         The intermediate folder that sphinx-build will use as its source for building the website.
         This folder will contain static files that have to be generated from the results stored
         on the source branch; such as:
-        * Static HTML files from profiling runs,
-        * The rst files with the lookup tables inserted,
-        * The run-statistics plots.
+
+        - Static HTML files from profiling runs,
+        - The rst files with the lookup tables inserted,
+        - The run-statistics plots.
         """
         return Path(str(self.build_dir) + "-pre-build")
 
@@ -285,6 +290,9 @@ class Builder:
         """
         Format the text string provided into a plaintext title,
         in the format corresponding to self.website_plaintext_format.
+
+        :param text: String to format into a title.
+        :type text: str
         """
         title_writer: Callable[[str], str]
         if self.website_plaintext_format == "rst":

@@ -2,6 +2,7 @@ Developer Documentation
 =======================
 
 - :ref:`Build steps <developers:build steps>`
+- :ref:`Triggering a build <developers:triggering a build>`
 - :ref:`Contents of the Source Branch <developers:contents of the source branch>`
 - :ref:`Glossary <developers:glossary of terms>`
 
@@ -18,6 +19,20 @@ This triggers the `build-website <https://github.com/UCL/TLOmodel-profiling/blob
 This script will parse the files on the `source branch`_, as well as update the developer docs with any changes, and deploy the new website over the old one.
 
 On PRs, the profiling results HTML and developer docs HTML are required to build successfully before merging, however deployment only takes place when the ``build-website`` workflow is run on ``main``, or triggered as a direct result of new profiling results being pushed.
+
+Triggering a build
+------------------
+
+The build can be triggered by passing the ``website_builder/builder.py`` script to a Python interpreter with the requirements installed;
+
+.. code-block:: bash
+
+   python website_builder/builder.py
+
+You may pass the ``-h`` or ``--help`` flags for the command line help, which provides a few convenience wrappers for the :class:`builder.Builder` class that manages the website build.
+Configuration options include specifying a particular directory to place the built website into, forcing the removal of any previously (failed or completed) builds, and toggling the structure of static HTML files from profiling outputs into a flat directory or nested directory structure.
+
+The API to the class can also be used to trigger builds - see the :doc:`corresponding API reference <api/builder>` for more information.
 
 Build Steps
 -----------
