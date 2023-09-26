@@ -13,6 +13,7 @@ Welcome to the TLO Model: Profiling Documentation
    profiling
    run-statistics
    developers
+   api-reference
 
 This is a repository for storing profiling outputs from the TLOmodel, an epidemiology modelling framework for the Thanzi la Onse project.
 
@@ -33,6 +34,11 @@ Developer Documentation
 -----------------------
 
 For developer information about this repository; such as how the repository is organised, how the website is built, and documentation for the functions and scripts, :doc:`please see the online documentation <developers>`.
+
+API Reference
+-------------
+
+For details and usage examples of the code in this repository, please see the :doc:`API reference <api-reference>` page.
 
 Indices and tables
 ==================

@@ -49,7 +49,7 @@ DF_COLS = (
 
 
 @dataclass
-class WebsiteBuilder:
+class Builder:
     """
     Handles the construction of the gh-pages website, as per the process detailed
     in http://github-pages.ucl.ac.uk/TLOmodel-profiling/repo-overview.html.
@@ -430,7 +430,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    builder = WebsiteBuilder(
+    builder = Builder(
         # https://github.com/python/cpython/issues/59330#issuecomment-1533235029
         getattr(args, "source-branch"),
         Path(os.path.abspath(args.build_dir)),

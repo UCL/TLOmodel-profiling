@@ -3,8 +3,9 @@ Developer Documentation
 
 - :ref:`Build steps <developers:build steps>`
 - :ref:`Contents of the Source Branch <developers:contents of the source branch>`
-- :ref:`API Reference <developers:api reference>`
 - :ref:`Glossary <developers:glossary of terms>`
+
+See also the :doc:`API Reference <api-reference>` for detailed code use.
 
 Overview
 --------
@@ -64,28 +65,6 @@ In addition to the ``.pyisession`` files, additional statistics that cannot be s
 The additional statistics are assumed to be in ``JSON`` files that carry the same filename as their profiling output counterpart, but with the ``.stats.json`` extension.
 These files are processed by the build script when producing the additional statistics page.
 Additional statistics are not required to be present; missing entries will be skipped or highlighted when rendering the corresponding page.
-
-API Reference
--------------
-
-The statistics that we gather from the profiling runs can have multiple purposes.
-Some are to be collected and plotted across multiple profiling runs; such as the CPU time or memory usage.
-Others may hold information specific to a particular profiling run that provides information about how to
-replicate the profiling results; like the commit SHA of the model that was profiled, workflow trigger
-that set the profiling run off, and the time the run was triggered.
-
-The statistics that are to be read from the profiling outputs are stored as ``Statistic`` objects (these can then be grouped into a ``StatisticsCollection``, which is a convenient wrapper class).
-The ``profiling_statistics.py`` file then defines a static variable, ``STATS``, which corresponds to the statistics that the profiling workflow on the main repository produce and which should be read-able from the output files.
-If the profiling workflow is edited to produce different or additional statistics, or changes the format in which they
-are saved, the corresponding entries in ``STATS`` should be updated / added accordingly.
-They will then automatically be handled by the ``Builder``.
-
-More information and examples can be found in the :doc:`API documentation <api/profiling-statistics>`:
-
-.. toctree::
-   :maxdepth: 3
-   
-   api/profiling-statistics
 
 Glossary of Terms
 -----------------
