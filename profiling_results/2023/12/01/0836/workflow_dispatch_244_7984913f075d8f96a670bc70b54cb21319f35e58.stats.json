@@ -1,0 +1,18 @@
+{
+  "start_time": 1701419806.538712,
+  "duration": 34556.88398742676,
+  "cpu_time": 34551.6423396,
+  "disk_reads": 1142,
+  "disk_writes": 52163,
+  "disk_read_MB": 43.138048,
+  "disk_write_MB": 1614.56128,
+  "disk_read_s": 0.321,
+  "disk_write_s": 37.472,
+  "pop_df_rows": 62000,
+  "pop_df_cols": 448,
+  "pop_df_mem_MB": 130.371513,
+  "pop_df_times_extended": 12,
+  "sha": "7984913f075d8f96a670bc70b54cb21319f35e58",
+  "trigger": "workflow_dispatch",
+  "html_output": "profiling_results/2023/12/01/0836/workflow_dispatch_244_7984913f075d8f96a670bc70b54cb21319f35e58.html"
+}
