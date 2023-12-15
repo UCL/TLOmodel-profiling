@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Supporting functions using GitPython &#8212; TLO Model: Profiling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=039e1c02" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Handling Statistics" href="profiling-statistics.html" />
+    <link rel="prev" title="Building the website" href="builder.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="supporting-functions-using-gitpython">
+<h1>Supporting functions using <code class="docutils literal notranslate"><span class="pre">GitPython</span></code><a class="headerlink" href="#supporting-functions-using-gitpython" title="Link to this heading">¶</a></h1>
+<p>The codebase uses <code class="docutils literal notranslate"><span class="pre">GitPython</span></code> to fetch the files from the source branch containing profiling outputs.
+This is necessary to avoid manually copying across files from the source branch every time we want to rebuild, avoid tracking the results files alongside the code that processes them, and to provide some buffer against the automatic workflow commit overwriting the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p>
+<p>This has the added advantage that we can <em>read</em> files on the source branch one-at-a-time to minimise memory usage.</p>
+<dl class="py function" id="module-git_tree">
+<dt class="sig sig-object py" id="git_tree.branch_contents">
+<span class="sig-prename descclassname"><span class="pre">git_tree.</span></span><span class="sig-name descname"><span class="pre">branch_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branch_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#git_tree.branch_contents" title="Link to this definition">¶</a></dt>
+<dd><p>List the contents of a given branch in the repository, optionally matching
+the pattern provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>branch_name</strong> (<em>str</em>) – Name of a branch in the repository tree.</p></li>
+<li><p><strong>match_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – Pattern to match in filenames.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Paths to the files on the branch that match the pattern.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="git_tree.file_contents">
+<span class="sig-prename descclassname"><span class="pre">git_tree.</span></span><span class="sig-name descname"><span class="pre">file_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branch_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#git_tree.file_contents" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches the content of a file on another branch, returning it as a character string.</p>
+<p>If the write_to parameter is specified, contents will be dumped to the file location
+provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>branch_name</strong> (<em>str</em>) – Name of a branch in the repository tree.</p></li>
+<li><p><strong>path_to_file</strong> (<em>Path</em>) – Path to the file on the target branch to fetch.</p></li>
+<li><p><strong>write_to</strong> (<em>Path</em><em>, </em><em>optional</em>) – If provided, write the contents of the file to this location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The content (as a string) of the requested file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="git_tree.list_paths">
+<span class="sig-prename descclassname"><span class="pre">git_tree.</span></span><span class="sig-name descname"><span class="pre">list_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('.')</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#git_tree.list_paths" title="Link to this definition">¶</a></dt>
+<dd><p>Return a generator that iterates over all files (with absolute paths)
+recursively, starting in the directory provided on the given tree.</p>
+<p>This method is recursive so should not be used on deep / tall tree structures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_tree</strong> – Tree (branch/sub-branch/repository) to recurse through.</p></li>
+<li><p><strong>path</strong> (<em>Path</em><em>, </em><em>optional.</em>) – The folder in which to begin recursing. Default is the root of the tree.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of Paths to the files that were found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TLO Model: Profiling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../profiling.html">Profiling Runs: Lookup Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../run-statistics.html">Run Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api-reference.html">API Reference</a><ul>
+      <li>Previous: <a href="builder.html" title="previous chapter">Building the website</a></li>
+      <li>Next: <a href="profiling-statistics.html" title="next chapter">Handling Statistics</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Thanzi la Onse.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api/git-tree.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

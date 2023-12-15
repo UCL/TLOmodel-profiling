@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building the website &#8212; TLO Model: Profiling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=039e1c02" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supporting functions using GitPython" href="git-tree.html" />
+    <link rel="prev" title="API Reference" href="../api-reference.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="building-the-website">
+<h1>Building the website<a class="headerlink" href="#building-the-website" title="Link to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="#builder.Builder" title="builder.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder</span></code></a> class is the object that is responsible for assembling the profiling website, as well as the developer documentation.
+The choice to use a class over a script or function was due to a combination of minimising parameter passing balanced against the ability to break the process of building the website into manageable, human-readable chunks.</p>
+<p>The website build can be triggered by passing the <code class="docutils literal notranslate"><span class="pre">website_builder/builder.py</span></code> script to Python on the command line.
+You may pass the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option for additional options, which are just convenience wrappers for <a class="reference internal" href="#builder.Builder" title="builder.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder</span></code></a> class functionality.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>website_builder/builder.py
+</pre></div>
+</div>
+<p>It is also worth mentioning a few constants that are defined in this module.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PROFILING_TABLE_MATCH_STRING</span></code>: This string appears in <cite>profiling.rst</cite>, and is replaced with the contents of the lookup table that is inserted into that page.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RUN_PLOTS_MATCH_STRING</span></code>: This string appears in <cite>run-statistics.rst</cite>, and is replaced with the various plots that are produced for the <a class="reference internal" href="profiling-statistics.html#profiling_statistics.Statistic" title="profiling_statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">profiling_statistics.Statistic</span></code></a> instances that require plotting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DF_EXTRA_COLUMNS</span></code>: These are additional columns that need to be computed from the statistics read in, or from examination of the source branch tree structure.</p></li>
+</ul>
+<section id="the-builder">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Builder</span></code><a class="headerlink" href="#the-builder" title="Link to this heading">¶</a></h2>
+<p>The heavy-lifting of the website construction is done by <a class="reference internal" href="#builder.Builder" title="builder.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder</span></code></a>.
+Build options are set on initialisation (although there is nothing stopping you from editing attribute values of a class instance at runtime), and the construction can be invoked with the <a class="reference internal" href="#builder.Builder.build" title="builder.Builder.build"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder.build</span></code></a> method.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="builder.Builder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.</span></span><span class="sig-name descname"><span class="pre">Builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_branch:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_dir:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_profiling_html:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_build:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">web_source_dir:</span> <span class="pre">~pathlib.Path</span> <span class="pre">=</span> <span class="pre">PosixPath('/home/runner/work/TLOmodel-profiling/TLOmodel-profiling/source')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_file_ext:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'stats.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">website_plaintext_format:</span> <span class="pre">~typing.Literal['md'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'rst']</span> <span class="pre">=</span> <span class="pre">'rst'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_of_plots:</span> <span class="pre">~typing.Tuple[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int]</span> <span class="pre">=</span> <span class="pre">(12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_for_lookup_table:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#builder.Builder" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the construction of the gh-pages website, as per the process detailed
+in <a class="reference external" href="http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html">http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html</a>.</p>
+<p>Build options are configured on initialisation of a class instance;
+members with default values can be passed as keyword arguments to the
+constructor to overwrite this default behaviour.</p>
+<p>Use the .build() method to run the website build.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_branch</strong> (<em>str</em>) – The git repository branch that holds the profiling results.</p></li>
+<li><p><strong>build_dir</strong> (<em>str</em>) – The directory into which to build the website.</p></li>
+<li><p><strong>flatten_profiling_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), static HTML files generated from profiling session outputs will be placed into the profiling_html_dir in a flat structure. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, they will retain the YYYY/MM/DD/{name}.html structure of the source branch.</p></li>
+<li><p><strong>clean_build</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), the build directory will be purged before starting.</p></li>
+<li><p><strong>web_source_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) – Folder containing website source and template files. Default is ./source.</p></li>
+<li><p><strong>stats_file_ext</strong> (<em>str</em><em>, </em><em>optional</em>) – The file extension of the statistics files on the source branch. Default is <code class="docutils literal notranslate"><span class="pre">.stats.json</span></code>.</p></li>
+<li><p><strong>website_plaintext_format</strong> (<em>Literal</em><em>[</em><em>&quot;md&quot;</em><em>, </em><em>&quot;rst&quot;</em><em>]</em><em>, </em><em>optional</em>) – Whether the website templates to be edited are MarkDown (md) or ReStructured Text (rst) (default).</p></li>
+<li><p><strong>size_of_plots</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – The figure size to set for all plots that will be produced. Default is (12, 6).</p></li>
+<li><p><strong>cols_for_lookup_table</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – The columns from the website DataFrame to include in the profiling runs lookup table, the columns will be ordered as provided in the list. Default is <code class="docutils literal notranslate"><span class="pre">[Start</span> <span class="pre">time,</span> <span class="pre">Link,</span> <span class="pre">Commit,</span> <span class="pre">Triggered</span> <span class="pre">by,</span> <span class="pre">Session</span> <span class="pre">duration</span> <span class="pre">(s)]</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#builder.Builder.build" title="Link to this definition">¶</a></dt>
+<dd><p>Build the website using the set configurations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.fetch_rendered_HTML">
+<span class="sig-name descname"><span class="pre">fetch_rendered_HTML</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#builder.Builder.fetch_rendered_HTML" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch rendered profiling sessions from the source branch,
+saving the HTML files to the static directory in the staging area.</p>
+<p>This also populates the “Link” column of the DataFrame, so that
+each row now knows how to link to its profiling run output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.format_as_title">
+<span class="sig-name descname"><span class="pre">format_as_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#builder.Builder.format_as_title" title="Link to this definition">¶</a></dt>
+<dd><p>Format the text string provided into a plaintext title,
+in the format corresponding to self.website_plaintext_format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – String to format into a title.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.make_stats_plots">
+<span class="sig-name descname"><span class="pre">make_stats_plots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#builder.Builder.make_stats_plots" title="Link to this definition">¶</a></dt>
+<dd><p>Create and save plots of the statistics that are flagged as such.</p>
+<p>This produces a dictionary whose keys are the names of the plots, and whose values are
+the paths to the images of those plots.
+This dictionary populates the self.plot_dict attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.parse_stats_files_to_df">
+<span class="sig-name descname"><span class="pre">parse_stats_files_to_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#builder.Builder.parse_stats_files_to_df" title="Link to this definition">¶</a></dt>
+<dd><p>Locate all statistics files on the source branch,
+and populate the DataFrame with their information.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.plot_folder">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_folder</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.plot_folder" title="Link to this definition">¶</a></dt>
+<dd><p>The folder within the build directory that will contain any plots
+that are generated from the statistics collected across the profiling runs.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.profiling_html_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">profiling_html_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.profiling_html_dir" title="Link to this definition">¶</a></dt>
+<dd><p>The folder within the build directory that will contain any HTML files
+generated from profiling sessions.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.profiling_table_file">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">profiling_table_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.profiling_table_file" title="Link to this definition">¶</a></dt>
+<dd><p>The file containing the
+&lt;&lt;&lt;MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT&gt;&gt;&gt;,</p>
+<p>which is where the profiling results lookup table will be inserted.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.staging_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">staging_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.staging_dir" title="Link to this definition">¶</a></dt>
+<dd><p>The intermediate folder that sphinx-build will use as its source for building the website.
+This folder will contain static files that have to be generated from the results stored
+on the source branch; such as:</p>
+<ul class="simple">
+<li><p>Static HTML files from profiling runs,</p></li>
+<li><p>The rst files with the lookup tables inserted,</p></li>
+<li><p>The run-statistics plots.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.static_folder">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">static_folder</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.static_folder" title="Link to this definition">¶</a></dt>
+<dd><p>The folder containing static html files that are to be linked to.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="builder.Builder.statistics_plots_file">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">statistics_plots_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.statistics_plots_file" title="Link to this definition">¶</a></dt>
+<dd><p>The file containing the
+&lt;&lt;&lt;MATCH_PATTERN_FOR_RUN_STATS_PLOTS&gt;&gt;&gt;,</p>
+<p>which is where the run statistics plots will be inserted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.write_profiling_lookup_table">
+<span class="sig-name descname"><span class="pre">write_profiling_lookup_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#builder.Builder.write_profiling_lookup_table" title="Link to this definition">¶</a></dt>
+<dd><p>Create the source for the profiling results lookup table,
+by extracting the relevant columns from the DataFrame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="builder.Builder.write_run_stats_page">
+<span class="sig-name descname"><span class="pre">write_run_stats_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#builder.Builder.write_run_stats_page" title="Link to this definition">¶</a></dt>
+<dd><p>Write the text for the webpage that will display statistics which are
+plotted across multiple profiling runs, then insert this into the webpage.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TLO Model: Profiling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../profiling.html">Profiling Runs: Lookup Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../run-statistics.html">Run Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api-reference.html">API Reference</a><ul>
+      <li>Previous: <a href="../api-reference.html" title="previous chapter">API Reference</a></li>
+      <li>Next: <a href="git-tree.html" title="next chapter">Supporting functions using <code class="docutils literal notranslate"><span class="pre">GitPython</span></code></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Thanzi la Onse.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api/builder.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

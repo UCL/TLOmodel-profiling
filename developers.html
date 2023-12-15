@@ -13,6 +13,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api-reference.html" />
     <link rel="prev" title="Run Statistics" href="run-statistics.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -32,36 +33,57 @@
             
   <section id="developer-documentation">
 <h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Link to this heading">¶</a></h1>
-<p id="developers">The purpose of this repository is to provide a storage space for profiling runs performed on the <a class="reference external" href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a>, and a convenient way to page through the results that doesn’t require developers to download the results for themselves.
+<ul class="simple">
+<li><p><a class="reference internal" href="#build-steps"><span class="std std-ref">Build steps</span></a></p></li>
+<li><p><a class="reference internal" href="#triggering-a-build"><span class="std std-ref">Triggering a build</span></a></p></li>
+<li><p><a class="reference internal" href="#contents-of-the-source-branch"><span class="std std-ref">Contents of the Source Branch</span></a></p></li>
+<li><p><a class="reference internal" href="#glossary-of-terms"><span class="std std-ref">Glossary</span></a></p></li>
+</ul>
+<p>See also the <a class="reference internal" href="api-reference.html"><span class="doc">API Reference</span></a> for detailed code use.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The purpose of this repository is to provide a storage space for profiling runs performed on the <a class="reference external" href="https://github.com/UCL/TLOmodel">Thanzi la Onse model</a>, and a convenient way to page through the results that doesn’t require developers to download the results for themselves.
 The result is this repository, or specifically <a class="reference external" href="http://github-pages.ucl.ac.uk/TLOmodel-profiling">the pages deployment</a>.</p>
 <p>Profiling session outputs, <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files, are pushed from the <a class="reference internal" href="#model-repository">model repository</a> when the profiling workflow has completed to the <a class="reference internal" href="#source-branch">source branch</a>.
 This triggers the <a class="reference external" href="https://github.com/UCL/TLOmodel-profiling/blob/main/.github/workflows/build-website.yaml">build-website</a> workflow which will run the <a class="reference internal" href="#build-script">build script</a>.
 This script will parse the files on the <a class="reference internal" href="#source-branch">source branch</a>, as well as update the developer docs with any changes, and deploy the new website over the old one.</p>
 <p>On PRs, the profiling results HTML and developer docs HTML are required to build successfully before merging, however deployment only takes place when the <code class="docutils literal notranslate"><span class="pre">build-website</span></code> workflow is run on <code class="docutils literal notranslate"><span class="pre">main</span></code>, or triggered as a direct result of new profiling results being pushed.</p>
+</section>
+<section id="triggering-a-build">
+<h2>Triggering a build<a class="headerlink" href="#triggering-a-build" title="Link to this heading">¶</a></h2>
+<p>The build can be triggered by passing the <code class="docutils literal notranslate"><span class="pre">website_builder/builder.py</span></code> script to a Python interpreter with the requirements installed;</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>website_builder/builder.py
+</pre></div>
+</div>
+<p>You may pass the <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code> flags for the command line help, which provides a few convenience wrappers for the <a class="reference internal" href="api/builder.html#builder.Builder" title="builder.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder</span></code></a> class that manages the website build.
+Configuration options include specifying a particular directory to place the built website into, forcing the removal of any previously (failed or completed) builds, and toggling the structure of static HTML files from profiling outputs into a flat directory or nested directory structure.</p>
+<p>The API to the class can also be used to trigger builds - see the <a class="reference internal" href="api/builder.html"><span class="doc">corresponding API reference</span></a> for more information.</p>
+</section>
 <section id="build-steps">
 <h2>Build Steps<a class="headerlink" href="#build-steps" title="Link to this heading">¶</a></h2>
 <p>The website consists of two parts:</p>
 <ul class="simple">
-<li><p>The profiling results and statistics, which are created by the scripts in <code class="docutils literal notranslate"><span class="pre">website_builder</span></code> and the results stored on the <a class="reference internal" href="#source-branch">source branch</a>.</p></li>
+<li><p>The profiling results and statistics, which are created by the scripts in <code class="docutils literal notranslate"><span class="pre">website_builder</span></code>, the results stored on the <a class="reference internal" href="#source-branch">source branch</a>, and the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p></li>
 <li><p>The developer documentation, which is created from the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p></li>
 </ul>
-<p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a>, which is invoked at the end of the <code class="docutils literal notranslate"><span class="pre">website_builder/build_site.py</span></code> script (specifically within the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder.build()</span></code> method).
+<p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a>, which is invoked at the end of the <code class="docutils literal notranslate"><span class="pre">website_builder/builder.py</span></code> script (specifically within the <a class="reference internal" href="api/builder.html#builder.Builder.build" title="builder.Builder.build"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder.build()</span></code></a> method).
 Before <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> can be invoked, the profiling results on the <a class="reference internal" href="#source-branch">source branch</a> need to be parsed.
-As such, the <code class="docutils literal notranslate"><span class="pre">WebsiteBuilder</span></code> first creates a <em>pre-build</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory content into it as a starting point.
-Files are then added to the pre-build directory as they are processed from the source branch; these additions consist primarily of <code class="docutils literal notranslate"><span class="pre">pyinstrumment</span></code> sessions rendered as HTML, and plots for displaying runtime statistics.
-Lookup tables for profiling runs are also generated in this phase, and their content is inserted into the placeholder locations in the <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code> and <code class="docutils literal notranslate"><span class="pre">run-statistics.rst</span></code> files in the pre-build directory.
-Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the pre-build directory to build the HTML content of the website, creating the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory with the HTML to be deployed.</p>
+As such, the <a class="reference internal" href="api/builder.html#builder.Builder" title="builder.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder</span></code></a> first creates a <em>staging</em> directory, and copies the content of the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory content into it as a starting point.</p>
+<p>Files are then added to the staging directory as they are processed from the source branch; these additions consist primarily of profiling sessions that have been rendered as HTML, and plots for displaying runtime statistics.
+The statistics files from the profiling runs are not copied across from the source branch - they are instead read into the <code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder.df</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.
+This <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> allows us to produce the lookup table of profiling runs (which is inserted into the staged <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code> page), and the run statistics plots (inserted into the staged <code class="docutils literal notranslate"><span class="pre">run-statistics.rst</span></code>).
+Having done this pre-build step, <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> will be invoked on the staged directory to build the HTML content of the website, creating the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory with the HTML to be deployed.</p>
 <p>An overview of the steps in the <code class="docutils literal notranslate"><span class="pre">build_site.py</span></code> script is provided below:</p>
 <ol class="arabic simple">
-<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into the pre-build directory.</p></li>
-<li><p>Scan the source branch for all <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files.</p></li>
-<li><p>Render all profiling output files to HTML.</p></li>
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory into the staging directory.</p></li>
+<li><p>Scan the source branch for all profiling output / statistics files. These typically carry the <cite>.stats.json</cite> extension.</p></li>
 <li><p>Process additional statistics that were pushed across with the profiling outputs, and produce plots.</p></li>
+<li><p>Fetch all rendered HTML pages from the source branch that contain profiling run information.</p></li>
 <li><p>Write the lookup table to <code class="docutils literal notranslate"><span class="pre">profiling.rst</span></code>.</p></li>
 <li><p>Write the run statistics to <code class="docutils literal notranslate"><span class="pre">run_statistics.rst</span></code>.</p></li>
-<li><p>Invoke <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> on the pre-build directory to create the website.</p></li>
+<li><p>Invoke <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> on the staging directory to create the website.</p></li>
 </ol>
-<p>The build script makes use of a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame to keep track of the summary stats and the correspondence between <code class="docutils literal notranslate"><span class="pre">.pyisession</span></code> files and HTML outputs.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">builder.Builder.df</span></code> keeps track of the summary stats and the correspondence between <code class="docutils literal notranslate"><span class="pre">.stats.json</span></code> files and HTML outputs.</p>
 </section>
 <section id="contents-of-the-source-branch">
 <h2>Contents of the source branch<a class="headerlink" href="#contents-of-the-source-branch" title="Link to this heading">¶</a></h2>
@@ -120,6 +142,7 @@ Additional statistics are not required to be present; missing entries will be sk
 <li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling Runs: Lookup Page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run-statistics.html">Run Statistics</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -127,6 +150,7 @@ Additional statistics are not required to be present; missing entries will be sk
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="run-statistics.html" title="previous chapter">Run Statistics</a></li>
+      <li>Next: <a href="api-reference.html" title="next chapter">API Reference</a></li>
   </ul></li>
 </ul>
 </div>
