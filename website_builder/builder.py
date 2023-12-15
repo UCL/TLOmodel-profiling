@@ -260,8 +260,10 @@ class Builder:
                 continue
 
             # .stats.json files have absolute paths,
-            # but only record the _relative_ path of their HTML files, if they exist.
-            fetch_html_from = Path(row["stats_file"]).parent / Path(row["html_output"])
+            # but record the _relative_ path of their HTML files to repository root.
+            fetch_html_from = (
+                Path(row["stats_file"]).parent / Path(row["html_output"]).name
+            )
 
             # Move rendered HTML output to the static folder,
             # with the correct directory structure
