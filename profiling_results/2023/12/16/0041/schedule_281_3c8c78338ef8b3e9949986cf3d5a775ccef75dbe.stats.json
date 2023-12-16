@@ -1,0 +1,18 @@
+{
+  "start_time": 1702687309.9017541,
+  "duration": 34118.43327617645,
+  "cpu_time": 34114.45241,
+  "disk_reads": 2017,
+  "disk_writes": 83024,
+  "disk_read_MB": 78.206976,
+  "disk_write_MB": 1076.89984,
+  "disk_read_s": 0.814,
+  "disk_write_s": 56.64,
+  "pop_df_rows": 62000,
+  "pop_df_cols": 448,
+  "pop_df_mem_MB": 130.371513,
+  "pop_df_times_extended": 12,
+  "sha": "3c8c78338ef8b3e9949986cf3d5a775ccef75dbe",
+  "trigger": "schedule",
+  "html_output": "profiling_results/2023/12/16/0041/schedule_281_3c8c78338ef8b3e9949986cf3d5a775ccef75dbe.html"
+}
