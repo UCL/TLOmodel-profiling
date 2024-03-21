@@ -1,0 +1,19 @@
+{
+  "start_time": 1710956597.3737028,
+  "duration": 33981.853125333786,
+  "cpu_time": 33957.5481635,
+  "disk_reads": 13280,
+  "disk_writes": 230763,
+  "disk_read_MB": 438.851584,
+  "disk_write_MB": 16970.412032,
+  "disk_read_s": 6.089,
+  "disk_write_s": 704.971,
+  "pop_df_rows": 62000,
+  "pop_df_cols": 444,
+  "pop_df_mem_MB": 129.262909,
+  "pop_df_times_extended": 12,
+  "sha": "92e5b139d792da9d979eee881892455560f58f8c",
+  "trigger": "issue_comment",
+  "html_output": "issue_comment_546_92e5b139d792da9d979eee881892455560f58f8c.html",
+  "flat_html_output": "issue_comment_546_92e5b139d792da9d979eee881892455560f58f8c.flat.html"
+}
