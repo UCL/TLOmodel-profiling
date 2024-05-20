@@ -52,7 +52,7 @@ DF_COLS = list(
 class Builder:
     """
     Handles the construction of the gh-pages website, as per the process detailed
-    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html.
+    in http://github-pages.ucl.ac.uk/TLOmodel-profiling.
 
     Build options are configured on initialisation of a class instance;
     members with default values can be passed as keyword arguments to the
@@ -355,9 +355,9 @@ class Builder:
         # Can probably do this with .apply() - revisit
         for index, row in self.df.iterrows():
             stats_file = row["stats_file"]
-            self.df.loc[
-                index, STATS.values("dataframe_col_name")
-            ] = STATS.read_from_file(file=stats_file, branch=self.source_branch)
+            self.df.loc[index, STATS.values("dataframe_col_name")] = (
+                STATS.read_from_file(file=stats_file, branch=self.source_branch)
+            )
 
         # Set the commit field from the sha field
         self.df["Commit"] = self.df["sha"].apply(
