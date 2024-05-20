@@ -131,7 +131,7 @@ def write_page_link(
     elif relative_to is not None:
         hyperlink = os.path.relpath(link, relative_to)
     else:
-        hyperlink = str(hyperlink)
+        hyperlink = str(link)
     if format == "rst":
         return f"`{link_text} <{hyperlink}>`__"
     elif format == "md":

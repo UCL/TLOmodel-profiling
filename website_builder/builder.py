@@ -298,7 +298,7 @@ class Builder:
         """
         title_writer: Callable[[str], str]
         if self.website_plaintext_format == "rst":
-            title_writer = lambda t: rst_title_format(t, "-")
+            title_writer = rst_title_format
         elif format == "md":
             title_writer = md_title_format
         return title_writer(text)
@@ -360,9 +360,14 @@ class Builder:
             )
 
         # Set the commit field from the sha field
-        self.df["Commit"] = self.df["sha"].apply(
-            lambda sha: REPO.git.rev_parse("--short", sha)
-        )
+        def sha_to_clickable(sha: str) -> str:
+            """ """
+            short_sha = REPO.git.rev_parse("--short", sha)
+            site = "https://github.com/UCL/TLOmodel/commit/"
+            as_link = write_page_link(site + sha, link_text=short_sha)
+            return as_link
+
+        self.df["Commit"] = self.df["sha"].apply(sha_to_clickable)
 
         return
 
@@ -372,8 +377,10 @@ class Builder:
         by extracting the relevant columns from the DataFrame.
         """
         if self.website_plaintext_format == "rst":
-            lookup_table = self.df[self.cols_for_lookup_table].to_markdown(
-                index=False, tablefmt="grid"
+            lookup_table = (
+                self.df[self.cols_for_lookup_table]
+                .iloc[::-1]
+                .to_markdown(index=False, tablefmt="grid")
             )
         else:
             lookup_table = self.df[self.cols_for_lookup_table].to_markdown(index=False)
