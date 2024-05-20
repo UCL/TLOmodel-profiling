@@ -177,7 +177,7 @@ class Builder:
             )
 
         print(f"Will build website into {self.build_dir} with;")
-        print(f"\tSource branch: {self.source_branch}.")
+        print(f"\tSource branch: {self.source_branch}")
         print(f"\tClean build  : {self.clean_build}")
         print(f"\tPlaintext fmt: {self.website_plaintext_format}")
 
@@ -355,9 +355,9 @@ class Builder:
         # Can probably do this with .apply() - revisit
         for index, row in self.df.iterrows():
             stats_file = row["stats_file"]
-            self.df.loc[
-                index, STATS.values("dataframe_col_name")
-            ] = STATS.read_from_file(file=stats_file, branch=self.source_branch)
+            self.df.loc[index, STATS.values("dataframe_col_name")] = (
+                STATS.read_from_file(file=stats_file, branch=self.source_branch)
+            )
 
         # Set the commit field from the sha field
         self.df["Commit"] = self.df["sha"].apply(
