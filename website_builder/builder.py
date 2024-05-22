@@ -15,7 +15,6 @@ from git_tree import REPO, branch_contents, file_contents
 from profiling_statistics import STATS
 from utils import (
     md_title_format,
-    replace_in_file,
     rst_title_format,
     safe_remove_dir,
     write_image_link,
@@ -26,12 +25,6 @@ DESCRIPTION = (
     "Build the website deployment for the profiling results, "
     "placing the resulting files in the build directory."
 )
-# This pattern, where it appears in the template files,
-# will be replaced with the profiling runs lookup table.
-PROFILING_TABLE_MATCH_STRING = "<<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>"
-# This pattern, where it appears in the template files,
-# will be replaced with the plots for statistics that are tracked across runs
-RUN_PLOTS_MATCH_STRING = "<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>"
 
 # These columns need to be computed from the statistics that are read in
 # from the statistics files on the source branch
@@ -52,7 +45,7 @@ DF_COLS = list(
 class Builder:
     """
     Handles the construction of the gh-pages website, as per the process detailed
-    in http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html.
+    in http://github-pages.ucl.ac.uk/TLOmodel-profiling.
 
     Build options are configured on initialisation of a class instance;
     members with default values can be passed as keyword arguments to the
@@ -122,22 +115,17 @@ class Builder:
     @property
     def profiling_table_file(self) -> Path:
         """
-        The file containing the
-        <<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>,
-
-        which is where the profiling results lookup table will be inserted.
+        The file into which the profiling results lookup table
+        will be inserted.
         """
-        return self.staging_dir / "profiling.rst"
+        return self.staging_dir / "_profiling_table.rst"
 
     @property
     def statistics_plots_file(self) -> Path:
         """
-        The file containing the
-        <<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>,
-
-        which is where the run statistics plots will be inserted.
+        The file into which the run statistics plots will be inserted.
         """
-        return self.staging_dir / "run-statistics.rst"
+        return self.staging_dir / "_stats_plots.rst"
 
     @property
     def plot_folder(self) -> Path:
@@ -362,9 +350,14 @@ class Builder:
             )
 
         # Set the commit field from the sha field
-        self.df["Commit"] = self.df["sha"].apply(
-            lambda sha: REPO.git.rev_parse("--short", sha)
-        )
+        def sha_to_clickable(sha: str) -> str:
+            """ """
+            short_sha = REPO.git.rev_parse("--short", sha)
+            site = "https://github.com/UCL/TLOmodel/commit/"
+            as_link = write_page_link(site + sha, link_text=short_sha)
+            return as_link
+
+        self.df["Commit"] = self.df["sha"].apply(sha_to_clickable)
 
         return
 
@@ -374,17 +367,17 @@ class Builder:
         by extracting the relevant columns from the DataFrame.
         """
         if self.website_plaintext_format == "rst":
-            lookup_table = self.df[self.cols_for_lookup_table].to_markdown(
-                index=False, tablefmt="grid"
+            lookup_table = (
+                self.df[self.cols_for_lookup_table]
+                .iloc[::-1]
+                .to_markdown(index=False, tablefmt="grid")
             )
         else:
             lookup_table = self.df[self.cols_for_lookup_table].to_markdown(index=False)
 
-        # Write the lookup page into the templated file.
-        replace_in_file(
-            self.profiling_table_file, PROFILING_TABLE_MATCH_STRING, lookup_table
-        )
-
+        # Write table to the corresponding file
+        with open(self.profiling_table_file, "w") as f:
+            f.write(lookup_table)
         return
 
     def write_run_stats_page(self) -> None:
@@ -402,11 +395,9 @@ class Builder:
             )
             stat_page_text += "\n"
 
-        # Inject the text into the statistics plot webpage file
-        replace_in_file(
-            self.statistics_plots_file, RUN_PLOTS_MATCH_STRING, stat_page_text
-        )
-
+        # Write plots to the corresponding file
+        with open(self.statistics_plots_file, "w") as f:
+            f.write(stat_page_text)
         return
 
 

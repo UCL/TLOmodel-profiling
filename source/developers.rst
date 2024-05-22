@@ -27,7 +27,7 @@ The build can be triggered by passing the ``website_builder/builder.py`` script 
 
 .. code-block:: bash
 
-   python website_builder/builder.py
+   python website_builder/builder.py <results-branch>
 
 You may pass the ``-h`` or ``--help`` flags for the command line help, which provides a few convenience wrappers for the :class:`builder.Builder` class that manages the website build.
 Configuration options include specifying a particular directory to place the built website into, forcing the removal of any previously (failed or completed) builds, and toggling the structure of static HTML files from profiling outputs into a flat directory or nested directory structure.

@@ -5,4 +5,4 @@ Run Statistics
     :backlinks: top
     :local:
 
-<<<MATCH_PATTERN_FOR_RUN_STATS_PLOTS>>>
+.. include:: _stats_plots.rst
