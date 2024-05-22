@@ -165,7 +165,7 @@ class Builder:
             )
 
         print(f"Will build website into {self.build_dir} with;")
-        print(f"\tSource branch: {self.source_branch}.")
+        print(f"\tSource branch: {self.source_branch}")
         print(f"\tClean build  : {self.clean_build}")
         print(f"\tPlaintext fmt: {self.website_plaintext_format}")
 
@@ -276,17 +276,19 @@ class Builder:
 
         return
 
-    def format_as_title(self, text: str) -> str:
+    def format_as_title(self, text: str, char_if_rst: str = "-") -> str:
         """
         Format the text string provided into a plaintext title,
         in the format corresponding to self.website_plaintext_format.
 
         :param text: String to format into a title.
         :type text: str
+        :param char_if_rst: The character to place underneath the title if formatting an .rst file.
+        :type char_if_rst: str
         """
         title_writer: Callable[[str], str]
         if self.website_plaintext_format == "rst":
-            title_writer = rst_title_format
+            title_writer = lambda t: rst_title_format(t, char_if_rst)
         elif format == "md":
             title_writer = md_title_format
         return title_writer(text)

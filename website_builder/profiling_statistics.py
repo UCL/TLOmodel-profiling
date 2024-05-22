@@ -190,12 +190,16 @@ STATS = StatisticCollection(
     ),
     Statistic("duration", dtype=float, dataframe_col_name="Session duration (s)"),
     Statistic(
-        "cpu_time", plot_title="CPU Time", dtype=float, dataframe_col_name="CPU time"
+        "cpu_time",
+        plot_title="CPU Time",
+        dtype=float,
+        dataframe_col_name="CPU time",
+        plot_y_label="CPU time (s)",
     ),
     Statistic("pop_df_rows", plot_title="# rows in population dataframe", dtype=int),
     Statistic("pop_df_cols", plot_title="# cols in population dataframe", dtype=int),
     Statistic(
-        "pop_df_mem_mb",
+        "pop_df_mem_MB",
         plot_title="Memory used by population dataframe",
         dtype=float,
         plot_y_label="Dataframe size (MB)",
@@ -208,8 +212,18 @@ STATS = StatisticCollection(
     ),
     Statistic("disk_reads", dtype=int, dataframe_col_name="Disk reads"),
     Statistic("disk_writes", dtype=int, dataframe_col_name="Disk writes"),
-    Statistic("disk_read_MB", dtype=float, dataframe_col_name="Disk read (MB)"),
-    Statistic("disk_write_MB", dtype=float, dataframe_col_name="Disk write (MB)"),
+    Statistic(
+        "disk_read_MB",
+        plot_title="Disk read (MB)",
+        dtype=float,
+        dataframe_col_name="Disk read (MB)",
+    ),
+    Statistic(
+        "disk_write_MB",
+        plot_title="Disk write (MB)",
+        dtype=float,
+        dataframe_col_name="Disk write (MB)",
+    ),
     Statistic("disk_read_s", dtype=float, plot_title="Disk read time (s)"),
     Statistic("disk_write_s", dtype=float, plot_title="Disk write time (s)"),
 )
