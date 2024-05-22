@@ -10,7 +10,7 @@ Welcome to the TLO Model: Profiling Documentation
    :maxdepth: 1
    :caption: Contents:
 
-   profiling
+   index
    run-statistics
    developers
    api-reference
@@ -27,7 +27,7 @@ View the Profiling Results
 
 Profiling results are hosted on `GitHub pages <http://github-pages.ucl.ac.uk/TLOmodel-profiling>`_ and are built using ``sphinx`` and some custom Python scripts to process the results data.
 
-* :doc:`Lookup table for profiling runs <profiling>`
+* :doc:`Lookup table for profiling runs <index>`
 * :doc:`Summary page for captured run statistics <run-statistics>`
 
 Developer Documentation

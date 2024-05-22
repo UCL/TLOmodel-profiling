@@ -122,12 +122,10 @@ class Builder:
     @property
     def profiling_table_file(self) -> Path:
         """
-        The file containing the
-        <<<MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT>>>,
-
-        which is where the profiling results lookup table will be inserted.
+        The file into which the profiling results lookup table
+        will be inserted.
         """
-        return self.staging_dir / "profiling.rst"
+        return self.staging_dir / "_profiling_table.rst"
 
     @property
     def statistics_plots_file(self) -> Path:
