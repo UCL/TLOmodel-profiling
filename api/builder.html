@@ -55,7 +55,7 @@ Build options are set on initialisation (although there is nothing stopping you 
 <dt class="sig sig-object py" id="builder.Builder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.</span></span><span class="sig-name descname"><span class="pre">Builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_branch:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_dir:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_profiling_html:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_build:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">web_source_dir:</span> <span class="pre">~pathlib.Path</span> <span class="pre">=</span> <span class="pre">PosixPath('/home/runner/work/TLOmodel-profiling/TLOmodel-profiling/source')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_file_ext:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'stats.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">website_plaintext_format:</span> <span class="pre">~typing.Literal['md'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'rst']</span> <span class="pre">=</span> <span class="pre">'rst'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_of_plots:</span> <span class="pre">~typing.Tuple[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int]</span> <span class="pre">=</span> <span class="pre">(12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_for_lookup_table:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#builder.Builder" title="Link to this definition">¶</a></dt>
 <dd><p>Handles the construction of the gh-pages website, as per the process detailed
-in <a class="reference external" href="http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html">http://github-pages.ucl.ac.uk/TLOmodel-profiling/index.html</a>.</p>
+in <a class="reference external" href="http://github-pages.ucl.ac.uk/TLOmodel-profiling">http://github-pages.ucl.ac.uk/TLOmodel-profiling</a>.</p>
 <p>Build options are configured on initialisation of a class instance;
 members with default values can be passed as keyword arguments to the
 constructor to overwrite this default behaviour.</p>
@@ -135,9 +135,8 @@ generated from profiling sessions.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="builder.Builder.profiling_table_file">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">profiling_table_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.profiling_table_file" title="Link to this definition">¶</a></dt>
-<dd><p>The file containing the
-&lt;&lt;&lt;MATCH_PATTERN_FOR_MARKDOWN_TABLE_INSERT&gt;&gt;&gt;,</p>
-<p>which is where the profiling results lookup table will be inserted.</p>
+<dd><p>The file into which the profiling results lookup table
+will be inserted.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -162,9 +161,7 @@ on the source branch; such as:</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="builder.Builder.statistics_plots_file">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">statistics_plots_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#builder.Builder.statistics_plots_file" title="Link to this definition">¶</a></dt>
-<dd><p>The file containing the
-&lt;&lt;&lt;MATCH_PATTERN_FOR_RUN_STATS_PLOTS&gt;&gt;&gt;,</p>
-<p>which is where the run statistics plots will be inserted.</p>
+<dd><p>The file into which the run statistics plots will be inserted.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -193,7 +190,7 @@ plotted across multiple profiling runs, then insert this into the webpage.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">TLO Model: Profiling</a></h1>
+<h1 class="logo"><a href="../documentation.html">TLO Model: Profiling</a></h1>
 
 
 
@@ -205,7 +202,7 @@ plotted across multiple profiling runs, then insert this into the webpage.</p>
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../profiling.html">Profiling Runs: Lookup Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Profiling Runs: Lookup Page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../run-statistics.html">Run Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers.html">Developer Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a></li>
@@ -214,7 +211,7 @@ plotted across multiple profiling runs, then insert this into the webpage.</p>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../documentation.html">Documentation overview</a><ul>
   <li><a href="../api-reference.html">API Reference</a><ul>
       <li>Previous: <a href="../api-reference.html" title="previous chapter">API Reference</a></li>
       <li>Next: <a href="git-tree.html" title="next chapter">Supporting functions using <code class="docutils literal notranslate"><span class="pre">GitPython</span></code></a></li>

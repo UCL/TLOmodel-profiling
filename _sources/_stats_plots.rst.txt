@@ -1,0 +1,36 @@
+
+CPU Time
+--------
+
+.. image:: _static/plots/cputime.svg
+   :alt: CPU Time
+
+# rows in population dataframe
+------------------------------
+
+.. image:: _static/plots/rowsinpopulationdataframe.svg
+   :alt: # rows in population dataframe
+
+# cols in population dataframe
+------------------------------
+
+.. image:: _static/plots/colsinpopulationdataframe.svg
+   :alt: # cols in population dataframe
+
+# times population dataframe was extended
+-----------------------------------------
+
+.. image:: _static/plots/timespopulationdataframewasextended.svg
+   :alt: # times population dataframe was extended
+
+Disk read time (s)
+------------------
+
+.. image:: _static/plots/diskreadtimes.svg
+   :alt: Disk read time (s)
+
+Disk write time (s)
+-------------------
+
+.. image:: _static/plots/diskwritetimes.svg
+   :alt: Disk write time (s)
