@@ -17,11 +17,29 @@ CPU Time
 .. image:: _static/plots/colsinpopulationdataframe.svg
    :alt: # cols in population dataframe
 
+Memory used by population dataframe
+-----------------------------------
+
+.. image:: _static/plots/memoryusedbypopulationdataframe.svg
+   :alt: Memory used by population dataframe
+
 # times population dataframe was extended
 -----------------------------------------
 
 .. image:: _static/plots/timespopulationdataframewasextended.svg
    :alt: # times population dataframe was extended
+
+Disk read (MB)
+--------------
+
+.. image:: _static/plots/diskreadmb.svg
+   :alt: Disk read (MB)
+
+Disk write (MB)
+---------------
+
+.. image:: _static/plots/diskwritemb.svg
+   :alt: Disk write (MB)
 
 Disk read time (s)
 ------------------

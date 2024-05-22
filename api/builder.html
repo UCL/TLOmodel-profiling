@@ -92,12 +92,15 @@ each row now knows how to link to its profiling run output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="builder.Builder.format_as_title">
-<span class="sig-name descname"><span class="pre">format_as_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#builder.Builder.format_as_title" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_as_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_if_rst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#builder.Builder.format_as_title" title="Link to this definition">¶</a></dt>
 <dd><p>Format the text string provided into a plaintext title,
 in the format corresponding to self.website_plaintext_format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – String to format into a title.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – String to format into a title.</p></li>
+<li><p><strong>char_if_rst</strong> (<em>str</em>) – The character to place underneath the title if formatting an .rst file.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
