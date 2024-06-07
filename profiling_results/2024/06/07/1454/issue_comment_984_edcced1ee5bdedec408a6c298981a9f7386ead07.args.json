@@ -1,0 +1,19 @@
+{
+    "years": 5,
+    "months": 0,
+    "initial_population": 50000,
+    "log_filename": "scale_run_profiling",
+    "log_level": "WARNING",
+    "parse_log_file": false,
+    "show_progress_bar": false,
+    "seed": 0,
+    "disable_health_system": false,
+    "disable_spurious_symptoms": false,
+    "capabilities_coefficient": null,
+    "mode_appt_constraints": 2,
+    "save_final_population": false,
+    "record_hsi_event_details": false,
+    "ignore_warnings": true,
+    "log_final_population_checksum": false,
+    "disable_log_output_to_stdout": true
+}

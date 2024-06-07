@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>issue_comment_984_edcced1ee5bdedec408a6c298981a9f7386ead07</title>
+<style type="text/css">
+.ansi2html-content { display: inline; white-space: pre-wrap; word-wrap: break-word; }
+.body_foreground { color: #AAAAAA; }
+.body_background { background-color: #000000; }
+.inv_foreground { color: #000000; }
+.inv_background { background-color: #AAAAAA; }
+.ansi2 { font-weight: lighter; }
+.ansi32 { color: #00aa00; }
+.ansi92 { color: #00ff00; }
+.ansi38-15 { color: #ffffff; }
+.ansi48-24 { background: #005f87; }
+</style>
+</head>
+<body class="body_foreground body_background" style="font-size: normal;" >
+<pre class="ansi2html-content">
+
+  _     ._   __/__   _ _  _  _ _/_   Recorded: 14:54:57  Samples:  275405
+ /_//_/// /_\ / //_// / //_'/ //     Duration: 28260.250 CPU time: 28089.115
+/   _/                      v4.5.3
+
+Program: /runner/_work/TLOmodel/TLOmodel/src/scripts/profiling/run_profiling.py --html --flat-html --root-output-dir profiling_results/ --output-name issue_comment_984_edcced1ee5bdedec408a6c298981a9f7386ead07 --additional-stats sha=edcced1ee5bdedec408a6c298981a9f7386ead07 trigger=issue_comment --disable-log-output-to-stdout
+
+<span class="ansi32">3535.887</span> BlockManager.fast_xs  <span class="ansi2">pandas/core/internals/managers.py:1027</span>
+<span class="ansi32">3295.302</span> HealthSystemScheduler.run  <span class="ansi2">tlo/events.py:64</span>
+<span class="ansi32">1809.316</span> DatetimeArray.__getitem__  <span class="ansi2">pandas/core/arrays/_mixins.py:266</span>
+<span class="ansi32">1797.713</span> HSI_GenericNonEmergencyFirstAppt.run  <span class="ansi2">tlo/methods/hsi_event.py:199</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">1131.959</span> take_nd  <span class="ansi2">pandas/core/array_algos/take.py:58</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">1124.390</span> DatetimeLikeBlock.take_nd  <span class="ansi2">pandas/core/internals/blocks.py:926</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">703.110</span> LabourOnsetEvent.apply  <span class="ansi2">tlo/methods/labour.py:2372</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">690.415</span> _LocIndexer._getitem_iterable  <span class="ansi2">pandas/core/indexing.py:1246</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">646.349</span> find_common_type  <span class="ansi2">pandas/core/dtypes/cast.py:1429</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">645.750</span> HealthSystemScheduler.process_events_mode_2  <span class="ansi2">tlo/methods/healthsystem.py:2312</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">619.945</span> ExtensionBlock.iget  <span class="ansi2">pandas/core/internals/blocks.py:1879</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">577.133</span> SymptomManager_SpuriousSymptomResolve.apply  <span class="ansi2">tlo/methods/symptommanager.py:698</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">542.059</span> HSI_GenericNonEmergencyFirstAppt._do_on_generic_first_appt  <span class="ansi2">tlo/methods/hsi_generic_first_appts.py:66</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">506.233</span> DataFrame.from_dict  <span class="ansi2">pandas/core/frame.py:1648</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">502.645</span> NewbornOutcomes.on_birth  <span class="ansi2">tlo/methods/newborn_outcomes.py:1073</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">486.540</span> _LocIndexer._getitem_lowerdim  <span class="ansi2">pandas/core/indexing.py:967</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">388.536</span> CardioMetabolicDisorders.do_at_generic_first_appt  <span class="ansi2">tlo/methods/cardio_metabolic_disorders.py:815</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">359.057</span> _LocIndexer.__getitem__  <span class="ansi2">pandas/core/indexing.py:1089</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">358.875</span> PregnancySupervisorEvent.apply  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1716</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">356.964</span> ContraceptionPoll.update_contraceptive  <span class="ansi2">tlo/methods/contraception.py:861</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">343.191</span> SymptomManager.has_what  <span class="ansi2">tlo/methods/symptommanager.py:462</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">342.946</span> HSI_Hiv_StartOrContinueTreatment.apply  <span class="ansi2">tlo/methods/hiv.py:2611</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">331.439</span> Simulation.do_birth  <span class="ansi2">tlo/simulation.py:281</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">321.210</span> _homogenize  <span class="ansi2">pandas/core/internals/construction.py:574</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">318.577</span> _LocIndexer.__setitem__  <span class="ansi2">pandas/core/indexing.py:831</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">316.059</span> Diarrhoea.end_episode  <span class="ansi2">tlo/methods/diarrhoea.py:795</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">316.005</span> ContraceptionPoll.set_new_pregnancy  <span class="ansi2">tlo/methods/contraception.py:1073</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">312.713</span> SymptomManager_SpuriousSymptomOnset.apply  <span class="ansi2">tlo/methods/symptommanager.py:639</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">307.877</span> MalariaUpdateEvent.apply  <span class="ansi2">tlo/methods/malaria.py:1305</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">293.187</span> eval  <span class="ansi2">pandas/core/computation/eval.py:170</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">290.073</span> Series.__setitem__  <span class="ansi2">pandas/core/series.py:1140</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">286.619</span> SymptomManager.caused_by  <span class="ansi2">tlo/methods/symptommanager.py:539</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">284.842</span> MalariaPollingEventDistrict.apply  <span class="ansi2">tlo/methods/malaria.py:815</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">279.414</span> BitsetHandler.unset  <span class="ansi2">tlo/util.py:198</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">274.148</span> HSI_Tb_ScreeningAndRefer.apply  <span class="ansi2">tlo/methods/tb.py:1605</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">268.769</span> PostnatalSupervisor.set_postnatal_complications_mothers  <span class="ansi2">tlo/methods/postnatal_supervisor.py:440</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">237.438</span> DatetimeLikeBlock.iget  <span class="ansi2">pandas/core/internals/blocks.py:892</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">236.745</span> Labour.predict  <span class="ansi2">tlo/methods/labour.py:1131</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">202.072</span> BirthAndPostnatalOutcomesEvent.apply  <span class="ansi2">tlo/methods/labour.py:2748</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">191.467</span> SchistoSpecies.update_infectious_status_and_symptoms  <span class="ansi2">tlo/methods/schisto.py:502</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">189.908</span> DatetimeArray.__getitem__  <span class="ansi2">pandas/core/arrays/datetimelike.py:359</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">177.320</span> HSI_Hiv_TestAndRefer.apply  <span class="ansi2">tlo/methods/hiv.py:2253</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">170.907</span> _LocIndexer._getitem_axis  <span class="ansi2">pandas/core/indexing.py:1309</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">164.371</span> Get_Current_DALYS.apply  <span class="ansi2">tlo/methods/healthburden.py:554</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">135.904</span> PostnatalWeekOneMaternalEvent.apply  <span class="ansi2">tlo/methods/postnatal_supervisor.py:983</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">127.638</span> &lt;listcomp&gt;  <span class="ansi2">pandas/core/internals/managers.py:747</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">127.544</span> SchistoMatureWorms.apply  <span class="ansi2">tlo/methods/schisto.py:759</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">125.817</span> HealthSystem.schedule_hsi_event  <span class="ansi2">tlo/methods/healthsystem.py:1222</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">113.907</span> HealthSystemScheduler.apply  <span class="ansi2">tlo/methods/healthsystem.py:2602</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">104.314</span> PostnatalSupervisor.apply_risk_of_neonatal_complications_in_week_one  <span class="ansi2">tlo/methods/postnatal_supervisor.py:714</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">97.604</span> DataFrame.xs  <span class="ansi2">pandas/core/generic.py:3954</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">90.372</span> PostnatalSupervisorEvent.apply  <span class="ansi2">tlo/methods/postnatal_supervisor.py:885</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">87.699</span> HealthSeekingBehaviourPoll.apply  <span class="ansi2">tlo/methods/healthseekingbehaviour.py:292</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">87.404</span> LinearModel.predict_healthcareseeking  <span class="ansi2">tlo/methods/healthseekingbehaviour.py:186</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">65.029</span> arrays_to_mgr  <span class="ansi2">pandas/core/internals/construction.py:97</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">59.110</span> Epi.on_birth  <span class="ansi2">tlo/methods/epi.py:194</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">52.105</span> HSI_Contraception_FamilyPlanningAppt.apply  <span class="ansi2">tlo/methods/contraception.py:1172</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">49.052</span> onset  <span class="ansi2">tlo/methods/postnatal_supervisor.py:452</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">35.502</span> DiarrhoeaNaturalRecoveryEvent.apply  <span class="ansi2">tlo/methods/diarrhoea.py:1432</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">35.101</span> HSI_Contraception_FamilyPlanningAppt.EXPECTED_APPT_FOOTPRINT  <span class="ansi2">tlo/methods/contraception.py:1150</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">34.493</span> <span class="ansi48-24"></span><span class="ansi38-15 ansi48-24">scale_run</span>  <span class="ansi2">scale_run.py:37</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.207</span> PostnatalWeekOneNeonatalEvent.apply  <span class="ansi2">tlo/methods/postnatal_supervisor.py:1200</span>
+
+
+</pre>
+</body>
+
+</html>
