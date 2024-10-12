@@ -1,0 +1,2 @@
+{"uuid": "e9a19fe1f9", "type": "header", "module": "tlo.methods.demography", "key": "scaling_factor", "level": "WARNING", "columns": {"scaling_factor": "float"}, "description": "The data-to-model scaling factor (based on the initial population size, used to multiply-up results so that they correspond to the real population size."}
+{"uuid": "e9a19fe1f9", "date": "2010-01-01T00:00:00", "values": [290.79218000000003]}

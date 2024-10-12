@@ -1,0 +1,37 @@
+{"uuid": "b07716682c", "type": "header", "module": "tlo.simulation", "key": "info", "level": "INFO", "columns": {"message": "str"}, "description": null}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Log output: profiling_results/2024/10/12/0022/scale_run_profiling__2024-10-12T002238.log"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Simulation RNG user entropy = 0"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Demography RNG auto (entropy, spawn key) = (0, 0)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Lifestyle RNG auto (entropy, spawn key) = (0, 1)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthBurden RNG auto (entropy, spawn key) = (0, 2)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthSystem RNG auto (entropy, spawn key) = (0, 3)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["SymptomManager RNG auto (entropy, spawn key) = (0, 4)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthSeekingBehaviour RNG auto (entropy, spawn key) = (0, 5)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Epi RNG auto (entropy, spawn key) = (0, 6)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Contraception RNG auto (entropy, spawn key) = (0, 7)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Hiv RNG auto (entropy, spawn key) = (0, 8)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["CardioMetabolicDisorders RNG auto (entropy, spawn key) = (0, 9)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Malaria RNG auto (entropy, spawn key) = (0, 10)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["PregnancySupervisor RNG auto (entropy, spawn key) = (0, 11)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["CareOfWomenDuringPregnancy RNG auto (entropy, spawn key) = (0, 12)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["NewbornOutcomes RNG auto (entropy, spawn key) = (0, 13)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Wasting RNG auto (entropy, spawn key) = (0, 14)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Diarrhoea RNG auto (entropy, spawn key) = (0, 15)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Stunting RNG auto (entropy, spawn key) = (0, 16)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Labour RNG auto (entropy, spawn key) = (0, 17)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["PostnatalSupervisor RNG auto (entropy, spawn key) = (0, 18)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Alri RNG auto (entropy, spawn key) = (0, 19)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Measles RNG auto (entropy, spawn key) = (0, 20)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Schisto RNG auto (entropy, spawn key) = (0, 21)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Tb RNG auto (entropy, spawn key) = (0, 22)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["BladderCancer RNG auto (entropy, spawn key) = (0, 23)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["BreastCancer RNG auto (entropy, spawn key) = (0, 24)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["OesophagealCancer RNG auto (entropy, spawn key) = (0, 25)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["OtherAdultCancer RNG auto (entropy, spawn key) = (0, 26)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["ProstateCancer RNG auto (entropy, spawn key) = (0, 27)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["RTI RNG auto (entropy, spawn key) = (0, 28)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Copd RNG auto (entropy, spawn key) = (0, 29)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Depression RNG auto (entropy, spawn key) = (0, 30)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Epilepsy RNG auto (entropy, spawn key) = (0, 31)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["make_initial_population() 27.92779278755188 s"]}
+{"uuid": "b07716682c", "date": "2015-01-01T00:00:00", "values": ["simulate() 27501.920439004898 s"]}
