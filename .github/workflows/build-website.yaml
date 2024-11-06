@@ -45,7 +45,7 @@ jobs:
         run: python website_builder/builder.py -c -f results
 
       - name: Upload the generated HTML
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: website_html_${{ github.sha }}
           path: build/*
