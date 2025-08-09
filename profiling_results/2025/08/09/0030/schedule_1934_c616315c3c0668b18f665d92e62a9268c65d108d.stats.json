@@ -1,0 +1,22 @@
+{
+  "start_time": 1754699404.7865827,
+  "duration": 16036.268117904663,
+  "cpu_time": 15849.8699992,
+  "disk_reads": 239,
+  "disk_writes": 23636,
+  "disk_read_MB": 2.486272,
+  "disk_write_MB": 772.296704,
+  "disk_read_s": 2.484,
+  "disk_write_s": 247.694,
+  "memory_rss_MiB": 4117.5546875,
+  "memory_vms_MiB": 4390.3046875,
+  "memory_uss_MiB": 4106.1796875,
+  "pop_df_rows": 62000,
+  "pop_df_cols": 470,
+  "pop_df_mem_MB": 123.823608,
+  "pop_df_times_extended": 12,
+  "sha": "c616315c3c0668b18f665d92e62a9268c65d108d",
+  "trigger": "schedule",
+  "html_output": "schedule_1934_c616315c3c0668b18f665d92e62a9268c65d108d.html",
+  "flat_html_output": "schedule_1934_c616315c3c0668b18f665d92e62a9268c65d108d.flat.html"
+}
