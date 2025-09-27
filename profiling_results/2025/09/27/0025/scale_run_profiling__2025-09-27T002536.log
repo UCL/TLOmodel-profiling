@@ -1,0 +1,214 @@
+{"uuid": "b07716682c", "type": "header", "module": "tlo.simulation", "key": "info", "level": "INFO", "columns": {"message": "str"}, "description": null}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Log output: profiling_results/2025/09/27/0025/scale_run_profiling__2025-09-27T002536.log"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Simulation RNG user entropy = 0"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Demography RNG auto (entropy, spawn key) = (0, 0)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Lifestyle RNG auto (entropy, spawn key) = (0, 1)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthBurden RNG auto (entropy, spawn key) = (0, 2)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthSystem RNG auto (entropy, spawn key) = (0, 3)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["SymptomManager RNG auto (entropy, spawn key) = (0, 4)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["HealthSeekingBehaviour RNG auto (entropy, spawn key) = (0, 5)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Epi RNG auto (entropy, spawn key) = (0, 6)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Contraception RNG auto (entropy, spawn key) = (0, 7)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Hiv RNG auto (entropy, spawn key) = (0, 8)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["CardioMetabolicDisorders RNG auto (entropy, spawn key) = (0, 9)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Malaria RNG auto (entropy, spawn key) = (0, 10)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["PregnancySupervisor RNG auto (entropy, spawn key) = (0, 11)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["CareOfWomenDuringPregnancy RNG auto (entropy, spawn key) = (0, 12)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["NewbornOutcomes RNG auto (entropy, spawn key) = (0, 13)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Wasting RNG auto (entropy, spawn key) = (0, 14)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Diarrhoea RNG auto (entropy, spawn key) = (0, 15)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Stunting RNG auto (entropy, spawn key) = (0, 16)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Labour RNG auto (entropy, spawn key) = (0, 17)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["PostnatalSupervisor RNG auto (entropy, spawn key) = (0, 18)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Alri RNG auto (entropy, spawn key) = (0, 19)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Measles RNG auto (entropy, spawn key) = (0, 20)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Schisto RNG auto (entropy, spawn key) = (0, 21)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Tb RNG auto (entropy, spawn key) = (0, 22)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["BladderCancer RNG auto (entropy, spawn key) = (0, 23)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["BreastCancer RNG auto (entropy, spawn key) = (0, 24)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["CervicalCancer RNG auto (entropy, spawn key) = (0, 25)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["OesophagealCancer RNG auto (entropy, spawn key) = (0, 26)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["OtherAdultCancer RNG auto (entropy, spawn key) = (0, 27)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["ProstateCancer RNG auto (entropy, spawn key) = (0, 28)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["RTI RNG auto (entropy, spawn key) = (0, 29)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Copd RNG auto (entropy, spawn key) = (0, 30)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Depression RNG auto (entropy, spawn key) = (0, 31)"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["Epilepsy RNG auto (entropy, spawn key) = (0, 32)"]}
+{"uuid": "dc8474b6b3", "type": "header", "module": "tlo.population", "key": "info", "level": "INFO", "columns": {"message": "str"}, "description": null}
+{"uuid": "dc8474b6b3", "date": "2010-01-01T00:00:00", "values": ["Dataframe capacity append size: 1000"]}
+{"uuid": "b07716682c", "date": "2010-01-01T00:00:00", "values": ["make_initial_population() 22.429789304733276 s"]}
+{"uuid": "e9a19fe1f9", "type": "header", "module": "tlo.methods.demography", "key": "scaling_factor", "level": "WARNING", "columns": {"scaling_factor": "float"}, "description": "The data-to-model scaling factor (based on the initial population size, used to multiply-up results so that they correspond to the real population size."}
+{"uuid": "e9a19fe1f9", "date": "2010-01-01T00:00:00", "values": [290.79218000000003]}
+{"uuid": "da366e03ae", "type": "header", "module": "tlo.methods.demography", "key": "scaling_factor_district", "level": "WARNING", "columns": {"scaling_factor_district": "dict"}, "description": "The data-to-model district_level scaling factor (based on the initial population size,used to multiply-up results so that they correspond to the real population size."}
+{"uuid": "da366e03ae", "date": "2010-01-01T00:00:00", "values": [{"Balaka": 292.18885821890655, "Blantyre": 290.00666810074694, "Blantyre City": 289.0374870811533, "Chikwawa": 303.5430314988817, "Chiradzulu": 291.3490968335263, "Chitipa": 298.2777391579305, "Dedza": 297.2389953138543, "Dowa": 293.77467482227445, "Karonga": 302.1771942910366, "Kasungu": 288.94935614027617, "Likoma": 267.2384402454295, "Lilongwe": 288.55314644156545, "Lilongwe City": 290.31423439747215, "Machinga": 288.9462323801105, "Mangochi": 287.00339941738713, "Mchinji": 284.9140887939129, "Mulanje": 295.5725069079527, "Mwanza": 303.64733629901616, "Mzimba": 301.5507112253667, "Mzuzu City": 288.0081988677558, "Neno": 306.9167500618024, "Nkhata Bay": 299.06650178941345, "Nkhotakota": 277.642231737952, "Nsanje": 274.56432422649266, "Ntcheu": 292.7807936521761, "Ntchisi": 279.8249598210122, "Phalombe": 286.00721165825297, "Rumphi": 281.04278564091175, "Salima": 277.2997287670948, "Thyolo": 296.689092542885, "Zomba": 287.7804838656647, "Zomba City": 291.71738176198596}]}
+{"uuid": "072090a41b", "type": "header", "module": "tlo.methods.population", "key": "scaling_factor", "level": "WARNING", "columns": {"scaling_factor": "float"}, "description": "The data-to-model scaling factor (based on the initial population size, used to multiply-up results so that they correspond to the real population size."}
+{"uuid": "072090a41b", "date": "2010-01-01T00:00:00", "values": [290.79218000000003]}
+{"uuid": "b47e7f2cb8", "type": "header", "module": "tlo.methods.population", "key": "scaling_factor_district", "level": "WARNING", "columns": {"scaling_factor_district": "dict"}, "description": "The data-to-model district_level scaling factor (based on the initial population size,used to multiply-up results so that they correspond to the real population size."}
+{"uuid": "b47e7f2cb8", "date": "2010-01-01T00:00:00", "values": [{"Balaka": 292.18885821890655, "Blantyre": 290.00666810074694, "Blantyre City": 289.0374870811533, "Chikwawa": 303.5430314988817, "Chiradzulu": 291.3490968335263, "Chitipa": 298.2777391579305, "Dedza": 297.2389953138543, "Dowa": 293.77467482227445, "Karonga": 302.1771942910366, "Kasungu": 288.94935614027617, "Likoma": 267.2384402454295, "Lilongwe": 288.55314644156545, "Lilongwe City": 290.31423439747215, "Machinga": 288.9462323801105, "Mangochi": 287.00339941738713, "Mchinji": 284.9140887939129, "Mulanje": 295.5725069079527, "Mwanza": 303.64733629901616, "Mzimba": 301.5507112253667, "Mzuzu City": 288.0081988677558, "Neno": 306.9167500618024, "Nkhata Bay": 299.06650178941345, "Nkhotakota": 277.642231737952, "Nsanje": 274.56432422649266, "Ntcheu": 292.7807936521761, "Ntchisi": 279.8249598210122, "Phalombe": 286.00721165825297, "Rumphi": 281.04278564091175, "Salima": 277.2997287670948, "Thyolo": 296.689092542885, "Zomba": 287.7804838656647, "Zomba City": 291.71738176198596}]}
+{"uuid": "d5de3a8063", "type": "header", "module": "tlo.profiling", "key": "stats", "level": "INFO", "columns": {"duration_minutes": "float", "memory_rss_MiB": "float", "memory_uss_MiB": "float", "memory_vms_MiB": "float", "pop_df_mem_MiB": "float", "pop_df_number_alive": "int", "pop_df_rows": "int", "time": "str"}, "description": null}
+{"uuid": "d5de3a8063", "date": "2010-01-01T00:00:00", "values": [0.05150123039881389, 592.33203125, 581.22265625, 837.6875, 95.2783432006836, 50000, 50000, "2025-09-27T00:26:05.723038"]}
+{"uuid": "dc8474b6b3", "date": "2010-01-01T00:00:00", "values": ["Increased capacity of population dataframe to 51000"]}
+{"uuid": "d5de3a8063", "date": "2010-02-01T00:00:00", "values": [2.8193328619003295, 682.671875, 671.45703125, 930.27734375, 97.1079330444336, 50123, 51000, "2025-09-27T00:28:54.883006"]}
+{"uuid": "d5de3a8063", "date": "2010-03-01T00:00:00", "values": [2.5385541518529258, 817.2421875, 805.984375, 1065.92578125, 97.11986541748047, 50192, 51000, "2025-09-27T00:31:27.196255"]}
+{"uuid": "d5de3a8063", "date": "2010-04-01T00:00:00", "values": [3.0129483739535012, 1009.84375, 998.68359375, 1260.625, 97.13445281982422, 50289, 51000, "2025-09-27T00:34:27.973158"]}
+{"uuid": "d5de3a8063", "date": "2010-05-01T00:00:00", "values": [2.8183152516682943, 1144.4296875, 1133.1484375, 1396.92578125, 97.1489486694336, 50378, 51000, "2025-09-27T00:37:17.072074"]}
+{"uuid": "90f526bf10", "type": "header", "module": "tlo.methods.hiv", "key": "message", "level": "WARNING", "columns": {"message": "str"}, "description": null}
+{"uuid": "90f526bf10", "date": "2010-05-10T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2010-05-15T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2010-05-26T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2010-06-01T00:00:00", "values": [2.5518897930781046, 1276.11328125, 1265.08984375, 1527.34765625, 97.1659164428711, 50518, 51000, "2025-09-27T00:39:50.185461"]}
+{"uuid": "90f526bf10", "date": "2010-06-30T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2010-07-01T00:00:00", "values": [2.920363144079844, 1430.86328125, 1419.73828125, 1679.75, 97.1782455444336, 50593, 51000, "2025-09-27T00:42:45.407248"]}
+{"uuid": "90f526bf10", "date": "2010-07-03T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "dc8474b6b3", "date": "2010-07-09T00:00:00", "values": ["Increased capacity of population dataframe to 52000"]}
+{"uuid": "d5de3a8063", "date": "2010-08-01T00:00:00", "values": [2.907623302936554, 1525.5234375, 1514.2421875, 1772.875, 99.00933074951172, 50746, 52000, "2025-09-27T00:45:39.864647"]}
+{"uuid": "90f526bf10", "date": "2010-08-24T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2010-09-01T00:00:00", "values": [3.026092255115509, 1525.6640625, 1514.3828125, 1773.015625, 99.02599334716797, 50878, 52000, "2025-09-27T00:48:41.430182"]}
+{"uuid": "d5de3a8063", "date": "2010-10-01T00:00:00", "values": [4.1313088218371075, 1525.89453125, 1514.61328125, 1773.24609375, 99.05327606201172, 51113, 52000, "2025-09-27T00:52:49.308714"]}
+{"uuid": "1e86f25803", "type": "header", "module": "tlo.methods.healthsystem", "key": "message", "level": "WARNING", "columns": {"message": "str"}, "description": null}
+{"uuid": "1e86f25803", "date": "2010-10-25T00:00:00", "values": ["Tb_Test_FollowUp actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "d5de3a8063", "date": "2010-11-01T00:00:00", "values": [4.443042242527008, 1533.859375, 1522.578125, 1781.2109375, 99.07225799560547, 51261, 52000, "2025-09-27T00:57:15.891246"]}
+{"uuid": "d5de3a8063", "date": "2010-12-01T00:00:00", "values": [4.115325474739075, 1530.48828125, 1519.20703125, 1777.83984375, 99.0876693725586, 51380, 52000, "2025-09-27T01:01:22.810775"]}
+{"uuid": "dc8474b6b3", "date": "2010-12-01T00:00:00", "values": ["Increased capacity of population dataframe to 53000"]}
+{"uuid": "d5de3a8063", "date": "2011-01-01T00:00:00", "values": [4.973468065261841, 1517.484375, 1506.203125, 1760.8203125, 100.91805267333984, 51532, 53000, "2025-09-27T01:06:21.218858"]}
+{"uuid": "d5de3a8063", "date": "2011-02-01T00:00:00", "values": [4.597031807899475, 1536.91015625, 1525.72265625, 1779.24609375, 100.93840789794922, 51694, 53000, "2025-09-27T01:10:57.040768"]}
+{"uuid": "d5de3a8063", "date": "2011-03-01T00:00:00", "values": [4.2629908442497255, 1538.7578125, 1527.4765625, 1780.875, 100.95738983154297, 51839, 53000, "2025-09-27T01:15:12.820217"]}
+{"uuid": "d5de3a8063", "date": "2011-04-01T00:00:00", "values": [5.133983345826467, 1523.12890625, 1511.84765625, 1765.24609375, 100.9775619506836, 51967, 53000, "2025-09-27T01:20:20.859219"]}
+{"uuid": "dc8474b6b3", "date": "2011-04-25T00:00:00", "values": ["Increased capacity of population dataframe to 54000"]}
+{"uuid": "d5de3a8063", "date": "2011-05-01T00:00:00", "values": [4.756143124898275, 1550.4140625, 1539.22265625, 1792.23046875, 102.8097152709961, 52099, 54000, "2025-09-27T01:25:06.227806"]}
+{"uuid": "90f526bf10", "date": "2011-05-10T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-06-01T00:00:00", "values": [4.252701755364736, 1522.73828125, 1511.50390625, 1764.49609375, 102.82518768310547, 52202, 54000, "2025-09-27T01:29:21.389911"]}
+{"uuid": "90f526bf10", "date": "2011-07-01T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-07-01T00:00:00", "values": [4.407629907131195, 1548.20703125, 1536.92578125, 1789.6796875, 102.84331512451172, 52343, 54000, "2025-09-27T01:33:45.847706"]}
+{"uuid": "90f526bf10", "date": "2011-07-19T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-08-01T00:00:00", "values": [4.19290159145991, 1548.2890625, 1537.0078125, 1789.76171875, 102.8597640991211, 52467, 54000, "2025-09-27T01:37:57.421801"]}
+{"uuid": "90f526bf10", "date": "2011-08-03T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2011-08-13T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-09-01T00:00:00", "values": [4.127893666426341, 1549.984375, 1538.703125, 1791.45703125, 102.87581634521484, 52600, 54000, "2025-09-27T01:42:05.095421"]}
+{"uuid": "90f526bf10", "date": "2011-09-04T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-10-01T00:00:00", "values": [4.3558346152305605, 1614.8203125, 1603.7265625, 1858.015625, 102.89171600341797, 52715, 54000, "2025-09-27T01:46:26.445499"]}
+{"uuid": "1e86f25803", "date": "2011-10-11T00:00:00", "values": ["Tb_Test_Screening actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "dc8474b6b3", "date": "2011-10-18T00:00:00", "values": ["Increased capacity of population dataframe to 55000"]}
+{"uuid": "90f526bf10", "date": "2011-10-30T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2011-11-01T00:00:00", "values": [4.371603838602701, 1785.64453125, 1774.36328125, 2030.5078125, 104.71953582763672, 52841, 55000, "2025-09-27T01:50:48.741728"]}
+{"uuid": "d5de3a8063", "date": "2011-12-01T00:00:00", "values": [4.0861297686894735, 1750.3203125, 1739.0390625, 1995.03125, 104.73815155029297, 53003, 55000, "2025-09-27T01:54:53.909514"]}
+{"uuid": "d5de3a8063", "date": "2012-01-01T00:00:00", "values": [4.454505383968353, 1785.98046875, 1774.69921875, 2030.69140625, 104.75267791748047, 53116, 55000, "2025-09-27T01:59:21.179838"]}
+{"uuid": "d5de3a8063", "date": "2012-02-01T00:00:00", "values": [4.661691145102183, 1786.58984375, 1775.30859375, 2031.30078125, 104.77263641357422, 53282, 55000, "2025-09-27T02:04:00.881309"]}
+{"uuid": "1e86f25803", "date": "2012-02-16T00:00:00", "values": ["Tb_Test_Screening actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "d5de3a8063", "date": "2012-03-01T00:00:00", "values": [4.078899542490642, 1754.12890625, 1742.84765625, 1995.52734375, 104.78841400146484, 53407, 55000, "2025-09-27T02:08:05.615279"]}
+{"uuid": "dc8474b6b3", "date": "2012-03-24T00:00:00", "values": ["Increased capacity of population dataframe to 56000"]}
+{"uuid": "d5de3a8063", "date": "2012-04-01T00:00:00", "values": [4.970594608783722, 1782.26953125, 1771.00390625, 2023.80859375, 106.6213607788086, 53578, 56000, "2025-09-27T02:13:03.850956"]}
+{"uuid": "d5de3a8063", "date": "2012-05-01T00:00:00", "values": [4.480913158257803, 1792.05078125, 1781.0078125, 2033.8125, 106.63799285888672, 53703, 56000, "2025-09-27T02:17:32.705745"]}
+{"uuid": "90f526bf10", "date": "2012-05-27T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2012-06-01T00:00:00", "values": [4.31268130938212, 1789.859375, 1778.60546875, 2031.41015625, 106.65550994873047, 53837, 56000, "2025-09-27T02:21:51.466623"]}
+{"uuid": "d5de3a8063", "date": "2012-07-01T00:00:00", "values": [4.652585776646932, 1773.21875, 1761.9375, 2014.6171875, 106.67357635498047, 53976, 56000, "2025-09-27T02:26:30.621770"]}
+{"uuid": "90f526bf10", "date": "2012-07-02T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "1e86f25803", "date": "2012-07-11T00:00:00", "values": ["Tb_Test_Screening actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "d5de3a8063", "date": "2012-08-01T00:00:00", "values": [4.256098079681396, 1779.77734375, 1768.49609375, 2021.2890625, 106.6904525756836, 54106, 56000, "2025-09-27T02:30:45.987655"]}
+{"uuid": "63d828121b", "type": "header", "module": "tlo.methods.rti", "key": "warning", "level": "WARNING", "columns": {"message": "str"}, "description": null}
+{"uuid": "63d828121b", "date": "2012-08-10T00:00:00", "values": ["rt disability < 0 in rti_alter_daly_post_treatment"]}
+{"uuid": "1e86f25803", "date": "2012-08-17T00:00:00", "values": ["Tb_Test_FollowUp actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "90f526bf10", "date": "2012-08-22T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2012-08-30T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2012-09-01T00:00:00", "values": [4.31489542722702, 1796.9921875, 1785.75, 2039.1953125, 106.70635223388672, 54224, 56000, "2025-09-27T02:35:04.881381"]}
+{"uuid": "dc8474b6b3", "date": "2012-09-04T00:00:00", "values": ["Increased capacity of population dataframe to 57000"]}
+{"uuid": "1e86f25803", "date": "2012-09-17T00:00:00", "values": ["Tb_Test_Screening actual_footprint requires differentofficers than expected_footprint."]}
+{"uuid": "d5de3a8063", "date": "2012-10-01T00:00:00", "values": [4.712551351388296, 1872.921875, 1861.640625, 2114.6015625, 108.53655242919922, 54376, 57000, "2025-09-27T02:39:47.634461"]}
+{"uuid": "d5de3a8063", "date": "2012-11-01T00:00:00", "values": [4.5027853886286415, 1913.5390625, 1902.2578125, 2155.28125, 108.5555648803711, 54532, 57000, "2025-09-27T02:44:17.801585"]}
+{"uuid": "d5de3a8063", "date": "2012-12-01T00:00:00", "values": [4.25870101849238, 1921.546875, 1910.26953125, 2163.4453125, 108.5719223022461, 54668, 57000, "2025-09-27T02:48:33.323646"]}
+{"uuid": "d5de3a8063", "date": "2013-01-01T00:00:00", "values": [4.595807278156281, 1936.5078125, 1925.2265625, 2179.6015625, 108.58831024169922, 54810, 57000, "2025-09-27T02:53:09.072083"]}
+{"uuid": "63d828121b", "date": "2013-01-08T00:00:00", "values": ["rt disability < 0 in rti_alter_daly_post_treatment"]}
+{"uuid": "d5de3a8063", "date": "2013-02-01T00:00:00", "values": [4.65446449915568, 1919.77734375, 1908.56640625, 2162.2890625, 108.60897064208984, 54986, 57000, "2025-09-27T02:57:48.339954"]}
+{"uuid": "dc8474b6b3", "date": "2013-02-11T00:00:00", "values": ["Increased capacity of population dataframe to 58000"]}
+{"uuid": "d5de3a8063", "date": "2013-03-01T00:00:00", "values": [4.439207673072815, 1929.05859375, 1917.77734375, 2172.3359375, 110.4384994506836, 55117, 58000, "2025-09-27T03:02:14.692413"]}
+{"uuid": "d5de3a8063", "date": "2013-04-01T00:00:00", "values": [4.900878830750783, 1929.1640625, 1917.8828125, 2172.44140625, 110.45885467529297, 55292, 58000, "2025-09-27T03:07:08.745143"]}
+{"uuid": "90f526bf10", "date": "2013-04-15T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2013-05-01T00:00:00", "values": [4.499082851409912, 1937.0234375, 1925.74609375, 2178.54296875, 110.47765350341797, 55452, 58000, "2025-09-27T03:11:38.690115"]}
+{"uuid": "90f526bf10", "date": "2013-05-10T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2013-06-01T00:00:00", "values": [4.5692267974217735, 1946.8046875, 1935.53125, 2188.4921875, 110.49553680419922, 55597, 58000, "2025-09-27T03:16:12.843722"]}
+{"uuid": "d5de3a8063", "date": "2013-07-01T00:00:00", "values": [4.630355230967203, 1941.5859375, 1930.3046875, 2183.45703125, 110.5128402709961, 55733, 58000, "2025-09-27T03:20:50.665040"]}
+{"uuid": "90f526bf10", "date": "2013-07-10T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2013-07-14T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "dc8474b6b3", "date": "2013-07-17T00:00:00", "values": ["Increased capacity of population dataframe to 59000"]}
+{"uuid": "d5de3a8063", "date": "2013-08-01T00:00:00", "values": [4.275002479553223, 1949.8359375, 1938.56640625, 2191.8359375, 112.33943939208984, 55832, 59000, "2025-09-27T03:25:07.165185"]}
+{"uuid": "63d828121b", "date": "2013-08-08T00:00:00", "values": ["rt disability < 0 in rti_alter_daly_post_treatment"]}
+{"uuid": "90f526bf10", "date": "2013-08-24T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2013-09-01T00:00:00", "values": [4.491799338658651, 1998.26953125, 1986.98828125, 2240.421875, 112.35652923583984, 55982, 59000, "2025-09-27T03:29:36.673145"]}
+{"uuid": "d5de3a8063", "date": "2013-10-01T00:00:00", "values": [4.622545536359151, 1982.0625, 1970.80078125, 2224.5390625, 112.37371063232422, 56118, 59000, "2025-09-27T03:34:14.025878"]}
+{"uuid": "d5de3a8063", "date": "2013-11-01T00:00:00", "values": [4.571308688322703, 1982.3125, 1971.03125, 2224.8359375, 112.3918685913086, 56276, 59000, "2025-09-27T03:38:48.304402"]}
+{"uuid": "d5de3a8063", "date": "2013-12-01T00:00:00", "values": [4.549341022968292, 2003.67578125, 1992.4921875, 2246.6015625, 112.41191864013672, 56450, 59000, "2025-09-27T03:43:21.264860"]}
+{"uuid": "dc8474b6b3", "date": "2013-12-21T00:00:00", "values": ["Increased capacity of population dataframe to 60000"]}
+{"uuid": "d5de3a8063", "date": "2014-01-01T00:00:00", "values": [5.009822122255961, 2101.1875, 2089.90625, 2343.7109375, 114.24150848388672, 56583, 60000, "2025-09-27T03:48:21.854186"]}
+{"uuid": "63d828121b", "date": "2014-01-10T00:00:00", "values": ["rt disability < 0 in rti_alter_daly_post_treatment"]}
+{"uuid": "d5de3a8063", "date": "2014-02-01T00:00:00", "values": [4.5326972007751465, 2111.05859375, 2099.77734375, 2353.75, 114.25798797607422, 56708, 60000, "2025-09-27T03:52:53.816018"]}
+{"uuid": "d5de3a8063", "date": "2014-03-01T00:00:00", "values": [4.3079774657885235, 2141.41796875, 2130.21875, 2384.4453125, 114.27562713623047, 56848, 60000, "2025-09-27T03:57:12.294668"]}
+{"uuid": "90f526bf10", "date": "2014-03-02T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2014-04-01T00:00:00", "values": [5.154382264614105, 2157.2109375, 2145.98828125, 2400.53515625, 114.29573822021484, 56985, 60000, "2025-09-27T04:02:21.557603"]}
+{"uuid": "d5de3a8063", "date": "2014-05-01T00:00:00", "values": [4.356034886837006, 2166.1015625, 2154.92578125, 2409.6171875, 114.31160736083984, 57110, 60000, "2025-09-27T04:06:42.919697"]}
+{"uuid": "dc8474b6b3", "date": "2014-05-27T00:00:00", "values": ["Increased capacity of population dataframe to 61000"]}
+{"uuid": "d5de3a8063", "date": "2014-06-01T00:00:00", "values": [4.8476454774538675, 2115.48828125, 2104.20703125, 2358.8359375, 116.14238739013672, 57258, 61000, "2025-09-27T04:11:33.778424"]}
+{"uuid": "90f526bf10", "date": "2014-06-20T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "90f526bf10", "date": "2014-06-30T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2014-07-01T00:00:00", "values": [4.801658189296722, 2157.96484375, 2146.68359375, 2401.375, 116.16146087646484, 57400, 61000, "2025-09-27T04:16:21.877917"]}
+{"uuid": "90f526bf10", "date": "2014-07-16T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2014-08-01T00:00:00", "values": [4.559817878405253, 2166.95703125, 2155.6796875, 2409.47265625, 116.1793441772461, 57548, 61000, "2025-09-27T04:20:55.466989"]}
+{"uuid": "90f526bf10", "date": "2014-08-07T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2014-09-01T00:00:00", "values": [4.7082114815711975, 2148.9609375, 2137.7890625, 2390.890625, 116.19762420654297, 57694, 61000, "2025-09-27T04:25:37.959678"]}
+{"uuid": "90f526bf10", "date": "2014-09-10T00:00:00", "values": ["This event should not be running, Hiv_DecisionToContinueTreatment is for those already on tx"]}
+{"uuid": "d5de3a8063", "date": "2014-10-01T00:00:00", "values": [4.469615626335144, 2161.7578125, 2150.64453125, 2403.93359375, 116.21282196044922, 57811, 61000, "2025-09-27T04:30:06.136616"]}
+{"uuid": "63d828121b", "date": "2014-10-10T00:00:00", "values": ["rt disability < 0 in rti_alter_daly_post_treatment"]}
+{"uuid": "d5de3a8063", "date": "2014-11-01T00:00:00", "values": [4.548198346296946, 2219.96484375, 2208.9296875, 2462.90234375, 116.22884368896484, 57943, 61000, "2025-09-27T04:34:39.028516"]}
+{"uuid": "dc8474b6b3", "date": "2014-11-05T00:00:00", "values": ["Increased capacity of population dataframe to 62000"]}
+{"uuid": "d5de3a8063", "date": "2014-12-01T00:00:00", "values": [4.700252477327982, 2286.53125, 2275.25, 2529.41796875, 118.06026458740234, 58114, 62000, "2025-09-27T04:39:21.043664"]}
+{"uuid": "db90bb6bbe", "type": "header", "module": "tlo.simulation", "key": "parameter_stats", "level": "INFO", "columns": {"count": "int", "label": "str", "module": "str"}, "description": null}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "unassigned", "Demography"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [7, "not_init_via_load_param", "Demography"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [110, "unassigned", "Lifestyle"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [17, "not_init_via_load_param", "Lifestyle"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [3, "not_init_via_load_param", "HealthBurden"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [18, "not_init_via_load_param", "HealthSystem"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [25, "unassigned", "HealthSystem"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "not_init_via_load_param", "SymptomManager"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "unassigned", "SymptomManager"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [18, "unassigned", "HealthSeekingBehaviour"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [2, "not_init_via_load_param", "Epi"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "unassigned", "Epi"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [14, "not_init_via_load_param", "Contraception"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [7, "unassigned", "Contraception"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [6, "not_init_via_load_param", "Hiv"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [70, "unassigned", "Hiv"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [33, "not_init_via_load_param", "CardioMetabolicDisorders"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "unassigned", "CardioMetabolicDisorders"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [6, "not_init_via_load_param", "Malaria"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [29, "unassigned", "Malaria"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [118, "unassigned", "PregnancySupervisor"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [27, "unassigned", "CareOfWomenDuringPregnancy"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [64, "unassigned", "NewbornOutcomes"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [100, "unassigned", "Diarrhoea"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [31, "unassigned", "Stunting"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [177, "unassigned", "Labour"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "not_init_via_load_param", "Labour"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [52, "unassigned", "PostnatalSupervisor"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "not_init_via_load_param", "PostnatalSupervisor"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [119, "unassigned", "Alri"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [8, "unassigned", "Measles"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [2, "not_init_via_load_param", "Measles"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [54, "not_init_via_load_param", "Schisto"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [62, "unassigned", "Tb"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [7, "not_init_via_load_param", "Tb"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [32, "unassigned", "BladderCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [25, "unassigned", "BreastCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [11, "undetermined", "CervicalCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [23, "universal", "CervicalCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [13, "local", "CervicalCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [33, "unassigned", "OesophagealCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [24, "unassigned", "OtherAdultCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [23, "unassigned", "ProstateCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [1, "not_init_via_load_param", "ProstateCancer"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [154, "unassigned", "RTI"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [62, "not_init_via_load_param", "RTI"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [20, "unassigned", "Copd"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [37, "unassigned", "Depression"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [18, "unassigned", "Epilepsy"]}
+{"uuid": "db90bb6bbe", "date": "2015-01-01T00:00:00", "values": [3, "not_init_via_load_param", "Epilepsy"]}
+{"uuid": "b07716682c", "date": "2015-01-01T00:00:00", "values": ["simulate() 15459.205334663391 s"]}
