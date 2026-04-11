@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>schedule_2412_b7a36f5065281b4a04d43b8f58fc3004eded9224</title>
+<style type="text/css">
+.ansi2html-content { display: inline; white-space: pre-wrap; word-wrap: break-word; }
+.body_foreground { color: #AAAAAA; }
+.body_background { background-color: #000000; }
+.inv_foreground { color: #000000; }
+.inv_background { background-color: #AAAAAA; }
+.ansi2 { font-weight: lighter; }
+.ansi32 { color: #00aa00; }
+.ansi92 { color: #00ff00; }
+</style>
+</head>
+<body class="body_foreground body_background" style="font-size: normal;" >
+<pre class="ansi2html-content">
+
+  _     ._   __/__   _ _  _  _ _/_   Recorded: 00:40:03  Samples:  196343
+ /_//_/// /_\ / //_// / //_'/ //     Duration: 20746.196 CPU time: 20394.271
+/   _/                      v4.5.3
+
+Program: /runner/_work/TLOmodel/TLOmodel/src/scripts/profiling/run_profiling.py --html --flat-html --root-output-dir profiling_results/ --output-name schedule_2412_b7a36f5065281b4a04d43b8f58fc3004eded9224 --additional-stats sha=b7a36f5065281b4a04d43b8f58fc3004eded9224 trigger=schedule --disable-log-output-to-stdout
+
+<span class="ansi32">2056.636</span> [self]  <span class="ansi2">tlo/methods/malaria.py</span>
+<span class="ansi32">1314.923</span> BlockManager.fast_xs  <span class="ansi2">pandas/core/internals/managers.py:1027</span>
+<span class="ansi32">1063.844</span> take_nd  <span class="ansi2">pandas/core/array_algos/take.py:58</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">917.629</span> _take_nd_ndarray  <span class="ansi2">pandas/core/array_algos/take.py:120</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">632.040</span> _from_nested_dict  <span class="ansi2">pandas/core/frame.py:11594</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">510.953</span> NumericBlock.take_nd  <span class="ansi2">pandas/core/internals/blocks.py:926</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">383.580</span> PandasExprVisitor.visit_BinOp  <span class="ansi2">pandas/core/computation/expr.py:534</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">370.589</span> DatetimeArray.take  <span class="ansi2">pandas/core/arrays/_mixins.py:155</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">353.894</span> _homogenize  <span class="ansi2">pandas/core/internals/construction.py:574</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">309.769</span> Series._where  <span class="ansi2">pandas/core/generic.py:9610</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">305.512</span> HealthSystemScheduler.run  <span class="ansi2">tlo/events.py:65</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">299.168</span> _LocIndexer.__setitem__  <span class="ansi2">pandas/core/indexing.py:831</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">295.923</span> _take_preprocess_indexer_and_fill_value  <span class="ansi2">pandas/core/array_algos/take.py:564</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">292.161</span> _LocIndexer._ensure_listlike_indexer  <span class="ansi2">pandas/core/indexing.py:777</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">283.548</span> _iLocIndexer._setitem_with_indexer_frame_value  <span class="ansi2">pandas/core/indexing.py:1952</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">275.847</span> ndarray.take  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">267.378</span> take  <span class="ansi2">pandas/core/algorithms.py:1165</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">265.166</span> HSI_GenericNonEmergencyFirstAppt.run  <span class="ansi2">tlo/methods/hsi_event.py:202</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">265.135</span> &lt;listcomp&gt;  <span class="ansi2">pandas/core/internals/managers.py:747</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">256.743</span> maybe_promote  <span class="ansi2">pandas/core/dtypes/cast.py:566</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">252.478</span> Simulation.do_birth  <span class="ansi2">tlo/simulation.py:439</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">236.451</span> _LocIndexer._get_setitem_indexer  <span class="ansi2">pandas/core/indexing.py:685</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">211.781</span> heappop  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">195.169</span> HealthSystemScheduler.process_events_mode_2  <span class="ansi2">tlo/methods/healthsystem.py:2370</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">188.500</span> BlockManager.apply  <span class="ansi2">pandas/core/internals/managers.py:306</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">185.536</span> DatetimeArray.__getitem__  <span class="ansi2">pandas/core/arrays/_mixins.py:266</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">177.582</span> _LocIndexer.__getitem__  <span class="ansi2">pandas/core/indexing.py:1089</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">176.151</span> Series._convert_dtypes  <span class="ansi2">pandas/core/series.py:5507</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">167.330</span> validate_indices  <span class="ansi2">pandas/core/indexers/utils.py:189</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">158.466</span> Demography.do_death  <span class="ansi2">tlo/methods/demography.py:497</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">157.421</span> DataFrame._ixs  <span class="ansi2">pandas/core/frame.py:3639</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">149.772</span> _iLocIndexer._align_series  <span class="ansi2">pandas/core/indexing.py:2200</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">148.836</span> HealthSystem.schedule_hsi_event  <span class="ansi2">tlo/methods/healthsystem.py:1467</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">143.914</span> maybe_infer_to_datetimelike  <span class="ansi2">pandas/core/dtypes/cast.py:1171</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">142.741</span> _LocIndexer._multi_take  <span class="ansi2">pandas/core/indexing.py:1221</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">141.816</span> wrapper  <span class="ansi2">pandas/core/array_algos/take.py:353</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">140.351</span> is_dtype_equal  <span class="ansi2">pandas/core/dtypes/common.py:551</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">126.762</span> DatetimeLikeBlock.copy  <span class="ansi2">pandas/core/internals/blocks.py:534</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">125.938</span> SymptomManager.clear_symptoms  <span class="ansi2">tlo/methods/symptommanager.py:591</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">125.633</span> _LocIndexer._getitem_axis  <span class="ansi2">pandas/core/indexing.py:1309</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">124.478</span> BlockManager.column_setitem  <span class="ansi2">pandas/core/internals/managers.py:1355</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">113.332</span> SeriesFormatter.to_string  <span class="ansi2">pandas/io/formats/format.py:385</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">112.831</span> Series.new_method  <span class="ansi2">pandas/core/ops/common.py:67</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">110.326</span> is_1d_only_ea_obj  <span class="ansi2">pandas/core/dtypes/common.py:1305</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">109.133</span> Index._get_indexer_strict  <span class="ansi2">pandas/core/indexes/base.py:5863</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">107.444</span> eval  <span class="ansi2">pandas/core/computation/eval.py:170</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">101.843</span> DatetimeLikeBlock.iget  <span class="ansi2">pandas/core/internals/blocks.py:892</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">101.093</span> SymptomManager.change_symptom  <span class="ansi2">tlo/methods/symptommanager.py:340</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">98.032</span> HealthSystem.get_clinic_eligibility  <span class="ansi2">tlo/methods/healthsystem.py:1102</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">96.797</span> Get_Current_DALYS.apply  <span class="ansi2">tlo/methods/healthburden.py:553</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">95.938</span> PostnatalWeekOneMaternalEvent.apply  <span class="ansi2">tlo/methods/postnatal_supervisor.py:1028</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">94.046</span> HSI_GenericNonEmergencyFirstAppt.apply  <span class="ansi2">tlo/methods/hsi_generic_first_appts.py:170</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">93.548</span> DataFrame._get_value  <span class="ansi2">pandas/core/frame.py:3847</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">93.536</span> Series.__setitem__  <span class="ansi2">pandas/core/series.py:1140</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">91.335</span> PandasExprVisitor.visit  <span class="ansi2">pandas/core/computation/expr.py:403</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">88.917</span> _LocIndexer._getitem_iterable  <span class="ansi2">pandas/core/indexing.py:1246</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">85.718</span> isin  <span class="ansi2">pandas/core/algorithms.py:443</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">83.726</span> BitsetHandler.unset  <span class="ansi2">tlo/util.py:201</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">82.790</span> fast_zip  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">78.032</span> HealthBurden.report_live_years_lost  <span class="ansi2">tlo/methods/healthburden.py:302</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">75.021</span> check_array_indexer  <span class="ansi2">pandas/core/indexers/utils.py:421</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">73.079</span> FrameColumnApply.apply_series_generator  <span class="ansi2">pandas/core/apply.py:803</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">70.542</span> DataFrame.convert_dtypes  <span class="ansi2">pandas/core/generic.py:6518</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">70.028</span> Series.__init__  <span class="ansi2">pandas/core/series.py:368</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">69.814</span> Series._cmp_method  <span class="ansi2">pandas/core/series.py:6086</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">68.263</span> _LocIndexer._getitem_tuple  <span class="ansi2">pandas/core/indexing.py:1277</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">63.705</span> take_2d_axis0_bool_bool  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">63.526</span> PregnancySupervisorEvent.apply  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1904</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">63.519</span> Labour.apply_risk_of_early_postpartum_death  <span class="ansi2">tlo/methods/labour.py:1544</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">63.216</span> _LocIndexer._getitem_lowerdim  <span class="ansi2">pandas/core/indexing.py:967</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">62.315</span> Series._align_series  <span class="ansi2">pandas/core/generic.py:9527</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">62.115</span> Series.astype  <span class="ansi2">pandas/core/generic.py:6161</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">61.821</span> BinOp.__call__  <span class="ansi2">pandas/core/computation/ops.py:391</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">61.577</span> arrays_to_mgr  <span class="ansi2">pandas/core/internals/construction.py:97</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">60.472</span> Malaria.malaria_poll2  <span class="ansi2">tlo/methods/malaria.py:450</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">60.379</span> astype_array  <span class="ansi2">pandas/core/dtypes/astype.py:162</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">59.445</span> array_to_datetime  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">59.109</span> BitsetHandler.set  <span class="ansi2">tlo/util.py:185</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">56.406</span> get_dtype  <span class="ansi2">pandas/core/dtypes/common.py:1459</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">54.025</span> Wasting.clinical_acute_malnutrition_state  <span class="ansi2">tlo/methods/wasting.py:573</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">53.299</span> PostnatalSupervisor.apply_linear_model  <span class="ansi2">tlo/methods/postnatal_supervisor.py:431</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">52.915</span> &lt;listcomp&gt;  <span class="ansi2">pandas/core/generic.py:6672</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">52.486</span> DataFrame.xs  <span class="ansi2">pandas/core/generic.py:3954</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">52.107</span> BlockManager._interleave  <span class="ansi2">pandas/core/internals/managers.py:1741</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">52.106</span> BitsetHandler.is_empty  <span class="ansi2">tlo/util.py:385</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">49.713</span> MalariaUpdateEvent.apply  <span class="ansi2">tlo/methods/malaria.py:1489</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">49.403</span> DatetimeArray.__getitem__  <span class="ansi2">pandas/core/arrays/datetimelike.py:359</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">48.537</span> MultiIndex._get_loc_level  <span class="ansi2">pandas/core/indexes/multi.py:2928</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">48.113</span> Series.__repr__  <span class="ansi2">pandas/core/series.py:1626</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">47.833</span> Series.infer_objects  <span class="ansi2">pandas/core/generic.py:6470</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">47.820</span> LinearModel.antenatal_stillbirth  <span class="ansi2">tlo/methods/pregnancy_supervisor_lm.py:214</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">47.585</span> NewbornOutcomes.check_for_risk_of_death_from_cause_neonatal  <span class="ansi2">tlo/methods/pregnancy_helper_functions.py:458</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">47.116</span> _iLocIndexer._setitem_with_indexer  <span class="ansi2">pandas/core/indexing.py:1689</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">46.518</span> MultiIndex._partial_tup_index  <span class="ansi2">pandas/core/indexes/multi.py:2679</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">43.317</span> LinearModel.predict_postnatal_check  <span class="ansi2">tlo/methods/labour_lm.py:484</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">43.230</span> CopdExacerbationEvent.apply  <span class="ansi2">tlo/methods/copd.py:579</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">42.616</span> Labour.predict  <span class="ansi2">tlo/methods/labour.py:1200</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">42.613</span> Series.__getitem__  <span class="ansi2">pandas/core/series.py:992</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">42.167</span> _extract_index  <span class="ansi2">pandas/core/internals/construction.py:616</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">41.608</span> PregnancySupervisor.apply_risk_of_spontaneous_abortion  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1116</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">40.909</span> HSI_CareOfWomenDuringPregnancy_SecondAntenatalCareContact.apply  <span class="ansi2">tlo/methods/care_of_women_during_pregnancy.py:1586</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">40.583</span> get_dataframe_row_as_dict_for_logging  <span class="ansi2">tlo/logging/helpers.py:56</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">40.509</span> LinearModel.predict_probability_delivery_health_centre  <span class="ansi2">tlo/methods/labour_lm.py:413</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">40.417</span> Index.__getitem__  <span class="ansi2">pandas/core/indexes/base.py:5159</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">40.406</span> RTI_Check_Death_No_Med.apply  <span class="ansi2">tlo/methods/rti.py:3230</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">39.610</span> Categorical._validate_scalar  <span class="ansi2">pandas/core/arrays/categorical.py:1299</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">39.222</span> SymptomManager_SpuriousSymptomOnset.apply  <span class="ansi2">tlo/methods/symptommanager.py:731</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">39.109</span> MultiIndex.get_loc  <span class="ansi2">pandas/core/indexes/multi.py:2754</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">38.244</span> Epi.on_birth  <span class="ansi2">tlo/methods/epi.py:197</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">37.709</span> DatetimeArray._box_func  <span class="ansi2">pandas/core/arrays/datetimes.py:527</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">37.618</span> HSI_Contraception_FamilyPlanningAppt.apply  <span class="ansi2">tlo/methods/contraception.py:1233</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">37.110</span> HealthSystem.log_current_capabilities_and_usage  <span class="ansi2">tlo/methods/healthsystem.py:1938</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">36.897</span> DataFrame._reindex_with_indexers  <span class="ansi2">pandas/core/generic.py:5408</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">36.315</span> BedDays.issue_bed_days_according_to_availability  <span class="ansi2">tlo/methods/bed_days.py:264</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">36.215</span> rti_find_and_count_injuries  <span class="ansi2">tlo/methods/rti.py:2313</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">35.718</span> nansum  <span class="ansi2">pandas/core/nanops.py:609</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">35.410</span> _iLocIndexer._setitem_single_column  <span class="ansi2">pandas/core/indexing.py:2001</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">34.715</span> Malaria.check_if_fever_is_caused_by_malaria  <span class="ansi2">tlo/methods/malaria.py:819</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">34.405</span> HSI_RTI_Medical_Intervention.apply  <span class="ansi2">tlo/methods/rti.py:3568</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">34.011</span> Contraception.schedule_batch_of_contraceptive_changes  <span class="ansi2">tlo/methods/contraception.py:763</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">33.320</span> fast_unique_multiple_list  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">33.012</span> check_bool_indexer  <span class="ansi2">pandas/core/indexing.py:2476</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">32.913</span> Malaria.do_at_generic_first_appt  <span class="ansi2">tlo/methods/malaria.py:860</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">32.854</span> Series.take  <span class="ansi2">pandas/core/series.py:943</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">32.360</span> na_value_for_dtype  <span class="ansi2">pandas/core/dtypes/missing.py:625</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.906</span> HSI_Hiv_StartOrContinueTreatment.apply  <span class="ansi2">tlo/methods/hiv.py:3546</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.605</span> Categorical._box_func  <span class="ansi2">pandas/core/arrays/categorical.py:1776</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.505</span> HSI_CareOfWomenDuringPregnancy_ThirdAntenatalCareContact.apply  <span class="ansi2">tlo/methods/care_of_women_during_pregnancy.py:1679</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.317</span> extract_array  <span class="ansi2">pandas/core/construction.py:396</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.272</span> RTI.rti_treated_injuries  <span class="ansi2">tlo/methods/rti.py:2331</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">31.007</span> PostnatalSupervisor.set_postnatal_complications_mothers  <span class="ansi2">tlo/methods/postnatal_supervisor.py:471</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">30.906</span> count_infection_status  <span class="ansi2">tlo/methods/schisto.py:1857</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">30.605</span> HSI_Tb_ScreeningAndRefer.apply  <span class="ansi2">tlo/methods/tb.py:1864</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">30.570</span> DataFrame._getitem_bool_array  <span class="ansi2">pandas/core/frame.py:3786</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">30.535</span> fast_multiget  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">30.508</span> HSI_Tb_ScreeningAndRefer.as_namedtuple  <span class="ansi2">tlo/methods/hsi_event.py:431</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">29.976</span> Simulation.make_initial_population  <span class="ansi2">tlo/simulation.py:263</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">29.706</span> heappush  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">29.549</span> CardioMetabolicDisorders_MainPollingEvent.apply  <span class="ansi2">tlo/methods/cardio_metabolic_disorders.py:1014</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">29.306</span> NewbornOutcomes.on_birth  <span class="ansi2">tlo/methods/newborn_outcomes.py:1096</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">29.290</span> Series.__init__  <span class="ansi2">pandas/core/generic.py:265</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">28.596</span> RTIPollingEvent.apply  <span class="ansi2">tlo/methods/rti.py:2930</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">28.466</span> &lt;dictcomp&gt;  <span class="ansi2">numpy/core/fromnumeric.py:70</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">28.312</span> HSI_Hiv_StartOrContinueTreatment.do_at_continuation  <span class="ansi2">tlo/methods/hiv.py:3709</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">28.206</span> BitsetHandler.has_any  <span class="ansi2">tlo/util.py:276</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">28.012</span> GenericArrayFormatter._format_strings  <span class="ansi2">pandas/io/formats/format.py:1366</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.857</span> CardioMetabolicDisorders.report_daly_values  <span class="ansi2">tlo/methods/cardio_metabolic_disorders.py:804</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.664</span> Series._reduce  <span class="ansi2">pandas/core/series.py:4632</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.538</span> DataFrame._box_col_values  <span class="ansi2">pandas/core/frame.py:4226</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.370</span> take_2d_axis1_int64_int64  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.304</span> HealthSystem.write_to_hsi_log  <span class="ansi2">tlo/methods/healthsystem.py:1839</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.218</span> Series._get_values  <span class="ansi2">pandas/core/series.py:1095</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">27.203</span> HSI_Hiv_TestAndRefer.apply  <span class="ansi2">tlo/methods/hiv.py:3146</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">26.803</span> ufunc.reduce  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">26.711</span> _sequence_to_dt64ns  <span class="ansi2">pandas/core/arrays/datetimes.py:1986</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">26.349</span> CardioMetabolicDisorders_LoggingEvent.apply  <span class="ansi2">tlo/methods/cardio_metabolic_disorders.py:1271</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">26.163</span> AgeUpdateEvent.apply  <span class="ansi2">tlo/methods/demography.py:673</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">25.844</span> Categorical.categories  <span class="ansi2">pandas/core/arrays/categorical.py:697</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">25.669</span> sum  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">25.017</span> CardioMetabolicDisorders.do_at_generic_first_appt  <span class="ansi2">tlo/methods/cardio_metabolic_disorders.py:869</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.843</span> SchistoInfectionWormBurdenEvent.apply  <span class="ansi2">tlo/methods/schisto.py:1342</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.744</span> HealthSystemScheduler.apply  <span class="ansi2">tlo/methods/healthsystem.py:2625</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.504</span> _iLocIndexer._setitem_single_block  <span class="ansi2">pandas/core/indexing.py:2038</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.439</span> RTI_Medical_Intervention_Death_Event.apply  <span class="ansi2">tlo/methods/rti.py:5499</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.406</span> _LocIndexer._is_scalar_access  <span class="ansi2">pandas/core/indexing.py:1163</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.305</span> RTI._common_first_appt_steps  <span class="ansi2">tlo/methods/rti.py:2754</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.107</span> LinearModel.predict_probability_delivery_at_home  <span class="ansi2">tlo/methods/labour_lm.py:447</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.104</span> PregnancySupervisor.apply_risk_of_preterm_labour  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1540</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">24.005</span> HSI_Malaria_rdt.apply  <span class="ansi2">tlo/methods/malaria.py:1113</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.929</span> OtherAdultCancerMainPollingEvent.apply  <span class="ansi2">tlo/methods/other_adult_cancers.py:658</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.909</span> Series._arith_method  <span class="ansi2">pandas/core/base.py:1339</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.900</span> NumericBlock.make_block_same_class  <span class="ansi2">pandas/core/internals/blocks.py:230</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.803</span> HealthSystem.call_and_record_never_ran_hsi_event  <span class="ansi2">tlo/methods/healthsystem.py:1880</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.737</span> take_2d_axis1_bool_bool  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.603</span> find_common_type  <span class="ansi2">pandas/core/dtypes/cast.py:1429</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.601</span> Malaria.general_population_rdt_scheduler  <span class="ansi2">tlo/methods/malaria.py:592</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.501</span> _LocIndexer._getbool_axis  <span class="ansi2">pandas/core/indexing.py:1117</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.484</span> CervicalCancerMainPollingEvent.apply  <span class="ansi2">tlo/methods/cervical_cancer.py:821</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.280</span> PregnancySupervisor.apply_risk_of_progression_of_hypertension  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1325</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.210</span> HSI_Hiv_StartOrContinueTreatment.do_at_initiation  <span class="ansi2">tlo/methods/hiv.py:3659</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.119</span> HSI_Copd_TreatmentOnSevereExacerbation.apply  <span class="ansi2">tlo/methods/copd.py:663</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.111</span> DataFrame._get_item_cache  <span class="ansi2">pandas/core/frame.py:4243</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.105</span> _Concatenator.__init__  <span class="ansi2">pandas/core/reshape/concat.py:393</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.036</span> RTI_Logging_Event.apply  <span class="ansi2">tlo/methods/rti.py:5760</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">23.010</span> Hiv_DecisionToContinueTreatment.apply  <span class="ansi2">tlo/methods/hiv.py:2968</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.918</span> _any  <span class="ansi2">numpy/core/_methods.py:55</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.704</span> LinearModel.predict_early_onset_neonatal_sepsis_week_1  <span class="ansi2">tlo/methods/postnatal_supervisor_lm.py:108</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.614</span> LinearModel.predict_uterine_rupture_ip  <span class="ansi2">tlo/methods/labour_lm.py:336</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.360</span> concat  <span class="ansi2">pandas/core/reshape/concat.py:149</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.300</span> LinearModel.predict_anaemia_after_pregnancy  <span class="ansi2">tlo/methods/postnatal_supervisor_lm.py:88</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.130</span> PostnatalSupervisor.apply_risk_of_neonatal_complications_in_week_one  <span class="ansi2">tlo/methods/postnatal_supervisor.py:733</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.008</span> SeriesGroupBy._reindex_output  <span class="ansi2">pandas/core/groupby/groupby.py:4008</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.007</span> PregnancySupervisor.apply_risk_of_placental_abruption  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1439</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">22.005</span> LabourOnsetEvent.apply  <span class="ansi2">tlo/methods/labour.py:2340</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.978</span> Series.name  <span class="ansi2">pandas/core/series.py:671</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.910</span> create_block_manager_from_column_arrays  <span class="ansi2">pandas/core/internals/managers.py:2119</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.903</span> DataFrame._reduce  <span class="ansi2">pandas/core/frame.py:10453</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.810</span> CareOfWomenDuringPregnancy.check_anc1_can_run  <span class="ansi2">tlo/methods/care_of_women_during_pregnancy.py:1164</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.805</span> Index.equals  <span class="ansi2">pandas/core/indexes/base.py:5314</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.745</span> Wasting.do_at_generic_first_appt  <span class="ansi2">tlo/methods/wasting.py:815</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.708</span> Stunting.do_at_generic_first_appt  <span class="ansi2">tlo/methods/stunting.py:313</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.655</span> BladderCancerLoggingEvent.apply  <span class="ansi2">tlo/methods/bladder_cancer.py:1145</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.626</span> Series._logical_method  <span class="ansi2">pandas/core/series.py:6100</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.511</span> Index.format  <span class="ansi2">pandas/core/indexes/base.py:1321</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.507</span> _amax  <span class="ansi2">numpy/core/_methods.py:39</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.407</span> HSI_Wasting_SupplementaryFeedingProgramme_MAM.apply  <span class="ansi2">tlo/methods/wasting.py:1511</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.303</span> Series._get_with  <span class="ansi2">pandas/core/series.py:1035</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.181</span> RangeIndex.isin  <span class="ansi2">pandas/core/indexes/base.py:6210</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.136</span> take_2d_axis0_int64_int64  <span class="ansi2">&lt;built-in&gt;</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.107</span> PregnancySupervisor.apply_risk_of_antepartum_haemorrhage  <span class="ansi2">tlo/methods/pregnancy_supervisor.py:1456</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.100</span> Index.__new__  <span class="ansi2">pandas/core/indexes/base.py:469</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">21.051</span> LabourDeathAndStillBirthEvent.apply  <span class="ansi2">tlo/methods/labour.py:2615</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">20.929</span> is_valid_na_for_dtype  <span class="ansi2">pandas/core/dtypes/missing.py:679</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">20.908</span> HSI_CareOfWomenDuringPregnancy_AntenatalWardInpatientCare.apply  <span class="ansi2">tlo/methods/care_of_women_during_pregnancy.py:2224</span>
+<span class="ansi92"></span><span class="ansi2 ansi92">20.900</span> is_bool_indexer  <span class="ansi2">pandas/core/common.py:95</span>
+
+
+</pre>
+</body>
+
+</html>
